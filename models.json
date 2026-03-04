@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "defaultModel": "glm-5",
 
   "models": {
@@ -14,54 +14,73 @@
       "maxTokens": 128000,
       "available": true
     },
-    "kimi-k2.5": {
+    "qwen3.5-coder": {
+      "provider": "alibaba",
+      "displayName": "Qwen3.5 Coder",
+      "description": "阿里通义千问3.5 Coder，擅长代码生成和前端开发",
+      "strengths": ["coding", "frontend", "chinese", "fast"],
+      "weaknesses": ["complex-reasoning"],
+      "cost": "low",
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "qwen3.5-coder-turbo": {
+      "provider": "alibaba",
+      "displayName": "Qwen3.5 Coder Turbo",
+      "description": "阿里通义千问3.5 Coder Turbo，更快的代码生成",
+      "strengths": ["coding", "frontend", "chinese", "very-fast"],
+      "weaknesses": ["complex-reasoning"],
+      "cost": "low",
+      "speed": "very-fast",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "qwen3.5-max": {
+      "provider": "alibaba",
+      "displayName": "Qwen3.5 Max",
+      "description": "阿里通义千问3.5 Max，强大的推理能力",
+      "strengths": ["reasoning", "coding", "chinese"],
+      "weaknesses": ["speed"],
+      "cost": "medium",
+      "speed": "medium",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "kimik2.5": {
       "provider": "moonshot",
       "displayName": "Kimi K2.5",
-      "description": "月之暗面 Kimi，擅长长文本理解和复杂推理",
+      "description": "月之暗面 Kimi K2.5，擅长长文本理解和复杂推理",
       "strengths": ["reasoning", "long-context", "chinese", "coding"],
       "weaknesses": ["speed"],
       "cost": "medium",
       "speed": "medium",
       "maxTokens": 200000,
-      "available": false,
-      "apiKeyEnv": "KIMI_API_KEY"
+      "available": true
     },
-    "gemini-2.5-pro": {
-      "provider": "google",
-      "displayName": "Gemini 2.5 Pro",
-      "description": "Google Gemini，擅长多模态和视觉任务",
-      "strengths": ["visual", "reasoning", "multimodal", "coding"],
-      "weaknesses": ["chinese"],
+    "minimax2.5": {
+      "provider": "minimax",
+      "displayName": "MiniMax 2.5",
+      "description": "MiniMax 2.5，擅长复杂逻辑和架构决策",
+      "strengths": ["reasoning", "planning", "chinese", "coding"],
+      "weaknesses": ["speed"],
       "cost": "medium",
       "speed": "medium",
-      "maxTokens": 1000000,
-      "available": false,
-      "apiKeyEnv": "GOOGLE_API_KEY"
-    },
-    "gpt-4o": {
-      "provider": "openai",
-      "displayName": "GPT-4o",
-      "description": "OpenAI GPT-4o，全能型模型",
-      "strengths": ["reasoning", "coding", "general", "multimodal"],
-      "weaknesses": ["cost"],
-      "cost": "high",
-      "speed": "medium",
       "maxTokens": 128000,
-      "available": false,
-      "apiKeyEnv": "OPENAI_API_KEY"
+      "available": true
     }
   },
 
   "categoryMapping": {
     "visual-engineering": {
-      "primary": "gemini-2.5-pro",
+      "primary": "qwen3.5-coder",
       "fallback": ["glm-5"],
-      "reason": "Gemini 擅长视觉和多模态任务，适合前端开发"
+      "reason": "Qwen3.5 Coder 擅长前端开发，适合视觉工程任务"
     },
     "deep": {
-      "primary": "kimi-k2.5",
-      "fallback": ["glm-5"],
-      "reason": "Kimi 擅长长文本理解和复杂推理，适合深度开发"
+      "primary": "kimik2.5",
+      "fallback": ["qwen3.5-coder-turbo"],
+      "reason": "Kimi K2.5 擅长长文本理解和复杂推理，适合深度开发"
     },
     "quick": {
       "primary": "glm-5",
@@ -69,9 +88,14 @@
       "reason": "GLM-5 快速高效，适合快速修复任务"
     },
     "ultrabrain": {
-      "primary": "kimi-k2.5",
+      "primary": "minimax2.5",
+      "fallback": ["qwen3.5-max"],
+      "reason": "MiniMax 2.5 擅长复杂逻辑，适合架构决策"
+    },
+    "review": {
+      "primary": "qwen3.5-coder",
       "fallback": ["glm-5"],
-      "reason": "Kimi 擅长复杂推理，适合架构决策"
+      "reason": "Qwen3.5 Coder 擅长代码审查，适合质量把关"
     }
   },
 

@@ -30,12 +30,15 @@ const Dispatcher = require('./dispatcher');
 const RalphLoop = require('./ralph-loop');
 const TaskQueue = require('./task-queue');
 const ModelRouter = require('./model-router');
+const TmuxManager = require('./tmux-manager');
+const StatusReporter = require('./status-reporter');
 
 // 初始化
 ModelRouter.init(modelsConfig);
 Dispatcher.init(config);
 RalphLoop.init(config);
 TaskQueue.init(config);
+StatusReporter.init();
 
 /**
  * UltraWork 主对象
@@ -48,7 +51,7 @@ const UltraWork = {
    * 执行任务
    */
   async execute(request, options = {}) {
-    const { loop = false } = options;
+    const { loop = false, noTmux = false } = options;
 
     console.log('═'.repeat(50));
     console.log('  UltraWork 多智能体调度系统');
@@ -57,6 +60,18 @@ const UltraWork = {
     console.log(`模式: ${loop ? '循环执行' : '单次执行'}`);
     console.log('─'.repeat(50));
 
+    // 初始化状态报告器
+    StatusReporter.setTask(request);
+
+    // 启动 tmux 状态面板
+    if (!noTmux) {
+      TmuxManager.startStatusPanel(request).then(started => {
+        if (started) {
+          console.log('[UltraWork] 状态面板已启动');
+        }
+      });
+    }
+
     let result;
 
     if (loop) {
@@ -64,6 +79,9 @@ const UltraWork = {
     } else {
       result = await Dispatcher.process(request, options.context);
     }
+
+    // 标记完成
+    StatusReporter.complete(result.summary || '任务完成');
 
     console.log('─'.repeat(50));
     console.log('执行完成');

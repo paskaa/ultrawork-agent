@@ -7,6 +7,7 @@ const IntentGate = require('./intent-gate');
 const ModelRouter = require('./model-router');
 const TaskQueue = require('./task-queue');
 const TerminalUI = require('./terminal-ui');
+const StatusReporter = require('./status-reporter');
 
 const Dispatcher = {
   config: null,
@@ -18,6 +19,7 @@ const Dispatcher = {
   init(config) {
     this.config = config;
     TaskQueue.init(config);
+    StatusReporter.init();
   },
 
   /**
@@ -27,25 +29,31 @@ const Dispatcher = {
    * @returns {object} - 执行结果
    */
   async process(request, context = {}) {
-    // 初始化终端 UI
+    // 初始化终端 UI 和状态报告器
     TerminalUI.init();
     TerminalUI.setTask(request);
+    StatusReporter.setTask(request);
 
     // 注册将领
     const agents = this.config?.agents || {};
     Object.entries(agents).forEach(([id, agent]) => {
       TerminalUI.registerAgent(id, agent.name, agent.alias);
+      StatusReporter.registerAgent(id, agent.name, agent.alias);
     });
 
     console.log(`\n🏰 [诸葛亮] 收到军令: ${request}`);
 
     // 1. 意图分析
     TerminalUI.agentStart('zhugeliang', '意图分析');
+    StatusReporter.agentStart('zhugeliang', '意图分析');
     const intent = IntentGate.analyze(request, context);
     console.log(`\n📊 [诸葛亮] 兵法分析: ${intent.category.name}`);
     TerminalUI.agentProgress('zhugeliang', 50, `兵法: ${intent.category.name}`);
+    StatusReporter.agentProgress('zhugeliang', 50, `兵法: ${intent.category.name}`);
     TerminalUI.agentComplete('zhugeliang');
+    StatusReporter.agentComplete('zhugeliang');
     TerminalUI.setProgress(20);
+    StatusReporter.setProgress(20);
 
     // 2. 检查是否需要澄清
     if (intent.confidence < this.config.intentGate.clarificationThreshold) {
@@ -63,18 +71,22 @@ const Dispatcher = {
     const model = ModelRouter.select(intent.category.name, this.config);
     console.log(`\n🎯 [诸葛亮] 选将出征，模型: ${model}`);
     TerminalUI.setProgress(30);
+    StatusReporter.setProgress(30);
 
     // 4. 分配任务给专家
     const assignments = this._assignAgents(intent, context);
     console.log(`\n⚔️  [诸葛亮] 调兵遣将: ${assignments.map(a => agents[a.agent]?.name || a.agent).join(', ')}`);
     TerminalUI.setProgress(40);
+    StatusReporter.setProgress(40);
 
     // 5. 执行任务
     const results = await this._execute(assignments, model);
 
     // 6. 汇总结果
     TerminalUI.setProgress(100);
+    StatusReporter.setProgress(100);
     const finalResult = this._aggregateResults(results, intent);
+    StatusReporter.complete(finalResult.summary);
 
     // 销毁 UI
     setTimeout(() => TerminalUI.destroy(), 1000);
@@ -163,7 +175,9 @@ const Dispatcher = {
         batch.map(async task => {
           const result = await this._executeAgent(task, model);
           completed++;
-          TerminalUI.setProgress(40 + Math.round(completed / total * 50));
+          const progress = 40 + Math.round(completed / total * 50);
+          TerminalUI.setProgress(progress);
+          StatusReporter.setProgress(progress);
           return result;
         })
       );
@@ -182,14 +196,17 @@ const Dispatcher = {
 
     if (agentConfig) {
       TerminalUI.agentStart(assignment.agent, assignment.task);
+      StatusReporter.agentStart(assignment.agent, assignment.task);
 
       // 模拟执行进度
       for (let i = 0; i <= 80; i += 20) {
         await this._delay(100);
         TerminalUI.agentProgress(assignment.agent, i);
+        StatusReporter.agentProgress(assignment.agent, i);
       }
 
       TerminalUI.agentComplete(assignment.agent);
+      StatusReporter.agentComplete(assignment.agent);
 
       return {
         agent: assignment.agent,

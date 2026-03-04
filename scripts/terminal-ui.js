@@ -60,7 +60,8 @@ const TerminalUI = {
     this.logs = [];
     this.totalProgress = 0;
     this.currentTask = '';
-    this.enabled = process.stdout.isTTY;
+    // 强制启用状态栏，不再检查 TTY
+    this.enabled = true;
 
     if (this.enabled) {
       process.stdout.write(ANSI.hideCursor);

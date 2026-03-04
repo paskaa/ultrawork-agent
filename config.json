@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "name": "ultrawork",
   "description": "UltraWork 三国军团调度系统 - 中国文化风格的多智能体协作框架",
 
@@ -23,7 +23,7 @@
       "alias": "子龙",
       "role": "深度执行者",
       "description": "常胜将军，攻坚克难，独立完成复杂任务",
-      "model": "glm-5",
+      "model": "kimik2.5",
       "categories": ["deep", "quick", "visual-engineering"],
       "priority": 2
     },
@@ -32,7 +32,7 @@
       "alias": "公瑾",
       "role": "战略规划师",
       "description": "雄才大略，访谈式需求分析，架构设计",
-      "model": "glm-5",
+      "model": "minimax2.5",
       "categories": ["ultrabrain"],
       "priority": 2
     },
@@ -41,7 +41,7 @@
       "alias": "仲达",
       "role": "情报官",
       "description": "洞察秋毫，代码搜索，信息收集，模式发现",
-      "model": "glm-5",
+      "model": "qwen3.5-coder",
       "categories": ["deep", "visual-engineering"],
       "priority": 3
     },
@@ -50,7 +50,7 @@
       "alias": "云长",
       "role": "质量守护者",
       "description": "义薄云天，Code Review，代码质量把关",
-      "model": "glm-5",
+      "model": "qwen3.5-coder",
       "categories": ["review"],
       "priority": 2
     },
@@ -70,7 +70,7 @@
       "name": "攻城拔寨",
       "description": "前端、UI/UX、设计相关工作",
       "keywords": ["UI", "界面", "样式", "CSS", "Vue", "组件", "前端", "页面", "交互", "布局", "element", "设计"],
-      "primaryModel": "qwen3-coder-plus",
+      "primaryModel": "qwen3.5-coder",
       "fallbackModel": "glm-5",
       "primaryAgent": "zhaoyun",
       "supportAgents": ["simayi"]
@@ -79,8 +79,8 @@
       "name": "深入敌阵",
       "description": "深度自主调研与执行",
       "keywords": ["重构", "架构", "实现", "开发", "复杂", "功能", "模块", "系统", "集成"],
-      "primaryModel": "qwen3-coder-next",
-      "fallbackModel": "glm-5",
+      "primaryModel": "kimik2.5",
+      "fallbackModel": "qwen3.5-coder-turbo",
       "primaryAgent": "zhaoyun",
       "supportAgents": ["simayi"]
     },
@@ -97,8 +97,8 @@
       "name": "运筹帷幄",
       "description": "复杂逻辑、架构决策",
       "keywords": ["设计", "方案", "决策", "架构", "规划", "思考", "分析", "策略", "评估"],
-      "primaryModel": "qwen3-max-2026-01-23",
-      "fallbackModel": "glm-5",
+      "primaryModel": "minimax2.5",
+      "fallbackModel": "qwen3.5-max",
       "primaryAgent": "zhouyu",
       "supportAgents": []
     },
@@ -106,7 +106,7 @@
       "name": "质量把关",
       "description": "代码审查、质量检查",
       "keywords": ["review", "审查", "检查", "质量", "优化", "重构"],
-      "primaryModel": "glm-5",
+      "primaryModel": "qwen3.5-coder",
       "fallbackModel": "glm-5",
       "primaryAgent": "guanyu",
       "supportAgents": []

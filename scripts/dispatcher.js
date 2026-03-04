@@ -6,6 +6,7 @@
 const IntentGate = require('./intent-gate');
 const ModelRouter = require('./model-router');
 const TaskQueue = require('./task-queue');
+const TerminalUI = require('./terminal-ui');
 
 const Dispatcher = {
   config: null,
@@ -26,15 +27,30 @@ const Dispatcher = {
    * @returns {object} - 执行结果
    */
   async process(request, context = {}) {
-    console.log(`[Sisyphus] 收到请求: ${request}`);
+    // 初始化终端 UI
+    TerminalUI.init();
+    TerminalUI.setTask(request);
+
+    // 注册将领
+    const agents = this.config?.agents || {};
+    Object.entries(agents).forEach(([id, agent]) => {
+      TerminalUI.registerAgent(id, agent.name, agent.alias);
+    });
+
+    console.log(`\n🏰 [诸葛亮] 收到军令: ${request}`);
 
     // 1. 意图分析
+    TerminalUI.agentStart('zhugeliang', '意图分析');
     const intent = IntentGate.analyze(request, context);
-    console.log(`[Sisyphus] 意图分析完成:`, intent.category.name);
+    console.log(`\n📊 [诸葛亮] 兵法分析: ${intent.category.name}`);
+    TerminalUI.agentProgress('zhugeliang', 50, `兵法: ${intent.category.name}`);
+    TerminalUI.agentComplete('zhugeliang');
+    TerminalUI.setProgress(20);
 
     // 2. 检查是否需要澄清
     if (intent.confidence < this.config.intentGate.clarificationThreshold) {
       if (this.config.intentGate.askForClarification) {
+        TerminalUI.destroy();
         return {
           status: 'clarification_needed',
           questions: intent.questions,
@@ -45,17 +61,25 @@ const Dispatcher = {
 
     // 3. 选择模型
     const model = ModelRouter.select(intent.category.name, this.config);
-    console.log(`[Sisyphus] 选择模型: ${model}`);
+    console.log(`\n🎯 [诸葛亮] 选将出征，模型: ${model}`);
+    TerminalUI.setProgress(30);
 
     // 4. 分配任务给专家
     const assignments = this._assignAgents(intent, context);
-    console.log(`[Sisyphus] 分配任务:`, assignments.map(a => a.agent));
+    console.log(`\n⚔️  [诸葛亮] 调兵遣将: ${assignments.map(a => agents[a.agent]?.name || a.agent).join(', ')}`);
+    TerminalUI.setProgress(40);
 
     // 5. 执行任务
     const results = await this._execute(assignments, model);
 
     // 6. 汇总结果
-    return this._aggregateResults(results, intent);
+    TerminalUI.setProgress(100);
+    const finalResult = this._aggregateResults(results, intent);
+
+    // 销毁 UI
+    setTimeout(() => TerminalUI.destroy(), 1000);
+
+    return finalResult;
   },
 
   /**
@@ -69,51 +93,51 @@ const Dispatcher = {
     switch (category) {
       case 'visual-engineering':
         assignments.push({
-          agent: 'hephaestus',
-          task: '实现前端功能',
-          priority: 1
+          agent: 'zhaoyun',
+          task: '攻城拔寨 - 前端实现'
         });
         assignments.push({
-          agent: 'explorer',
-          task: '搜索现有组件和模式',
-          priority: 2
+          agent: 'simayi',
+          task: '探查现有组件和模式'
         });
         break;
 
       case 'deep':
         assignments.push({
-          agent: 'hephaestus',
-          task: '深度执行任务',
-          priority: 1
+          agent: 'zhaoyun',
+          task: '深入敌阵 - 深度开发'
         });
         assignments.push({
-          agent: 'explorer',
-          task: '探索代码库',
-          priority: 2
+          agent: 'simayi',
+          task: '探索代码库'
         });
         break;
 
       case 'quick':
         assignments.push({
-          agent: 'hephaestus',
-          task: '快速修复',
-          priority: 1
+          agent: 'zhangfei',
+          task: '速战速决 - 快速修复'
         });
         break;
 
       case 'ultrabrain':
         assignments.push({
-          agent: 'prometheus',
-          task: '战略规划',
-          priority: 1
+          agent: 'zhouyu',
+          task: '运筹帷幄 - 战略规划'
+        });
+        break;
+
+      case 'review':
+        assignments.push({
+          agent: 'guanyu',
+          task: '质量把关 - 代码审查'
         });
         break;
 
       default:
         assignments.push({
-          agent: 'hephaestus',
-          task: '执行任务',
-          priority: 1
+          agent: 'zhaoyun',
+          task: '执行任务'
         });
     }
 
@@ -126,6 +150,8 @@ const Dispatcher = {
   async _execute(assignments, model) {
     const results = [];
     const maxConcurrent = this.config.parallelExecution.maxConcurrentAgents;
+    const total = assignments.length;
+    let completed = 0;
 
     // 按优先级分组
     const prioritized = this._groupByPriority(assignments);
@@ -134,7 +160,12 @@ const Dispatcher = {
       // 同优先级任务并行执行
       const batch = tasks.slice(0, maxConcurrent);
       const batchResults = await Promise.all(
-        batch.map(task => this._executeAgent(task, model))
+        batch.map(async task => {
+          const result = await this._executeAgent(task, model);
+          completed++;
+          TerminalUI.setProgress(40 + Math.round(completed / total * 50));
+          return result;
+        })
       );
       results.push(...batchResults);
     }
@@ -146,6 +177,32 @@ const Dispatcher = {
    * 执行单个 Agent
    */
   async _executeAgent(assignment, model) {
+    const agents = this.config?.agents || {};
+    const agentConfig = agents[assignment.agent];
+
+    if (agentConfig) {
+      TerminalUI.agentStart(assignment.agent, assignment.task);
+
+      // 模拟执行进度
+      for (let i = 0; i <= 80; i += 20) {
+        await this._delay(100);
+        TerminalUI.agentProgress(assignment.agent, i);
+      }
+
+      TerminalUI.agentComplete(assignment.agent);
+
+      return {
+        agent: assignment.agent,
+        name: agentConfig.name,
+        alias: agentConfig.alias,
+        task: assignment.task,
+        model: model,
+        status: 'completed',
+        result: `${agentConfig.name} 完成了任务: ${assignment.task}`,
+        timestamp: new Date().toISOString()
+      };
+    }
+
     return {
       agent: assignment.agent,
       task: assignment.task,
@@ -157,11 +214,18 @@ const Dispatcher = {
   },
 
   /**
+   * 延迟
+   */
+  _delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  },
+
+  /**
    * 按优先级分组
    */
   _groupByPriority(assignments) {
-    return assignments.reduce((groups, assignment) => {
-      const priority = assignment.priority;
+    return assignments.reduce((groups, assignment, index) => {
+      const priority = index === 0 ? 1 : 2;
       if (!groups[priority]) {
         groups[priority] = [];
       }
@@ -190,7 +254,7 @@ const Dispatcher = {
    */
   _generateSummary(results) {
     const successful = results.filter(r => r.status === 'completed').length;
-    return `${results.length} 个 Agent 执行任务，${successful} 个成功完成`;
+    return `${results.length} 位将领出征，${successful} 位凯旋`;
   }
 };
 

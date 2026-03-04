@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "ultrawork",
-  "description": "UltraWork 多智能体调度系统",
+  "description": "UltraWork 三国军团调度系统 - 中国文化风格的多智能体协作框架",
 
   "triggers": {
     "commands": ["/ultrawork", "/ulw", "/ulw-loop", "ultrawork", "ulw", "ulw-loop"],
@@ -10,59 +10,106 @@
   },
 
   "agents": {
-    "sisyphus": {
+    "zhugeliang": {
+      "name": "诸葛亮",
+      "alias": "孔明",
       "role": "主调度器",
-      "description": "协调所有专家 Agent，负责任务分类、分配和监控",
+      "description": "运筹帷幄、调兵遣将，协调整个军团运作",
       "model": "glm-5",
       "priority": 1
     },
-    "hephaestus": {
+    "zhaoyun": {
+      "name": "赵云",
+      "alias": "子龙",
       "role": "深度执行者",
-      "description": "自主深度工作，不需要保姆式指导",
+      "description": "常胜将军，攻坚克难，独立完成复杂任务",
       "model": "glm-5",
       "categories": ["deep", "quick", "visual-engineering"],
       "priority": 2
     },
-    "prometheus": {
+    "zhouyu": {
+      "name": "周瑜",
+      "alias": "公瑾",
       "role": "战略规划师",
-      "description": "访谈式需求分析，架构设计，决策支持",
+      "description": "雄才大略，访谈式需求分析，架构设计",
       "model": "glm-5",
       "categories": ["ultrabrain"],
       "priority": 2
     },
-    "explorer": {
-      "role": "探索者",
-      "description": "代码搜索，信息收集，模式发现",
+    "simayi": {
+      "name": "司马懿",
+      "alias": "仲达",
+      "role": "情报官",
+      "description": "洞察秋毫，代码搜索，信息收集，模式发现",
       "model": "glm-5",
       "categories": ["deep", "visual-engineering"],
       "priority": 3
+    },
+    "guanyu": {
+      "name": "关羽",
+      "alias": "云长",
+      "role": "质量守护者",
+      "description": "义薄云天，Code Review，代码质量把关",
+      "model": "glm-5",
+      "categories": ["review"],
+      "priority": 2
+    },
+    "zhangfei": {
+      "name": "张飞",
+      "alias": "翼德",
+      "role": "快速突击者",
+      "description": "雷厉风行，速战速决，快速修复 Bug",
+      "model": "glm-5",
+      "categories": ["quick"],
+      "priority": 1
     }
   },
 
   "categories": {
     "visual-engineering": {
+      "name": "攻城拔寨",
       "description": "前端、UI/UX、设计相关工作",
       "keywords": ["UI", "界面", "样式", "CSS", "Vue", "组件", "前端", "页面", "交互", "布局", "element", "设计"],
-      "primaryModel": "gemini-2.5-pro",
-      "fallbackModel": "glm-5"
+      "primaryModel": "qwen3-coder-plus",
+      "fallbackModel": "glm-5",
+      "primaryAgent": "zhaoyun",
+      "supportAgents": ["simayi"]
     },
     "deep": {
+      "name": "深入敌阵",
       "description": "深度自主调研与执行",
       "keywords": ["重构", "架构", "实现", "开发", "复杂", "功能", "模块", "系统", "集成"],
-      "primaryModel": "kimi-k2.5",
-      "fallbackModel": "glm-5"
+      "primaryModel": "qwen3-coder-next",
+      "fallbackModel": "glm-5",
+      "primaryAgent": "zhaoyun",
+      "supportAgents": ["simayi"]
     },
     "quick": {
+      "name": "速战速决",
       "description": "单文件修改、小修复",
       "keywords": ["修复", "bug", "修改", "更新", "改", "typo", "错", "问题", "fix"],
       "primaryModel": "glm-5",
-      "fallbackModel": "glm-5"
+      "fallbackModel": "glm-5",
+      "primaryAgent": "zhangfei",
+      "supportAgents": []
     },
     "ultrabrain": {
+      "name": "运筹帷幄",
       "description": "复杂逻辑、架构决策",
       "keywords": ["设计", "方案", "决策", "架构", "规划", "思考", "分析", "策略", "评估"],
-      "primaryModel": "kimi-k2.5",
-      "fallbackModel": "glm-5"
+      "primaryModel": "qwen3-max-2026-01-23",
+      "fallbackModel": "glm-5",
+      "primaryAgent": "zhouyu",
+      "supportAgents": []
+    },
+    "review": {
+      "name": "质量把关",
+      "description": "代码审查、质量检查",
+      "keywords": ["review", "审查", "检查", "质量", "优化", "重构"],
+      "primaryModel": "glm-5",
+      "fallbackModel": "glm-5",
+      "primaryAgent": "guanyu",
+      "supportAgents": []
     }
   },
 
@@ -85,9 +132,19 @@
     "timeout": 300000
   },
 
+  "compatibility": {
+    "claude-code": true,
+    "qencode": true,
+    "qoder": true,
+    "cursor": true,
+    "copilot": true,
+    "cline": true,
+    "opencode": true
+  },
+
   "logging": {
     "enabled": true,
     "level": "info",
-    "file": ".opencode/ultrawork/logs/ultrawork.log"
+    "file": ".ultrawork/logs/ultrawork.log"
   }
 }

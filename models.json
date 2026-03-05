@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
+  "version": "1.2.3",
   "defaultModel": "qwen3-coder-plus",
   "provider": "aliyun-bailian-coding-plan",
 

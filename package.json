@@ -1,6 +1,6 @@
 {
   "name": "ultrawork-skill",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "UltraWork SanGuo Legion - A hierarchical multi-agent orchestration skill with auto-detection for multiple platforms (Qoder, Claude Code, Bailian)",
   "main": "scripts/index.js",
   "files": [

@@ -1,0 +1,139 @@
+{
+  "version": "1.2.0",
+  "platform": "qoder",
+  "defaultModel": "Qwen-Coder-Qoder-1.0",
+  "description": "Qoder 平台支持的模型配置",
+
+  "models": {
+    "Qwen-Coder-Qoder-1.0": {
+      "provider": "qoder",
+      "modelId": "Qwen-Coder-Qoder-1.0",
+      "displayName": "Qwen Coder Qoder 1.0",
+      "description": "Qoder 基于 Qwen Coder 定制的编码模型，提供更好的端到端编程体验",
+      "strengths": ["coding", "code-generation", "debugging", "refactoring"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.2,
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "Qwen3.5-Plus": {
+      "provider": "alibaba",
+      "modelId": "Qwen3.5-Plus",
+      "displayName": "Qwen3.5 Plus",
+      "description": "阿里最新模型，推理能力、效率和多模态体验全面飞跃",
+      "strengths": ["reasoning", "coding", "multimodal", "chinese"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.2,
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true,
+      "supportsImage": true
+    },
+    "GLM-5": {
+      "provider": "zhipu",
+      "modelId": "GLM-5",
+      "displayName": "GLM-5",
+      "description": "智谱 AI 最新旗舰模型，擅长复杂系统工程和长期任务",
+      "strengths": ["reasoning", "complex-reasoning", "coding", "long-horizon", "chinese"],
+      "weaknesses": [],
+      "cost": "medium",
+      "creditMultiplier": 0.5,
+      "speed": "medium",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "Kimi-K2.5": {
+      "provider": "moonshot",
+      "modelId": "Kimi-K2.5",
+      "displayName": "Kimi K2.5",
+      "description": "Kimi 最新模型，擅长多模态理解和复杂任务处理",
+      "strengths": ["multimodal", "reasoning", "complex-tasks", "long-context", "chinese"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.3,
+      "speed": "medium",
+      "maxTokens": 200000,
+      "available": true,
+      "supportsImage": true
+    },
+    "MiniMax-M2.5": {
+      "provider": "minimax",
+      "modelId": "MiniMax-M2.5",
+      "displayName": "MiniMax M2.5",
+      "description": "MiniMax 最新 Agentic 模型，兼顾速度、性能和成本效益",
+      "strengths": ["agentic", "speed", "performance", "chinese"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.2,
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true
+    }
+  },
+
+  "categoryMapping": {
+    "visual-engineering": {
+      "primary": "Qwen-Coder-Qoder-1.0",
+      "fallback": ["Qwen3.5-Plus", "Kimi-K2.5"],
+      "reason": "Qwen Coder Qoder 专为编码优化，适合前端开发"
+    },
+    "deep": {
+      "primary": "GLM-5",
+      "fallback": ["Qwen3.5-Plus", "Kimi-K2.5"],
+      "reason": "GLM-5 擅长复杂系统工程和长期任务"
+    },
+    "quick": {
+      "primary": "Qwen-Coder-Qoder-1.0",
+      "fallback": ["MiniMax-M2.5"],
+      "reason": "快速任务使用成本最低的编码模型"
+    },
+    "ultrabrain": {
+      "primary": "GLM-5",
+      "fallback": ["Qwen3.5-Plus", "Kimi-K2.5"],
+      "reason": "复杂决策使用 GLM-5 强推理能力"
+    },
+    "review": {
+      "primary": "Qwen-Coder-Qoder-1.0",
+      "fallback": ["Qwen3.5-Plus"],
+      "reason": "代码审查使用编码专用模型"
+    }
+  },
+
+  "routingRules": [
+    {
+      "condition": "model.available === true",
+      "action": "use primary model"
+    },
+    {
+      "condition": "model.available === false",
+      "action": "fallback to first available model in fallback list"
+    },
+    {
+      "condition": "no available models",
+      "action": "use defaultModel"
+    }
+  ],
+
+  "costOptimization": {
+    "enabled": true,
+    "rules": [
+      {
+        "category": "quick",
+        "preferCheapest": true
+      },
+      {
+        "category": "deep",
+        "preferCheapest": false,
+        "considerQuality": true
+      },
+      {
+        "category": "ultrabrain",
+        "preferCheapest": false,
+        "considerQuality": true
+      }
+    ]
+  }
+}

@@ -6,23 +6,61 @@
 const fs = require('fs');
 const path = require('path');
 
-// 加载配置
-const configPath = path.join(__dirname, '..', 'config.json');
-const modelsPath = path.join(__dirname, '..', 'models.json');
+// 导入环境检测器
+const EnvDetector = require('./env-detector');
 
+// 自动检测环境并加载配置
 let config = {};
 let modelsConfig = {};
+let detectedPlatform = null;
 
-try {
-  if (fs.existsSync(configPath)) {
-    config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+function loadConfiguration() {
+  // 首先尝试环境检测
+  const detection = EnvDetector.detectEnvironment();
+
+  if (detection.platform) {
+    detectedPlatform = detection.platform;
+
+    // 尝试加载平台特定配置
+    const platformConfigPath = path.join(__dirname, '..', detection.platform.configPath);
+    const platformModelsPath = path.join(__dirname, '..', detection.platform.modelsPath);
+
+    try {
+      if (fs.existsSync(platformConfigPath)) {
+        config = JSON.parse(fs.readFileSync(platformConfigPath, 'utf-8'));
+        console.log(`[UltraWork] 已加载 ${detection.platform.name} 配置`);
+      }
+    } catch (e) {
+      console.warn(`[UltraWork] 加载平台配置失败: ${e.message}`);
+    }
+
+    try {
+      if (fs.existsSync(platformModelsPath)) {
+        modelsConfig = JSON.parse(fs.readFileSync(platformModelsPath, 'utf-8'));
+      }
+    } catch (e) {
+      console.warn(`[UltraWork] 加载平台模型配置失败: ${e.message}`);
+    }
   }
-  if (fs.existsSync(modelsPath)) {
-    modelsConfig = JSON.parse(fs.readFileSync(modelsPath, 'utf-8'));
+
+  // 回退到默认配置
+  const configPath = path.join(__dirname, '..', 'config.json');
+  const modelsPath = path.join(__dirname, '..', 'models.json');
+
+  try {
+    if (Object.keys(config).length === 0 && fs.existsSync(configPath)) {
+      config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    }
+    if (Object.keys(modelsConfig).length === 0 && fs.existsSync(modelsPath)) {
+      modelsConfig = JSON.parse(fs.readFileSync(modelsPath, 'utf-8'));
+    }
+  } catch (e) {
+    console.error('[UltraWork] 配置加载失败:', e.message);
   }
-} catch (e) {
-  console.error('[UltraWork] 配置加载失败:', e.message);
 }
+
+// 初始化加载配置
+loadConfiguration();
 
 // 导入组件
 const IntentGate = require('./intent-gate');
@@ -46,6 +84,21 @@ StatusReporter.init();
 const UltraWork = {
   config,
   modelsConfig,
+  detectedPlatform,
+
+  /**
+   * 获取当前平台信息
+   */
+  getPlatform() {
+    return detectedPlatform;
+  },
+
+  /**
+   * 检测环境
+   */
+  detectEnvironment() {
+    return EnvDetector.detectEnvironment();
+  },
 
   /**
    * 执行任务
@@ -215,16 +268,21 @@ module.exports = UltraWork;
 
 // CLI 入口
 if (require.main === module) {
-  const args = process.argv.slice(2).join(' ');
+  const args = process.argv.slice(2);
 
-  if (!args) {
+  if (args.length === 0) {
     console.log(`
 UltraWork 多智能体调度系统
 
 用法:
-  node index.js <请求内容>
+  node index.js <command|请求内容>
+
+命令:
+  detect              检测当前运行环境
+  platform            显示当前平台信息
 
 示例:
+  node index.js detect
   node index.js "实现用户登录功能"
   node index.js "ultrawork 修复登录 bug"
   node index.js "ulw-loop 重构订单模块"
@@ -232,7 +290,42 @@ UltraWork 多智能体调度系统
     process.exit(0);
   }
 
-  const parsed = UltraWork.parseTrigger(args);
+  // 处理特殊命令
+  if (args[0] === 'detect') {
+    const detection = EnvDetector.detectEnvironment();
+    console.log('\n🔍 环境检测结果:');
+    console.log('═'.repeat(50));
+    console.log(`操作系统: ${detection.environment.os}`);
+    console.log(`架构: ${detection.environment.arch}`);
+    console.log(`Node 版本: ${detection.environment.nodeVersion}`);
+    console.log('\n检测到的平台:');
+    detection.detected.forEach((p, i) => {
+      const marker = i === 0 ? '✓ [已选择]' : '  ';
+      console.log(`${marker} ${p.name}`);
+    });
+    if (detection.platform) {
+      console.log(`\n配置文件: ${detection.platform.configPath}`);
+      console.log(`模型配置: ${detection.platform.modelsPath}`);
+    }
+    process.exit(0);
+  }
+
+  if (args[0] === 'platform') {
+    console.log('\n📦 当前平台信息:');
+    console.log('═'.repeat(50));
+    if (detectedPlatform) {
+      console.log(`平台: ${detectedPlatform.name}`);
+      console.log(`配置: ${detectedPlatform.configPath}`);
+      console.log(`模型: ${detectedPlatform.modelsPath}`);
+    } else {
+      console.log('未检测到特定平台，使用默认配置');
+    }
+    console.log(`\n默认模型: ${modelsConfig.defaultModel || '未设置'}`);
+    process.exit(0);
+  }
+
+  const input = args.join(' ');
+  const parsed = UltraWork.parseTrigger(input);
 
   if (parsed.args) {
     UltraWork.execute(parsed.args, { loop: parsed.loop })

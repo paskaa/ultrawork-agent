@@ -1,14 +1,26 @@
 {
   "name": "ultrawork-skill",
-  "version": "1.0.0",
-  "description": "UltraWork SanGuo Legion - A hierarchical multi-agent orchestration skill for Claude Code with Three Kingdoms themed commanders and lieutenants",
-  "main": "SKILL.md",
+  "version": "1.2.0",
+  "description": "UltraWork SanGuo Legion - A hierarchical multi-agent orchestration skill with auto-detection for multiple platforms (Qoder, Claude Code, Bailian)",
+  "main": "scripts/index.js",
   "files": [
     "SKILL.md",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "scripts/",
+    "agents/",
+    "categories/",
+    "configs/",
+    "bin/"
   ],
+  "bin": {
+    "ultrawork": "./bin/ultrawork.js",
+    "ulw": "./bin/ultrawork.js"
+  },
   "scripts": {
+    "start": "node scripts/index.js",
+    "detect": "node scripts/env-detector.js detect",
+    "init": "node scripts/env-detector.js init",
     "test": "echo \"No tests specified\"",
     "publish:npm": "npm publish --access public"
   },

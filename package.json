@@ -1,56 +1,42 @@
 {
-  "name": "ultrawork-agent",
-  "version": "1.2.0",
-  "description": "UltraWork 多智能体调度系统 - 自律军团，任务完成前绝不罢休",
-  "keywords": [
-    "agent",
-    "scheduler",
-    "multi-agent",
-    "automation",
-    "ai",
-    "llm",
-    "claude",
-    "opencode",
-    "orchestration"
-  ],
-  "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/paskaa/ultrawork-agent.git"
-  },
-  "bugs": {
-    "url": "https://github.com/paskaa/ultrawork-agent/issues"
-  },
-  "homepage": "https://github.com/paskaa/ultrawork-agent#readme",
-  "main": "scripts/index.js",
-  "bin": {
-    "ultrawork": "bin/ultrawork.js",
-    "ulw": "bin/ultrawork.js"
-  },
+  "name": "ultrawork-skill",
+  "version": "1.0.0",
+  "description": "UltraWork SanGuo Legion - A hierarchical multi-agent orchestration skill for Claude Code with Three Kingdoms themed commanders and lieutenants",
+  "main": "SKILL.md",
   "files": [
-    "bin/",
-    "scripts/",
-    "agents/",
-    "categories/",
     "SKILL.md",
-    "config.json",
-    "models.json",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "start": "node bin/ultrawork.js",
-    "test": "node scripts/test.js"
+    "test": "echo \"No tests specified\"",
+    "publish:npm": "npm publish --access public"
   },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "multi-agent",
+    "orchestration",
+    "three-kingdoms",
+    "sanguo",
+    "ai",
+    "llm"
+  ],
+  "author": "UltraWork Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ultrawork/ultrawork-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ultrawork/ultrawork-skill/issues"
+  },
+  "homepage": "https://github.com/ultrawork/ultrawork-skill#readme",
   "engines": {
     "node": ">=14.0.0"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "type": "commonjs",
-  "dependencies": {
-    "blessed": "^0.1.81"
   }
 }

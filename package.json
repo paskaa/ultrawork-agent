@@ -1,6 +1,6 @@
 {
   "name": "ultrawork-agent",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "UltraWork 多智能体调度系统 - 自律军团，任务完成前绝不罢休",
   "keywords": [
     "agent",

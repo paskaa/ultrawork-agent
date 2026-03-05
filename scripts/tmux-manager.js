@@ -48,37 +48,76 @@ const TmuxManager = {
   async _openStatusWindow() {
     return new Promise((resolve) => {
       try {
-        // 使用 cmd 打开新窗口运行状态面板
-        // 直接运行 ulw-status.sh panel 命令
-        const wslScript = '/mnt/d/his/ultrawork-skill/scripts/ulw-status.sh';
+        // 使用 ASCII 版本脚本（兼容 Windows CMD）
+        const wslScript = '/mnt/d/his/ultrawork-skill/scripts/ulw-status-ascii.sh';
 
-        // 方法1: 使用 start 命令打开新窗口
-        const cmd = spawn('cmd', [
-          '/c', 'start', 'UltraWork状态面板',
-          'wsl', '-e', 'bash', '-c',
-          `sed -i 's/\\r$//' ${wslScript} && chmod +x ${wslScript} && ${wslScript} panel`
-        ], {
-          detached: true,
-          stdio: 'ignore'
-        });
-
-        cmd.on('error', (err) => {
-          console.log('[TmuxManager] 打开窗口失败:', err.message);
-          // 后备方案
-          spawn('wsl', ['-e', 'bash', '-c', `${wslScript} panel`], {
-            detached: true,
-            stdio: 'ignore'
-          });
-        });
-
-        cmd.unref();
-        console.log('[TmuxManager] 已在新窗口打开状态面板');
-        resolve(true);
+        this._openWithCmd(wslScript, resolve);
       } catch (e) {
         console.log('[TmuxManager] 打开状态窗口失败:', e.message);
         resolve(false);
       }
     });
+  },
+
+  /**
+   * 使用 PowerShell 打开状态窗口（支持中文）
+   */
+  _openWithCmd(wslScript, resolve) {
+    // 创建一个 VBS 脚本来启动带有正确字体的控制台窗口
+    const vbsScript = `Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+' Get temp path
+strTemp = objShell.ExpandEnvironmentStrings("%TEMP%")
+strBatFile = strTemp & "\\ulw-status-panel.bat"
+
+' Set console font via registry BEFORE launching
+' This is the key - set registry values before launching cmd
+On Error Resume Next
+objShell.RegWrite "HKCU\\Console\\FaceName", "FangSong", "REG_SZ"
+objShell.RegWrite "HKCU\\Console\\CodePage", 65001, "REG_DWORD"
+objShell.RegWrite "HKCU\\Console\\FontSize", 1310720, "REG_DWORD"
+objShell.RegWrite "HKCU\\Console\\FontFamily", 54, "REG_DWORD"
+objShell.RegWrite "HKCU\\Console\\FontWeight", 400, "REG_DWORD"
+On Error Goto 0
+
+' Create batch file with ANSI encoding (not Unicode, so CMD can read it)
+Set objFile = objFSO.CreateTextFile(strBatFile, True, False)  ' False = ANSI
+objFile.WriteLine "@echo off"
+objFile.WriteLine "chcp 65001 >nul 2>&1"
+objFile.WriteLine "mode con cols=50 lines=22"
+objFile.WriteLine "title UltraWork Status Panel"
+objFile.WriteLine "wsl -e bash -c ""sed -i 's/\\r$//' ${wslScript} 2>/dev/null; chmod +x ${wslScript} 2>/dev/null; ULW_SIMPLE_TERM=1 exec ${wslScript} panel"""
+objFile.WriteLine "if errorlevel 1 ("
+objFile.WriteLine "    echo [Error] Status panel failed to start"
+objFile.WriteLine "    pause"
+objFile.WriteLine ")"
+objFile.Close
+
+' Launch the batch file in a new window
+objShell.Run "cmd /k " & Chr(34) & strBatFile & Chr(34), 1, False
+`;
+    const tempVbs = require('os').tmpdir() + '\\ulw-status-panel.vbs';
+    require('fs').writeFileSync(tempVbs, vbsScript, 'utf8');
+
+    // 使用 cscript 运行 VBS 脚本
+    const child = spawn('cscript', [
+      '//Nologo',
+      tempVbs
+    ], {
+      detached: true,
+      stdio: 'ignore',
+      windowsHide: true
+    });
+
+    child.on('error', (err) => {
+      console.log('[TmuxManager] Failed:', err.message);
+      resolve(false);
+    });
+
+    child.unref();
+    console.log('[TmuxManager] Status panel opened with FangSong font');
+    resolve(true);
   },
 
   /**

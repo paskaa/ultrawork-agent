@@ -151,19 +151,14 @@ watch_status() {
 
 # 在 tmux 面板中监视
 panel_watch() {
-    if [ -z "$TMUX" ]; then
-        echo "错误: 需要在 tmux 会话中运行"
-        echo "请先启动 tmux: tmux new-session"
-        exit 1
-    fi
-
     init_state
 
+    # 不要求必须在 tmux 中，普通终端也可以运行
     while true; do
         show_panel
         sleep 1
         # 移动光标到顶部
-        tput cup 0 0
+        tput cup 0 0 2>/dev/null || printf "\033[${LINES:-24}A"
     done
 }
 

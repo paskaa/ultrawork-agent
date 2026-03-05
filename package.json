@@ -1,7 +1,7 @@
 {
   "name": "ultrawork-skill",
-  "version": "1.2.5",
-  "description": "UltraWork SanGuo Legion - A hierarchical multi-agent orchestration skill with auto-detection for multiple platforms (Qoder, Claude Code, Bailian)",
+  "version": "1.3.0",
+  "description": "UltraWork 三国军团多智能体调度系统 - 支持Qoder平台GLM-5、Qwen3.5-Plus、Kimi-K2.5、MiniMax-M2.5四种模型并发协作",
   "main": "scripts/index.js",
   "files": [
     "SKILL.md",
@@ -11,6 +11,7 @@
     "agents/",
     "categories/",
     "configs/",
+    "docs/",
     "bin/"
   ],
   "bin": {
@@ -27,24 +28,29 @@
   "keywords": [
     "claude",
     "claude-code",
+    "qoder",
     "skill",
     "multi-agent",
     "orchestration",
     "three-kingdoms",
     "sanguo",
     "ai",
-    "llm"
+    "llm",
+    "glm-5",
+    "qwen",
+    "kimi",
+    "minimax"
   ],
   "author": "UltraWork Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ultrawork/ultrawork-skill.git"
+    "url": "https://github.com/paskaa/ultrawork-agent.git"
   },
   "bugs": {
-    "url": "https://github.com/ultrawork/ultrawork-skill/issues"
+    "url": "https://github.com/paskaa/ultrawork-agent/issues"
   },
-  "homepage": "https://github.com/ultrawork/ultrawork-skill#readme",
+  "homepage": "https://github.com/paskaa/ultrawork-agent#readme",
   "engines": {
     "node": ">=14.0.0"
   },

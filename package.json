@@ -25,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/paskaa/ultrawork-sanguo.git"
+    "url": "https://github.com/paskaa/ultrawork-agent.git"
   },
   "bugs": {
-    "url": "https://github.com/paskaa/ultrawork-sanguo/issues"
+    "url": "https://github.com/paskaa/ultrawork-agent/issues"
   },
-  "homepage": "https://github.com/paskaa/ultrawork-sanguo#readme",
+  "homepage": "https://github.com/paskaa/ultrawork-agent#readme",
   "files": [
     "dist",
     "README.md",

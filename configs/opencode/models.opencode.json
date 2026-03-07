@@ -1,0 +1,181 @@
+{
+  "version": "1.3.1",
+  "platform": "opencode",
+  "defaultModel": "q35model",
+  "description": "OpenCode 平台支持的模型配置 - 三层架构版",
+
+  "modelKeyMapping": {
+    "gmodel": {
+      "actualModelId": "GLM-5",
+      "displayName": "GLM-5",
+      "provider": "zhipu",
+      "creditMultiplier": 0.5,
+      "description": "智谱 AI 最新旗舰模型，擅长复杂系统工程和长期任务"
+    },
+    "q35model": {
+      "actualModelId": "Qwen3.5-Plus",
+      "displayName": "Qwen3.5-Plus",
+      "provider": "alibaba",
+      "creditMultiplier": 0.2,
+      "description": "阿里最新模型，推理能力、效率和多模态体验全面飞跃"
+    },
+    "kmodel": {
+      "actualModelId": "Kimi-K2.5",
+      "displayName": "Kimi-K2.5",
+      "provider": "moonshot",
+      "creditMultiplier": 0.3,
+      "description": "Kimi 最新模型，擅长多模态理解和复杂任务处理"
+    },
+    "mmodel": {
+      "actualModelId": "MiniMax-M2.5",
+      "displayName": "MiniMax-M2.5",
+      "provider": "minimax",
+      "creditMultiplier": 0.2,
+      "description": "MiniMax 最新 Agentic 模型，兼顾速度、性能和成本效益"
+    }
+  },
+
+  "models": {
+    "GLM-5": {
+      "provider": "zhipu",
+      "modelId": "GLM-5",
+      "key": "gmodel",
+      "displayName": "GLM-5",
+      "description": "智谱 AI 最新旗舰模型，擅长复杂系统工程和长期任务",
+      "strengths": ["reasoning", "complex-reasoning", "coding", "long-horizon", "chinese"],
+      "weaknesses": [],
+      "cost": "medium",
+      "creditMultiplier": 0.5,
+      "speed": "medium",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "Qwen3.5-Plus": {
+      "provider": "alibaba",
+      "modelId": "Qwen3.5-Plus",
+      "key": "q35model",
+      "displayName": "Qwen3.5 Plus",
+      "description": "阿里最新模型，推理能力、效率和多模态体验全面飞跃",
+      "strengths": ["reasoning", "coding", "multimodal", "chinese"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.2,
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true,
+      "supportsImage": true
+    },
+    "Qwen-Coder-OpenCode-1.0": {
+      "provider": "opencode",
+      "modelId": "Qwen-Coder-OpenCode-1.0",
+      "key": "q35model",
+      "displayName": "Qwen Coder OpenCode 1.0",
+      "description": "OpenCode 基于 Qwen Coder 定制的编码模型，提供更好的端到端编程体验",
+      "strengths": ["coding", "code-generation", "debugging", "refactoring"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.2,
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true
+    },
+    "Kimi-K2.5": {
+      "provider": "moonshot",
+      "modelId": "Kimi-K2.5",
+      "key": "kmodel",
+      "displayName": "Kimi K2.5",
+      "description": "Kimi 最新模型，擅长多模态理解和复杂任务处理",
+      "strengths": ["multimodal", "reasoning", "complex-tasks", "long-context", "chinese"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.3,
+      "speed": "medium",
+      "maxTokens": 200000,
+      "available": true,
+      "supportsImage": true
+    },
+    "MiniMax-M2.5": {
+      "provider": "minimax",
+      "modelId": "MiniMax-M2.5",
+      "key": "mmodel",
+      "displayName": "MiniMax M2.5",
+      "description": "MiniMax 最新 Agentic 模型，兼顾速度、性能和成本效益",
+      "strengths": ["agentic", "speed", "performance", "chinese"],
+      "weaknesses": [],
+      "cost": "low",
+      "creditMultiplier": 0.2,
+      "speed": "fast",
+      "maxTokens": 128000,
+      "available": true
+    }
+  },
+
+  "categoryMapping": {
+    "visual-engineering": {
+      "primary": "q35model",
+      "fallback": ["kmodel", "mmodel"],
+      "reason": "Qwen3.5-Plus 编程能力强，适合前端开发"
+    },
+    "deep": {
+      "primary": "q35model",
+      "fallback": ["gmodel", "kmodel"],
+      "reason": "Qwen3.5-Plus 综合能力强，适合深度开发"
+    },
+    "quick": {
+      "primary": "mmodel",
+      "fallback": ["q35model"],
+      "reason": "MiniMax-M2.5 快速高效，成本最低，适合快速修复"
+    },
+    "ultrabrain": {
+      "primary": "gmodel",
+      "fallback": ["kmodel", "q35model"],
+      "reason": "GLM-5 强推理能力，适合架构决策"
+    },
+    "review": {
+      "primary": "q35model",
+      "fallback": ["mmodel"],
+      "reason": "Qwen3.5-Plus 擅长代码审查，适合质量把关"
+    }
+  },
+
+  "costSummary": {
+    "before": "4 × ultimate (1.6x) = 6.4x",
+    "after": "主帅(gmodel 0.5x) + 中层3将(0.9x) + 底层6将(1.4x) = 2.8x",
+    "savings": "56%"
+  },
+
+  "routingRules": [
+    {
+      "condition": "model.available === true",
+      "action": "use primary model"
+    },
+    {
+      "condition": "model.available === false",
+      "action": "fallback to first available model in fallback list"
+    },
+    {
+      "condition": "no available models",
+      "action": "use defaultModel"
+    }
+  ],
+
+  "costOptimization": {
+    "enabled": true,
+    "rules": [
+      {
+        "category": "quick",
+        "preferCheapest": true
+      },
+      {
+        "category": "deep",
+        "preferCheapest": false,
+        "considerQuality": true
+      },
+      {
+        "category": "ultrabrain",
+        "preferCheapest": false,
+        "considerQuality": true
+      }
+    ]
+  }
+}

@@ -1,27 +1,48 @@
 {
-  "name": "@opencode-plugin/ultrawork-sanguo",
-  "version": "1.0.0",
-  "type": "module",
-  "description": "UltraWork SanGuo Legion - 三国军团多智能体编排系统，支持多模型路由",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "name": "ultrawork-skill",
+  "version": "1.3.1",
+  "description": "UltraWork SanGuo Legion - A hierarchical multi-agent orchestration skill with auto-detection for multiple platforms (Qoder, OpenCode, Claude Code, Bailian)",
+  "main": "scripts/index.js",
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "LICENSE",
+    "scripts/",
+    "agents/",
+    "categories/",
+    "configs/",
+    "docs/",
+    "bin/"
+  ],
+  "bin": {
+    "ultrawork": "./bin/ultrawork.js",
+    "ulw": "./bin/ultrawork.js"
+  },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "prepublishOnly": "npm run build"
+    "start": "node scripts/index.js",
+    "detect": "node scripts/env-detector.js detect",
+    "init": "node scripts/env-detector.js init",
+    "test": "echo \"No tests specified\"",
+    "publish:npm": "npm publish --access public"
   },
   "keywords": [
+    "claude",
+    "claude-code",
+    "qoder",
     "opencode",
-    "plugin",
+    "skill",
     "multi-agent",
-    "ultrawork",
-    "sanguo",
+    "orchestration",
     "three-kingdoms",
-    "ai-agent",
-    "model-routing",
-    "bailian"
+    "sanguo",
+    "ai",
+    "llm",
+    "glm-5",
+    "qwen",
+    "kimi",
+    "minimax"
   ],
-  "author": "",
+  "author": "UltraWork Team",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -31,19 +52,10 @@
     "url": "https://github.com/paskaa/ultrawork-agent/issues"
   },
   "homepage": "https://github.com/paskaa/ultrawork-agent#readme",
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "devDependencies": {
-    "@opencode-ai/plugin": "latest",
-    "typescript": "^5.0.0"
+  "engines": {
+    "node": ">=14.0.0"
   },
-  "peerDependencies": {
-    "@opencode-ai/plugin": ">=1.0.0"
-  },
-  "opencode": {
-    "type": "plugin"
+  "publishConfig": {
+    "access": "public"
   }
 }

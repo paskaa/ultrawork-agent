@@ -1,9 +1,10 @@
-# Dependencies
+logs/
+*.log
 node_modules/
 
-# Build output
-dist/
-*.tsbuildinfo
+# 测试文件
+test/
+*.test.js
 
 # IDE
 .idea/
@@ -11,18 +12,11 @@ dist/
 *.swp
 *.swo
 
-# OS
+# 系统文件
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-npm-debug.log*
-
-# Test
-coverage/
-
-# Misc
-.env
-.env.local
-*.tgz
+# 临时文件
+*.tmp
+*.temp
+.npmignore

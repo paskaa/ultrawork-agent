@@ -1,0 +1,120 @@
+{
+  "version": "1.2.0",
+  "platform": "claude-code",
+  "defaultModel": "claude-sonnet-4-20250514",
+  "description": "Claude Code 平台支持的模型配置",
+
+  "models": {
+    "claude-opus-4-20250514": {
+      "provider": "anthropic",
+      "modelId": "claude-opus-4-20250514",
+      "displayName": "Claude Opus 4",
+      "description": "Anthropic 最强推理模型，适合复杂任务",
+      "strengths": ["reasoning", "complex-reasoning", "coding", "analysis", "creative"],
+      "weaknesses": ["cost"],
+      "cost": "very-high",
+      "speed": "slow",
+      "maxTokens": 200000,
+      "available": true
+    },
+    "claude-sonnet-4-20250514": {
+      "provider": "anthropic",
+      "modelId": "claude-sonnet-4-20250514",
+      "displayName": "Claude Sonnet 4",
+      "description": "Anthropic 平衡型模型，编码和推理能力强",
+      "strengths": ["coding", "reasoning", "balanced", "fast"],
+      "weaknesses": [],
+      "cost": "medium",
+      "speed": "fast",
+      "maxTokens": 200000,
+      "available": true
+    },
+    "claude-3-5-sonnet-20241022": {
+      "provider": "anthropic",
+      "modelId": "claude-3-5-sonnet-20241022",
+      "displayName": "Claude 3.5 Sonnet",
+      "description": "Claude 3.5 系列平衡型模型",
+      "strengths": ["coding", "reasoning", "balanced"],
+      "weaknesses": [],
+      "cost": "medium",
+      "speed": "fast",
+      "maxTokens": 200000,
+      "available": true
+    },
+    "claude-3-5-haiku-20241022": {
+      "provider": "anthropic",
+      "modelId": "claude-3-5-haiku-20241022",
+      "displayName": "Claude 3.5 Haiku",
+      "description": "Claude 3.5 快速轻量模型",
+      "strengths": ["speed", "simple-tasks"],
+      "weaknesses": ["complex-reasoning"],
+      "cost": "low",
+      "speed": "very-fast",
+      "maxTokens": 200000,
+      "available": true
+    }
+  },
+
+  "categoryMapping": {
+    "visual-engineering": {
+      "primary": "claude-sonnet-4-20250514",
+      "fallback": ["claude-3-5-sonnet-20241022"],
+      "reason": "Sonnet 系列擅长前端开发"
+    },
+    "deep": {
+      "primary": "claude-sonnet-4-20250514",
+      "fallback": ["claude-opus-4-20250514"],
+      "reason": "深度任务使用 Sonnet 4，复杂任务可用 Opus 4"
+    },
+    "quick": {
+      "primary": "claude-sonnet-4-20250514",
+      "fallback": ["claude-3-5-haiku-20241022"],
+      "reason": "快速任务优先使用 Haiku"
+    },
+    "ultrabrain": {
+      "primary": "claude-opus-4-20250514",
+      "fallback": ["claude-sonnet-4-20250514"],
+      "reason": "复杂决策使用最强推理模型"
+    },
+    "review": {
+      "primary": "claude-sonnet-4-20250514",
+      "fallback": ["claude-3-5-sonnet-20241022"],
+      "reason": "代码审查使用平衡型模型"
+    }
+  },
+
+  "routingRules": [
+    {
+      "condition": "model.available === true",
+      "action": "use primary model"
+    },
+    {
+      "condition": "model.available === false",
+      "action": "fallback to first available model in fallback list"
+    },
+    {
+      "condition": "no available models",
+      "action": "use defaultModel"
+    }
+  ],
+
+  "costOptimization": {
+    "enabled": true,
+    "rules": [
+      {
+        "category": "quick",
+        "preferCheapest": true
+      },
+      {
+        "category": "deep",
+        "preferCheapest": false,
+        "considerQuality": true
+      },
+      {
+        "category": "ultrabrain",
+        "preferCheapest": false,
+        "considerQuality": true
+      }
+    ]
+  }
+}

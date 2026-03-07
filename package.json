@@ -1,0 +1,49 @@
+{
+  "name": "@opencode-plugin/ultrawork-sanguo",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "UltraWork SanGuo Legion - 三国军团多智能体编排系统，支持多模型路由",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "multi-agent",
+    "ultrawork",
+    "sanguo",
+    "three-kingdoms",
+    "ai-agent",
+    "model-routing",
+    "bailian"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/ultrawork-sanguo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/ultrawork-sanguo/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/ultrawork-sanguo#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@opencode-ai/plugin": "latest",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.0.0"
+  },
+  "opencode": {
+    "type": "plugin"
+  }
+}

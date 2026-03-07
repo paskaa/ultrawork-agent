@@ -1,0 +1,28 @@
+# .npmignore - Files to exclude from npm package
+
+# Source files
+src/
+*.ts
+!*.d.ts
+
+# Config
+tsconfig.json
+.gitignore
+.eslintrc*
+
+# Tests
+**/*.test.ts
+**/*.spec.ts
+coverage/
+
+# Docs (keep README.md)
+docs/
+*.md
+!README.md
+
+# Development
+.idea/
+.vscode/
+.DS_Store
+*.log
+node_modules/

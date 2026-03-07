@@ -25,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/ultrawork-sanguo.git"
+    "url": "https://github.com/paskaa/ultrawork-sanguo.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/ultrawork-sanguo/issues"
+    "url": "https://github.com/paskaa/ultrawork-sanguo/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/ultrawork-sanguo#readme",
+  "homepage": "https://github.com/paskaa/ultrawork-sanguo#readme",
   "files": [
     "dist",
     "README.md",

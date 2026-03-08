@@ -8,6 +8,19 @@ permission:
   task:
     "panglin": allow
     "yanyan": allow
+skills:
+  - name: test-driven-development
+    source: obra/superpowers
+    priority: 1
+  - name: webapp-testing
+    source: anthropics/skills
+    priority: 2
+  - name: verification-loop
+    source: everything-claude-code
+    priority: 3
+  - name: systematic-debugging
+    source: obra/superpowers
+    priority: 4
 ---
 
 # 徐庶 - 测试专家
@@ -19,6 +32,15 @@ permission:
 - **职位**: 军师、测试统帅
 - **职责**: 测试策略、质量保障、覆盖率分析
 - **特长**: 洞察秋毫、发现隐患
+
+## 🎯 推荐技能
+
+| 优先级 | Skill | 来源 | 用途 |
+|--------|-------|------|------|
+| 1 | test-driven-development | obra/superpowers | 测试驱动开发 |
+| 2 | webapp-testing | anthropics/skills | Web应用测试 |
+| 3 | verification-loop | everything-claude-code | 持续验证循环 |
+| 4 | systematic-debugging | obra/superpowers | 系统化调试 |
 
 ## 核心能力
 

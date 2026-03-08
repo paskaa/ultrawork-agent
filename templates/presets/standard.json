@@ -1,0 +1,193 @@
+{
+  "_comment": "UltraWork 三国军团 - 标准版配置模板",
+  "_description": "包含 9 位核心将领，覆盖主要开发场景",
+  "_version": "1.0.0",
+
+  "plugins": ["ultrawork-sanguo"],
+
+  "agents": {
+    "_comment_top": "=== 顶层 - 主帅 ===",
+    "zhugeliang": {
+      "enabled": true,
+      "description": "诸葛亮 - 主帅/调度器。分析任务意图、分解任务、协调各将领",
+      "model": "gmodel",
+      "role": "coordinator",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch"]
+    },
+
+    "_comment_middle": "=== 中层 - 三大都督 ===",
+    "zhouyu": {
+      "enabled": true,
+      "description": "周瑜 - 大都督/战略规划专家。架构设计、技术决策、方案评审",
+      "model": "gmodel",
+      "role": "strategist",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "zhaoyun": {
+      "enabled": true,
+      "description": "赵云 - 大将/执行专家。核心开发任务、代码实现、功能交付",
+      "model": "q35model",
+      "role": "executor",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "simayi": {
+      "enabled": true,
+      "description": "司马懿 - 谋士/探索专家。代码库探索、信息收集、模式分析",
+      "model": "mmodel",
+      "role": "explorer",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+
+    "_comment_bottom": "=== 底层 - 部将 ===",
+    "lusu": {
+      "enabled": true,
+      "description": "鲁肃 - 方案分析专家 (周瑜下属)。需求分析、方案评估、文档编写",
+      "model": "mmodel",
+      "role": "analyst",
+      "superior": "zhouyu"
+    },
+    "huanggai": {
+      "enabled": true,
+      "description": "黄盖 - 执行落地专家 (周瑜下属)。原型验证、技术预研、方案落地",
+      "model": "q35model",
+      "role": "implementer",
+      "superior": "zhouyu"
+    },
+    "gaoshun": {
+      "enabled": true,
+      "description": "高顺 - 前端开发专家 (赵云下属)。Vue 3 + Element Plus 前端开发",
+      "model": "q35model",
+      "role": "frontend_dev",
+      "superior": "zhaoyun"
+    },
+    "chendao": {
+      "enabled": true,
+      "description": "陈到 - 后端开发专家 (赵云下属)。FastAPI/Spring Boot 后端开发",
+      "model": "q35model",
+      "role": "backend_dev",
+      "superior": "zhaoyun"
+    },
+    "simashi": {
+      "enabled": true,
+      "description": "司马师 - 深度分析专家 (司马懿下属)。架构探索、代码深度分析",
+      "model": "mmodel",
+      "role": "deep_analyst",
+      "superior": "simayi"
+    }
+  },
+
+  "commands": {
+    "ulw": {
+      "description": "UltraWork 调度任务 - 根据任务类型自动分配合适将领",
+      "usage": "/ulw <任务描述>",
+      "examples": [
+        "/ulw 实现用户登录功能",
+        "/ulw 修复登录页面的样式问题"
+      ]
+    },
+    "uls": {
+      "description": "查看三国军团状态",
+      "usage": "/uls"
+    },
+    "ulw-loop": {
+      "description": "UltraWork 循环模式 - 任务完成前持续执行",
+      "usage": "/ulw-loop <任务描述>"
+    }
+  },
+
+  "modelMapping": {
+    "_comment": "=== 模型 Key 映射表 (Qoder/OpenCode 平台) ===",
+    "_important": "⚠️ 必须使用内部 key，不能使用显示名称！",
+    "gmodel": {
+      "name": "GLM-5",
+      "provider": "智谱 AI",
+      "cost": "0.5x",
+      "useCase": "主帅调度、战略规划、架构设计"
+    },
+    "q35model": {
+      "name": "Qwen3.5-Plus",
+      "provider": "阿里云",
+      "cost": "0.2x",
+      "useCase": "代码开发、前后端实现"
+    },
+    "kmodel": {
+      "name": "Kimi-K2.5",
+      "provider": "月之暗面",
+      "cost": "0.3x",
+      "useCase": "复杂任务、多模态理解"
+    },
+    "mmodel": {
+      "name": "MiniMax-M2.5",
+      "provider": "MiniMax",
+      "cost": "0.2x",
+      "useCase": "代码探索、信息分析"
+    }
+  },
+
+  "taskCategories": {
+    "visual-engineering": {
+      "description": "UI/前端任务",
+      "mainAgent": "zhaoyun",
+      "supportingAgents": ["gaoshun", "chendao"],
+      "keywords": ["UI", "界面", "样式", "前端", "Vue", "页面", "组件"],
+      "model": "q35model"
+    },
+    "deep": {
+      "description": "深度执行 - 复杂功能开发、系统重构",
+      "mainAgent": "zhaoyun",
+      "supportingAgents": ["gaoshun", "chendao", "simayi"],
+      "keywords": ["重构", "架构", "实现", "开发", "复杂", "功能", "模块", "系统"],
+      "model": "kmodel"
+    },
+    "quick": {
+      "description": "快速修复 - Bug 修复、小修改",
+      "mainAgent": "zhaoyun",
+      "supportingAgents": [],
+      "keywords": ["bug", "修复", "fix", "小修改", "配置", "调整"],
+      "model": "q35model"
+    },
+    "ultrabrain": {
+      "description": "架构设计 - 技术决策、方案设计",
+      "mainAgent": "zhouyu",
+      "supportingAgents": ["lusu", "huanggai"],
+      "keywords": ["设计", "方案", "架构", "决策", "规划", "评审"],
+      "model": "gmodel"
+    },
+    "explore": {
+      "description": "代码探索 - 搜索、分析、定位",
+      "mainAgent": "simayi",
+      "supportingAgents": ["simashi", "simazhao"],
+      "keywords": ["搜索", "查找", "分析", "探索", "定位", "理解"],
+      "model": "mmodel"
+    }
+  },
+
+  "dispatchRules": {
+    "_comment": "任务调度规则 - 根据任务类型自动分配",
+    "frontend": {
+      "trigger": ["前端", "UI", "界面", "Vue", "页面"],
+      "primary": "zhaoyun",
+      "secondary": "gaoshun"
+    },
+    "backend": {
+      "trigger": ["后端", "API", "接口", "数据库", "服务"],
+      "primary": "zhaoyun",
+      "secondary": "chendao"
+    },
+    "architecture": {
+      "trigger": ["架构", "设计", "方案", "决策"],
+      "primary": "zhouyu",
+      "secondary": "lusu"
+    },
+    "exploration": {
+      "trigger": ["探索", "搜索", "查找", "分析"],
+      "primary": "simayi",
+      "secondary": "simashi"
+    },
+    "bugfix": {
+      "trigger": ["bug", "修复", "错误", "问题"],
+      "primary": "zhaoyun",
+      "secondary": null
+    }
+  }
+}

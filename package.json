@@ -1,8 +1,15 @@
 {
   "name": "ultrawork-sanguo",
-  "version": "1.4.0",
-  "description": "UltraWork SanGuo Legion - 三国军团多智能体编排系统，支持多平台 (Qoder, OpenCode, Claude Code, Bailian) 和 19 位将领多模型路由",
-  "main": "scripts/index.js",
+  "version": "1.5.0",
+  "description": "UltraWork SanGuo Legion - 三国军团多智能体编排系统，支持多平台 (Qoder, OpenCode, Claude Code, Bailian) 和 22 位将领多模型路由",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "SKILL.md",
     "README.md",
@@ -12,16 +19,19 @@
     "categories/",
     "configs/",
     "docs/",
-    "bin/"
+    "bin/",
+    "templates/"
   ],
   "bin": {
     "ultrawork": "./bin/ultrawork.js",
-    "ulw": "./bin/ultrawork.js"
+    "ulw": "./bin/ultrawork.js",
+    "ultrawork-init": "./bin/ultrawork-init.js"
   },
   "scripts": {
     "start": "node scripts/index.js",
     "detect": "node scripts/env-detector.js detect",
     "init": "node scripts/env-detector.js init",
+    "postinstall": "node scripts/post-install.js",
     "test": "echo \"No tests specified\"",
     "publish:npm": "npm publish --access public"
   },

@@ -4,8 +4,8 @@ description: |
   UltraWork 多智能体调度系统 - 自律军团，任务完成前绝不罢休。
 
   Triggers when user mentions:
-  - "/ultrawork"、"/ulw"
-  - "ultrawork "、"ulw "
+  - "/ultrawork"、"/ulw"、"/uls"
+  - "ultrawork "、"ulw "、"uls "
   - "ulw-"、"ulw_loop"
 ---
 

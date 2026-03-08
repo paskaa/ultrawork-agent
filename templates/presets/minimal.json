@@ -1,0 +1,64 @@
+{
+  "_comment": "UltraWork 三国军团 - 精简版配置模板",
+  "_description": "仅包含核心将领，适合快速启动和简单任务",
+  "_version": "1.0.0",
+
+  "plugins": ["ultrawork-sanguo"],
+
+  "agents": {
+    "zhugeliang": {
+      "enabled": true,
+      "description": "诸葛亮 - 主帅/调度器",
+      "model": "gmodel",
+      "role": "coordinator"
+    },
+    "zhaoyun": {
+      "enabled": true,
+      "description": "赵云 - 大将/执行专家",
+      "model": "q35model",
+      "role": "executor"
+    },
+    "simayi": {
+      "enabled": true,
+      "description": "司马懿 - 谋士/探索专家",
+      "model": "mmodel",
+      "role": "explorer"
+    }
+  },
+
+  "commands": {
+    "ulw": {
+      "description": "UltraWork 调度任务 - 核心三将并行执行",
+      "usage": "/ulw <任务描述>"
+    },
+    "uls": {
+      "description": "查看三国军团状态",
+      "usage": "/uls"
+    }
+  },
+
+  "modelMapping": {
+    "_comment": "模型 Key 映射 - 使用 Qoder/OpenCode 内部 key",
+    "gmodel": "GLM-5 (智谱)",
+    "q35model": "Qwen3.5-Plus (阿里)",
+    "mmodel": "MiniMax-M2.5"
+  },
+
+  "taskCategories": {
+    "quick": {
+      "description": "快速修复",
+      "mainAgent": "zhaoyun",
+      "keywords": ["bug", "修复", "fix", "小修改", "配置"]
+    },
+    "deep": {
+      "description": "深度执行",
+      "mainAgent": "zhaoyun",
+      "keywords": ["实现", "开发", "功能", "模块", "重构"]
+    },
+    "explore": {
+      "description": "代码探索",
+      "mainAgent": "simayi",
+      "keywords": ["搜索", "查找", "分析", "探索", "定位"]
+    }
+  }
+}

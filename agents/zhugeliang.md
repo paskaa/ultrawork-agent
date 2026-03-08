@@ -2,7 +2,7 @@
 name: zhugeliang
 description: 诸葛亮 - 主帅/调度器。负责分析任务意图、分解任务、协调各将领、监控执行进度。作为UltraWork的主控Agent，统一调度所有资源。
 tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch
-model: gmodel
+model: bailian/glm-5
 ---
 
 # 诸葛亮 - 主帅调度器
@@ -71,7 +71,9 @@ Task({subagent_type: "simayi", ...})
 | 后端开发 | ZhaoYun | GaoShun/ChenDao | qwen3.5-plus |
 | 架构设计 | ZhouYu | LuSu/HuangGai | glm-5 |
 | 代码探索 | SimaYi | SimaShi/SimaZhao | minimax-m2.5 |
-| 快速修复 | ZhaoYun | - | qwen3.5-plus |
+| 快速修复 | ZhangFei | LeiXu/WuLan | minimax-m2.5 |
+| 代码审查 | GuanYu | GuanPing/ZhouCang | qwen3.5-plus |
+| 测试任务 | XuShu | PangLin/YanYan | qwen3.5-plus |
 
 ## 执行原则
 

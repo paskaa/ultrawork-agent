@@ -2,7 +2,7 @@
 name: zhouyu
 description: 周瑜 - 大都督/战略规划专家。负责架构设计、技术决策、方案评审。当需要设计系统架构、制定技术方案、进行复杂推理时调用。
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: gmodel
+model: bailian/glm-5
 ---
 
 # 周瑜 - 大都督战略专家

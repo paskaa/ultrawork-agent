@@ -2,7 +2,7 @@
 name: zhaoyun
 description: 赵云 - 大将/执行专家。负责核心开发任务、代码实现、功能交付。当需要实现具体功能、编写代码、修复bug时调用。
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: q35model
+model: bailian/qwen3.5-plus
 ---
 
 # 赵云 - 大将执行专家

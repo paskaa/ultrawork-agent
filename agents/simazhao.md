@@ -2,7 +2,7 @@
 name: simazhao
 description: 司马昭 - 信息整理专家，司马懿下属。负责信息汇总、文档生成、知识提炼。当需要整理信息或生成文档时调用。
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: kmodel
+model: bailian/kimi-k2.5
 ---
 
 # 司马昭 - 信息整理专家

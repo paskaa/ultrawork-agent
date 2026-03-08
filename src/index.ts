@@ -14,6 +14,32 @@ function getConfig(directory: string): UltraWorkSanguoConfig {
   return configCache.get(directory)!
 }
 
+interface ParsedPrompt {
+  agent: string | null
+  cleanPrompt: string
+}
+
+function parseAgentMention(prompt: string, availableAgents: string[]): ParsedPrompt {
+  const mentionRegex = /@([a-zA-Z_][a-zA-Z0-9_]*)/g
+  let match: RegExpExecArray | null
+  let detectedAgent: string | null = null
+  let cleanPrompt = prompt
+
+  while ((match = mentionRegex.exec(prompt)) !== null) {
+    const mentionedName = match[1].toLowerCase()
+    const matchedAgent = availableAgents.find(
+      (agent) => agent.toLowerCase() === mentionedName
+    )
+    if (matchedAgent) {
+      detectedAgent = matchedAgent
+      cleanPrompt = cleanPrompt.replace(match[0], "").trim()
+      break
+    }
+  }
+
+  return { agent: detectedAgent, cleanPrompt }
+}
+
 const UltraWorkSanguoPlugin: Plugin = async (ctx) => {
   console.log("[UltraWork-SanGuo] 🏰 三国军团调度系统启动...")
   const config = getConfig(ctx.directory)
@@ -50,12 +76,14 @@ ${agentList}
 ${categoryList}
 
 **使用方式:**
-1. 指定 category: 自动选择该类别的将领和模型
-2. 指定 agent: 直接使用指定将领及其模型
-3. 都不指定: 根据任务关键词自动检测类别`,
+1. prompt 中使用 @将领名: 直接使用指定将领及其模型
+   示例: @lusu 分析这个需求的可行性
+2. 指定 category: 自动选择该类别的将领和模型
+3. 指定 agent: 直接使用指定将领及其模型
+4. 都不指定: 根据任务关键词自动检测类别`,
     args: {
       description: tool.schema.string().describe("任务简短描述 (3-5 词)"),
-      prompt: tool.schema.string().describe("详细的任务内容"),
+      prompt: tool.schema.string().describe("详细的任务内容 (可用 @将领名 指定将领)"),
       category: tool.schema.string().optional().describe("任务类别 (可选)"),
       agent: tool.schema.string().optional().describe("将领名称 (可选)"),
     },
@@ -63,14 +91,20 @@ ${categoryList}
       const cfg = getConfig(ctx.directory)
       const agentsCfg = cfg.agents ?? {}
       const categoriesCfg = cfg.categories ?? {}
+      const availableAgents = Object.keys(agentsCfg)
+
+      // 解析 @武将名 语法
+      const parsedPrompt = parseAgentMention(args.prompt, availableAgents)
+      let actualPrompt = parsedPrompt.cleanPrompt
+      let agentFromPrompt = parsedPrompt.agent
 
       // 解析路由
       let agentName: string
       let categoryName: string | undefined
       let model: string | undefined
 
+      // 优先级: agent 参数 > @武将名 > category 参数 > 自动检测
       if (args.agent) {
-        // 指定了将领
         const routing = routeByAgent(cfg, args.agent)
         if (routing) {
           agentName = routing.primaryAgent
@@ -81,15 +115,26 @@ ${categoryList}
           const agentCfg = agentsCfg[agentName] as AgentConfig | undefined
           model = agentCfg?.model
         }
+      } else if (agentFromPrompt) {
+        // 从 prompt 中解析到 @武将名
+        const routing = routeByAgent(cfg, agentFromPrompt)
+        if (routing) {
+          agentName = routing.primaryAgent
+          categoryName = routing.category
+          model = routing.model
+        } else {
+          agentName = agentFromPrompt
+          const agentCfg = agentsCfg[agentName] as AgentConfig | undefined
+          model = agentCfg?.model
+        }
+        console.log(`[UltraWork-SanGuo] 从 prompt 解析到将领: @${agentFromPrompt}`)
       } else if (args.category) {
-        // 指定了类别
         categoryName = args.category
         const categoryConfig = categoriesCfg[categoryName] as CategoryConfig | undefined
         agentName = categoryConfig?.primaryAgent ?? cfg.task_routing?.default_agent ?? "zhaoyun"
         const agentCfg = agentsCfg[agentName] as AgentConfig | undefined
         model = categoryConfig?.model ?? agentCfg?.model
       } else {
-        // 自动检测
         const routing = routeTask(cfg, args.description)
         agentName = routing.primaryAgent
         categoryName = routing.category
@@ -118,7 +163,7 @@ ${categoryList}
       return executeSyncTask(
         {
           description: args.description,
-          prompt: args.prompt,
+          prompt: actualPrompt,
           category: categoryName,
           agent: agentName,
         },

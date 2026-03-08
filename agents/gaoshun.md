@@ -2,7 +2,7 @@
 name: gaoshun
 description: 高顺 - 前端开发专家，赵云下属。负责前端组件开发、页面实现、UI优化。精通 Vue 3 + Element Plus。
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: q35model
+model: bailian/qwen3-coder-plus
 ---
 
 # 高顺 - 前端开发专家

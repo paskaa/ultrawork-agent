@@ -2,7 +2,7 @@
 name: huanggai
 description: 黄盖 - 执行落地专家，周瑜下属。负责原型验证、技术预研、方案落地。当需要验证技术方案或实现原型时调用。
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: q35model
+model: bailian/qwen3.5-plus
 ---
 
 # 黄盖 - 执行落地专家

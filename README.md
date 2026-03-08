@@ -3,7 +3,7 @@
 > 鞠躬尽瘁，死而后已
 > 将帅齐心，其利断金
 
-A hierarchical multi-agent orchestration skill for Claude Code with Three Kingdoms themed commanders and lieutenants.
+A hierarchical multi-agent orchestration skill for Claude Code with Three Kingdoms themed commanders and lieutenants. **22 agents** with specialized roles.
 
 ## Installation
 
@@ -84,6 +84,7 @@ User: /ulw implement user login
 | SimaYi (司马懿) | Explorer | Code search, issue location, dependency tracking |
 | GuanYu (关羽) | Quality Guard | Code review, quality check, best practices |
 | ZhangFei (张飞) | Quick Fixer | Fast positioning, instant fixes, emergency response |
+| XuShu (徐庶) | Test Expert | Unit tests, integration tests, E2E, coverage |
 
 ## Task Categories
 
@@ -95,6 +96,43 @@ User: /ulw implement user login
 | ultrabrain | design, plan, decision | ZhouYu |
 | explore | search, find, locate | SimaYi |
 | review | review, quality | GuanYu |
+| test | test, unit, e2e, coverage | XuShu |
+
+## All Agents (22 Total)
+
+### 主帅层 (1)
+| Agent | Role | Model |
+|-------|------|-------|
+| ZhugeLiang | 主帅/调度器 | glm-5 |
+
+### 大将层 (6)
+| Agent | Role | Model |
+|-------|------|-------|
+| ZhouYu | 战略规划 | glm-5 |
+| ZhaoYun | 深度执行 | qwen3.5-plus |
+| SimaYi | 情报侦察 | minimax-m2.5 |
+| GuanYu | 质量守护 | qwen3.5-plus |
+| ZhangFei | 快速修复 | minimax-m2.5 |
+| XuShu | 测试专家 | qwen3.5-plus |
+
+### 部将层 (15)
+| Agent | 所属 | Role |
+|-------|------|------|
+| GaoShun | ZhaoYun | 前端开发专家 |
+| ChenDao | ZhaoYun | 后端开发专家 |
+| LuSu | ZhouYu | 资源规划专家 |
+| HuangGai | ZhouYu | 执行落地专家 |
+| SimaShi | SimaYi | 深度分析专家 |
+| SimaZhao | SimaYi | 信息整理专家 |
+| GuanPing | GuanYu | 代码审查专家 |
+| ZhouCang | GuanYu | 安全检查专家 |
+| LeiXu | ZhangFei | 快速定位专家 |
+| WuLan | ZhangFei | 即时修复专家 |
+| PangLin | XuShu | 前端测试专家 |
+| YanYan | XuShu | 后端测试专家 |
+| MaChao | Reserve | 特殊任务专家 |
+| MaDai | MaChao | 稳健支援专家 |
+| PangDe | MaChao | 特殊任务专家 |
 
 ## License
 

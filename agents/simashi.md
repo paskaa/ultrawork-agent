@@ -2,7 +2,7 @@
 name: simashi
 description: 司马师 - 深度分析专家，司马懿下属。负责架构探索、代码深度分析、复杂问题定位。当需要深入分析代码结构或定位复杂问题时调用。
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: mmodel
+model: bailian/MiniMax-M2.5
 ---
 
 # 司马师 - 深度分析专家

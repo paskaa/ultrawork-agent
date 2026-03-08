@@ -1,0 +1,395 @@
+{
+  "_comment": "UltraWork 三国军团 - 完整版配置模板",
+  "_description": "包含全部 19 位将领，完整功能支持",
+  "_version": "1.0.0",
+
+  "plugins": ["ultrawork-sanguo"],
+
+  "agents": {
+    "_tier0": "==================== 顶层 - 主帅 ====================",
+    "zhugeliang": {
+      "enabled": true,
+      "name": "诸葛亮",
+      "styleName": "孔明",
+      "description": "主帅/调度器。分析任务意图、分解任务、协调各将领、监控执行进度",
+      "model": "gmodel",
+      "role": "coordinator",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch"],
+      "coreAbilities": ["意图分析", "任务分解", "资源调度", "进度监控"],
+      "motto": "鞠躬尽瘁，死而后已"
+    },
+
+    "_tier1": "==================== 中层 - 三大都督 ====================",
+    "zhouyu": {
+      "enabled": true,
+      "name": "周瑜",
+      "styleName": "公瑾",
+      "description": "大都督/战略规划专家。架构设计、技术决策、方案评审",
+      "model": "gmodel",
+      "role": "strategist",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "coreAbilities": ["架构设计", "技术决策", "深度推理"],
+      "subordinates": ["lusu", "huanggai"]
+    },
+    "zhaoyun": {
+      "enabled": true,
+      "name": "赵云",
+      "styleName": "子龙",
+      "description": "大将/执行专家。核心开发任务、代码实现、功能交付",
+      "model": "q35model",
+      "role": "executor",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "coreAbilities": ["代码实现", "Bug 修复", "功能开发"],
+      "subordinates": ["gaoshun", "chendao", "guanping"]
+    },
+    "simayi": {
+      "enabled": true,
+      "name": "司马懿",
+      "styleName": "仲达",
+      "description": "谋士/探索专家。代码库探索、信息收集、模式分析",
+      "model": "mmodel",
+      "role": "explorer",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "coreAbilities": ["代码探索", "信息收集", "模式分析"],
+      "subordinates": ["simashi", "simazhao"]
+    },
+
+    "_tier2_zhouyu": "==================== 周瑜部将 ====================",
+    "lusu": {
+      "enabled": true,
+      "name": "鲁肃",
+      "styleName": "子敬",
+      "description": "资源规划专家。需求分析、方案评估、可行性研究、文档编写",
+      "model": "mmodel",
+      "role": "analyst",
+      "superior": "zhouyu",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "huanggai": {
+      "enabled": true,
+      "name": "黄盖",
+      "styleName": "公覆",
+      "description": "执行落地专家。原型验证、技术预研、方案落地",
+      "model": "q35model",
+      "role": "implementer",
+      "superior": "zhouyu",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+
+    "_tier2_zhaoyun": "==================== 赵云部将 ====================",
+    "gaoshun": {
+      "enabled": true,
+      "name": "高顺",
+      "description": "前端开发专家 (陷阵营)。前端组件开发、攻坚任务、UI 实现",
+      "model": "q35model",
+      "role": "frontend_dev",
+      "superior": "zhaoyun",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "specialties": ["Vue 3", "Element Plus", "组件开发"]
+    },
+    "chendao": {
+      "enabled": true,
+      "name": "陈到",
+      "description": "后端开发专家 (白耳兵)。后端接口开发、代码优化、API 实现",
+      "model": "q35model",
+      "role": "backend_dev",
+      "superior": "zhaoyun",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "specialties": ["FastAPI", "Spring Boot", "PostgreSQL"]
+    },
+    "guanping": {
+      "enabled": true,
+      "name": "关平",
+      "description": "代码审查专家。代码风格检查、规范检查、最佳实践建议",
+      "model": "q35model",
+      "role": "code_reviewer",
+      "superior": "zhaoyun",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+
+    "_tier2_simayi": "==================== 司马懿部将 ====================",
+    "simashi": {
+      "enabled": true,
+      "name": "司马师",
+      "styleName": "子元",
+      "description": "深度分析专家。架构探索、代码深度分析、复杂问题定位",
+      "model": "mmodel",
+      "role": "deep_analyst",
+      "superior": "simayi",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "simazhao": {
+      "enabled": true,
+      "name": "司马昭",
+      "styleName": "子上",
+      "description": "信息整理专家。信息汇总、文档生成、知识提炼",
+      "model": "kmodel",
+      "role": "documentation",
+      "superior": "simayi",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+
+    "_tier2_guanyu": "==================== 关羽部将 ====================",
+    "guanyu": {
+      "enabled": true,
+      "name": "关羽",
+      "styleName": "云长",
+      "description": "质量守护者。Code Review、代码质量把关、安全审计",
+      "model": "q35model",
+      "role": "quality_guard",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "subordinates": ["zhoucang", "guanping"]
+    },
+    "zhoucang": {
+      "enabled": true,
+      "name": "周仓",
+      "description": "安全检查专家。安全漏洞识别、风险识别、安全审计",
+      "model": "mmodel",
+      "role": "security_auditor",
+      "superior": "guanyu",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+
+    "_tier2_zhangfei": "==================== 张飞部将 ====================",
+    "zhangfei": {
+      "enabled": true,
+      "name": "张飞",
+      "styleName": "翼德",
+      "description": "快速突击者。雷厉风行、速战速决、快速修复 Bug",
+      "model": "mmodel",
+      "role": "rapid_fixer",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "subordinates": ["wulan", "leixu"]
+    },
+    "wulan": {
+      "enabled": true,
+      "name": "吴兰",
+      "description": "即时修复专家。快速补丁、热修复、最小改动",
+      "model": "q35model",
+      "role": "hotfix_specialist",
+      "superior": "zhangfei",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "leixu": {
+      "enabled": true,
+      "name": "雷绪",
+      "description": "快速定位专家。Bug 快速定位、问题追踪",
+      "model": "mmodel",
+      "role": "bug_hunter",
+      "superior": "zhangfei",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+
+    "_tier2_machao": "==================== 马超部将 ====================",
+    "machao": {
+      "enabled": true,
+      "name": "马超",
+      "styleName": "孟起",
+      "description": "西凉猛将/后备军团统领。备用支援、特殊任务、实验性功能",
+      "model": "gmodel",
+      "role": "reserve_commander",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"],
+      "subordinates": ["madai", "pangde"]
+    },
+    "madai": {
+      "enabled": true,
+      "name": "马岱",
+      "description": "稳健支援专家。跨领域支援、临时任务、稳定执行",
+      "model": "mmodel",
+      "role": "support_specialist",
+      "superior": "machao",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "pangde": {
+      "enabled": true,
+      "name": "庞德",
+      "styleName": "令明",
+      "description": "特殊任务专家。探索性任务、原型验证、攻坚突击",
+      "model": "q35model",
+      "role": "special_ops",
+      "superior": "machao",
+      "tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep"]
+    }
+  },
+
+  "commands": {
+    "ulw": {
+      "description": "UltraWork 调度任务",
+      "usage": "/ulw <任务描述>",
+      "examples": [
+        "/ulw 实现用户登录功能",
+        "/ulw 修复登录页面的样式问题"
+      ]
+    },
+    "uls": {
+      "description": "查看三国军团状态",
+      "usage": "/uls"
+    },
+    "ulw-loop": {
+      "description": "UltraWork 循环模式 - 任务完成前持续执行",
+      "usage": "/ulw-loop <任务描述>"
+    }
+  },
+
+  "modelMapping": {
+    "_comment": "=== 模型 Key 映射表 (Qoder/OpenCode 平台) ===",
+    "_important": "⚠️ 必须使用内部 key，不能使用显示名称！",
+    "gmodel": {
+      "name": "GLM-5",
+      "provider": "智谱 AI",
+      "cost": "0.5x",
+      "features": ["快速响应", "系统工程能力强", "适合调度决策"],
+      "useCase": "主帅调度、战略规划、架构设计"
+    },
+    "q35model": {
+      "name": "Qwen3.5-Plus",
+      "provider": "阿里云",
+      "cost": "0.2x",
+      "features": ["编程能力强", "代码质量高", "性价比高"],
+      "useCase": "代码开发、前后端实现、代码审查"
+    },
+    "kmodel": {
+      "name": "Kimi-K2.5",
+      "provider": "月之暗面",
+      "cost": "0.3x",
+      "features": ["长文本理解", "复杂推理", "多模态支持"],
+      "useCase": "复杂任务、文档整理、深度分析"
+    },
+    "mmodel": {
+      "name": "MiniMax-M2.5",
+      "provider": "MiniMax",
+      "cost": "0.2x",
+      "features": ["快速", "性价比高", "适合探索分析"],
+      "useCase": "代码探索、信息分析、快速定位"
+    }
+  },
+
+  "taskCategories": {
+    "visual-engineering": {
+      "description": "UI/前端任务",
+      "mainAgent": "zhaoyun",
+      "supportingAgents": ["gaoshun", "chendao", "guanping"],
+      "keywords": ["UI", "界面", "样式", "前端", "Vue", "页面", "组件", "Element", "CSS", "HTML"],
+      "model": "q35model",
+      "workflow": ["simayi 探索现有代码", "gaoshun 开发前端", "chendao 开发接口", "guanping 审查代码"]
+    },
+    "deep": {
+      "description": "深度执行 - 复杂功能开发、系统重构",
+      "mainAgent": "zhaoyun",
+      "supportingAgents": ["gaoshun", "chendao", "simayi", "simashi"],
+      "keywords": ["重构", "架构", "实现", "开发", "复杂", "功能", "模块", "系统", "集成", "完善", "优化", "扩展", "迁移", "改造"],
+      "model": "kmodel",
+      "workflow": ["simayi/simashi 探索代码", "zhouyu/lusu 设计方案", "zhaoyun 统筹实现", "gaoshun/chendao 并行开发"]
+    },
+    "quick": {
+      "description": "快速修复 - Bug 修复、小修改",
+      "mainAgent": "zhaoyun",
+      "supportingAgents": ["zhangfei", "wulan", "leixu"],
+      "keywords": ["bug", "修复", "fix", "小修改", "配置", "调整", "错误", "问题"],
+      "model": "q35model",
+      "workflow": ["zhangfei/leixu 定位问题", "wulan 快速修复", "zhaoyun 验证"]
+    },
+    "ultrabrain": {
+      "description": "架构设计 - 技术决策、方案设计",
+      "mainAgent": "zhouyu",
+      "supportingAgents": ["lusu", "huanggai", "zhugeliang"],
+      "keywords": ["设计", "方案", "架构", "决策", "规划", "评审", "技术选型", "可行性"],
+      "model": "gmodel",
+      "workflow": ["lusu 分析需求", "zhouyu 设计方案", "huanggai 原型验证", "zhugeliang 最终决策"]
+    },
+    "explore": {
+      "description": "代码探索 - 搜索、分析、定位",
+      "mainAgent": "simayi",
+      "supportingAgents": ["simashi", "simazhao"],
+      "keywords": ["搜索", "查找", "分析", "探索", "定位", "理解", "代码库", "结构"],
+      "model": "mmodel",
+      "workflow": ["simayi 快速探索", "simashi 深度分析", "simazhao 整理输出"]
+    },
+    "security": {
+      "description": "安全审计 - 安全漏洞检查、代码审查",
+      "mainAgent": "guanyu",
+      "supportingAgents": ["zhoucang", "guanping"],
+      "keywords": ["安全", "审计", "漏洞", "审查", "check", "review", "风险"],
+      "model": "q35model",
+      "workflow": ["zhoucang 安全检查", "guanping 代码审查", "guanyu 最终评审"]
+    },
+    "documentation": {
+      "description": "文档编写 - 技术文档、API 文档、使用说明",
+      "mainAgent": "simazhao",
+      "supportingAgents": ["lusu", "simayi"],
+      "keywords": ["文档", "说明", "API", "readme", "注释", "手册"],
+      "model": "kmodel",
+      "workflow": ["simayi 收集信息", "simazhao 整理编写", "lusu 审核完善"]
+    },
+    "special": {
+      "description": "特殊任务 - 实验性功能、探索性任务",
+      "mainAgent": "machao",
+      "supportingAgents": ["pangde", "madai"],
+      "keywords": ["实验", "探索", "原型", "新技术", "预研"],
+      "model": "gmodel",
+      "workflow": ["pangde 探索验证", "madai 稳健实现", "machao 统筹"]
+    }
+  },
+
+  "dispatchRules": {
+    "_comment": "任务调度规则 - 根据关键词自动分配将领",
+    "frontend": {
+      "trigger": ["前端", "UI", "界面", "Vue", "页面", "组件", "Element", "样式", "CSS"],
+      "primary": "zhaoyun",
+      "secondary": ["gaoshun"],
+      "category": "visual-engineering"
+    },
+    "backend": {
+      "trigger": ["后端", "API", "接口", "数据库", "服务", "Spring", "FastAPI"],
+      "primary": "zhaoyun",
+      "secondary": ["chendao"],
+      "category": "visual-engineering"
+    },
+    "architecture": {
+      "trigger": ["架构", "设计", "方案", "决策", "规划", "评审", "技术选型"],
+      "primary": "zhouyu",
+      "secondary": ["lusu", "huanggai"],
+      "category": "ultrabrain"
+    },
+    "exploration": {
+      "trigger": ["探索", "搜索", "查找", "分析", "定位", "理解代码"],
+      "primary": "simayi",
+      "secondary": ["simashi", "simazhao"],
+      "category": "explore"
+    },
+    "bugfix": {
+      "trigger": ["bug", "修复", "错误", "问题", "异常", "fail", "error"],
+      "primary": "zhaoyun",
+      "secondary": ["zhangfei", "leixu", "wulan"],
+      "category": "quick"
+    },
+    "security": {
+      "trigger": ["安全", "审计", "漏洞", "review", "审查"],
+      "primary": "guanyu",
+      "secondary": ["zhoucang", "guanping"],
+      "category": "security"
+    },
+    "documentation": {
+      "trigger": ["文档", "说明", "API 文档", "readme", "手册"],
+      "primary": "simazhao",
+      "secondary": ["lusu"],
+      "category": "documentation"
+    },
+    "research": {
+      "trigger": ["调研", "预研", "实验", "新技术", "原型"],
+      "primary": "machao",
+      "secondary": ["pangde"],
+      "category": "special"
+    }
+  },
+
+  "statusBar": {
+    "_comment": "状态栏显示配置",
+    "enabled": true,
+    "position": "bottom",
+    "format": "ascii",
+    "showProgress": true,
+    "showAgentStatus": true,
+    "showLogs": true
+  }
+}

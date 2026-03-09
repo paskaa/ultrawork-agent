@@ -24,11 +24,13 @@
 ### 方式1: 作为 OpenCode 插件使用（推荐）
 
 ```bash
-# 克隆到 OpenCode 插件目录
-git clone https://github.com/paskaa/ultrawork-sanguo.git ~/.opencode/plugins/ultrawork-sanguo
+# 克隆到 OpenCode 插件目录 (用户级别配置)
+git clone https://github.com/paskaa/ultrawork-sanguo.git ~/.config/opencode/plugins/ultrawork-sanguo
 ```
 
 然后重启 OpenCode，插件将自动加载。
+
+**注意**: 所有配置统一存放在 `~/.config/opencode/` 用户级别目录下，不再在项目级别维护。
 
 ### 方式2: 通过 npm 安装
 

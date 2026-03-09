@@ -12,7 +12,7 @@
 
 ## ✨ 核心特性
 
-- 🎭 **19位三国将领**: 诸葛亮、赵云、周瑜、司马懿、关羽、张飞、马超等，各司其职
+- 🎭 **25位三国将领**: 诸葛亮、赵云、周瑜、司马懿、关羽、张飞、马超、徐庶等，各司其职
 - 🧠 **多模型路由**: 支持 GLM-5、Qwen3.5-Plus、Kimi-K2.5、MiniMax-M2.5 等多种模型
 - ⚡ **智能任务分类**: 自动识别任务类型（前端开发、后端开发、架构设计、代码探索等）
 - 🔄 **并行执行**: 同一消息中并行调度多个将领，提高执行效率
@@ -131,6 +131,22 @@ cp SKILL.md ~/.claude/skills/ultrawork/SKILL.md
 | **ZhangFei** | 张飞(翼德) | 快速修复者 | Qwen3.5-Plus | 0.2x |
 | **MaChao** | 马超(孟起) | 实验性任务 | MiniMax-M2.5 | 0.2x |
 
+### 中层 - 测试团队
+
+| Agent | 角色 | 职责 | 模型 | 费用 |
+|-------|------|------|------|------|
+| **XuShu** | 徐庶(元直) | 测试专家/统领 | Qwen3.5-Plus | 0.2x |
+| **PangLin** | 庞林 | 前端测试专家 | Qwen3.5-Plus | 0.2x |
+| **YanYan** | 严颜 | 后端测试专家 | Qwen3.5-Plus | 0.2x |
+
+### 中层 - 监察团队
+
+| Agent | 角色 | 职责 | 模型 | 费用 |
+|-------|------|------|------|------|
+| **ManChong** | 满宠(伯宁) | 监察指挥官 | GLM-5 | 0.5x |
+| **ChengYu** | 程昱(仲德) | 前端监控专家 | MiniMax-M2.5 | 0.2x |
+| **JiaXu** | 贾诩(文和) | 后端监控专家 | MiniMax-M2.5 | 0.2x |
+
 ### 底层 - 部将
 
 | 上级 | Agent | 角色 | 职责 | 模型 | 费用 |
@@ -160,6 +176,8 @@ cp SKILL.md ~/.claude/skills/ultrawork/SKILL.md
 | **代码审查** | review, 审查 | GuanYu | GuanPing, ZhouCang |
 | **实验任务** | 探索, 原型, 攻坚 | MaChao | PangDe, MaDai |
 | **信息整理** | 文档, 汇总 | SimaYi | SimaZhao |
+| **测试** | 测试, test, 单元测试 | XuShu | PangLin, YanYan |
+| **监控诊断** | 监控, 日志, 诊断 | ManChong | ChengYu, JiaXu |
 
 ## 🧮 费用对比
 
@@ -167,11 +185,11 @@ cp SKILL.md ~/.claude/skills/ultrawork/SKILL.md
 传统单模型方案:
   4 × ultimate (1.6x) = 6.4x
 
-UltraWork SanGuo 方案 (19位将领):
+UltraWork SanGuo 方案 (25位将领):
   - 主帅调度: 诸葛亮 glm-5 (0.5x)
-  - 中层6将: 大都督 + 三大都督 + 质量监控 = 1.5x
+  - 中层9将: 大都督 + 三大都督 + 质量监控 + 测试团队 + 监察团队 = 2.1x
   - 底层12将: 各部将按需调用 ≈ 0.2-0.3x/次
-  典型任务组合: 2.8x (节省56%)
+  典型任务组合: 3.0x (节省53%)
 ```
 
 ## 🛠️ 配置说明

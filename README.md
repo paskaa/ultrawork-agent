@@ -12,7 +12,7 @@
 
 ## ✨ 核心特性
 
-- 🎭 **19位三国将领**: 诸葛亮、赵云、周瑜、司马懿、关羽、张飞等，各司其职
+- 🎭 **19位三国将领**: 诸葛亮、赵云、周瑜、司马懿、关羽、张飞、马超等，各司其职
 - 🧠 **多模型路由**: 支持 GLM-5、Qwen3.5-Plus、Kimi-K2.5、MiniMax-M2.5 等多种模型
 - ⚡ **智能任务分类**: 自动识别任务类型（前端开发、后端开发、架构设计、代码探索等）
 - 🔄 **并行执行**: 同一消息中并行调度多个将领，提高执行效率
@@ -135,12 +135,18 @@ cp SKILL.md ~/.claude/skills/ultrawork/SKILL.md
 
 | 上级 | Agent | 角色 | 职责 | 模型 | 费用 |
 |------|-------|------|------|------|------|
-| ZhouYu | **LuSu** | 鲁肃(子敬) | 方案分析 | MiniMax-M2.5 | 0.2x |
-| ZhouYu | **HuangGai** | 黄盖(公覆) | 执行落地 | Qwen3.5-Plus | 0.2x |
-| ZhaoYun | **GaoShun** | 高顺 | 前端开发 | Qwen3.5-Plus | 0.2x |
-| ZhaoYun | **ChenDao** | 陈到 | 后端开发 | Qwen3.5-Plus | 0.2x |
-| SimaYi | **SimaShi** | 司马师 | 深度分析 | MiniMax-M2.5 | 0.2x |
-| SimaYi | **SimaZhao** | 司马昭 | 信息整理 | Kimi-K2.5 | 0.3x |
+| ZhouYu | **LuSu** | 鲁肃(子敬) | 资源规划、方案分析 | MiniMax-M2.5 | 0.2x |
+| ZhouYu | **HuangGai** | 黄盖(公覆) | 执行落地、原型验证 | Qwen3.5-Plus | 0.2x |
+| ZhaoYun | **GaoShun** | 高顺 | 前端开发专家 | Qwen3.5-Plus | 0.2x |
+| ZhaoYun | **ChenDao** | 陈到 | 后端开发专家 | Qwen3.5-Plus | 0.2x |
+| SimaYi | **SimaShi** | 司马师 | 深度分析专家 | MiniMax-M2.5 | 0.2x |
+| SimaYi | **SimaZhao** | 司马昭 | 信息整理专家 | Kimi-K2.5 | 0.3x |
+| GuanYu | **GuanPing** | 关平 | 代码审查专家 | Qwen3.5-Plus | 0.2x |
+| GuanYu | **ZhouCang** | 周仓 | 安全检查专家 | MiniMax-M2.5 | 0.2x |
+| ZhangFei | **LeiXu** | 雷绪 | 快速定位专家 | MiniMax-M2.5 | 0.2x |
+| ZhangFei | **WuLan** | 吴兰 | 即时修复专家 | Qwen3.5-Plus | 0.2x |
+| MaChao | **PangDe** | 庞德 | 特殊任务专家 | Qwen3.5-Plus | 0.2x |
+| MaChao | **MaDai** | 马岱 | 稳健支援专家 | MiniMax-M2.5 | 0.2x |
 
 ## 📋 任务分类与调度
 
@@ -150,9 +156,10 @@ cp SKILL.md ~/.claude/skills/ultrawork/SKILL.md
 | **后端开发** | API, 接口, 数据库 | ZhaoYun | ChenDao |
 | **架构设计** | 设计, 方案, 架构 | ZhouYu | LuSu |
 | **代码探索** | 搜索, 查找, 分析 | SimaYi | SimaShi |
-| **快速修复** | bug, 修复, fix | ZhangFei | - |
-| **代码审查** | review, 审查 | GuanYu | - |
-| **测试** | 测试, test | XuShu | PangLin, YanYan |
+| **快速修复** | bug, 修复, fix | ZhangFei | WuLan, LeiXu |
+| **代码审查** | review, 审查 | GuanYu | GuanPing, ZhouCang |
+| **实验任务** | 探索, 原型, 攻坚 | MaChao | PangDe, MaDai |
+| **信息整理** | 文档, 汇总 | SimaYi | SimaZhao |
 
 ## 🧮 费用对比
 
@@ -160,11 +167,11 @@ cp SKILL.md ~/.claude/skills/ultrawork/SKILL.md
 传统单模型方案:
   4 × ultimate (1.6x) = 6.4x
 
-UltraWork SanGuo 方案:
-  - 主帅调度: glm-5 (0.5x)
-  - 中层3将: 0.5 + 0.2 + 0.2 = 0.9x
-  - 底层6将: 0.2×4 + 0.3×2 = 1.4x
-  总计: 2.8x (节省56%)
+UltraWork SanGuo 方案 (19位将领):
+  - 主帅调度: 诸葛亮 glm-5 (0.5x)
+  - 中层6将: 大都督 + 三大都督 + 质量监控 = 1.5x
+  - 底层12将: 各部将按需调用 ≈ 0.2-0.3x/次
+  典型任务组合: 2.8x (节省56%)
 ```
 
 ## 🛠️ 配置说明

@@ -72,5 +72,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "ultrawork-sanguo": "^1.8.2"
   }
 }

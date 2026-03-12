@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.3] - 2026-03-12 📦
+
+### 🔄 Patch Release - Version Sync
+
+#### 🔧 Changed
+
+- 版本号同步更新到 2.0.3 (npm 发布需要)
+- README 和 package.json 版本号统一
+
+---
+
 ## [2.0.2] - 2026-03-12 🎯
 
 ### 🚀 OpenCode 内置 Subagent 类型映射支持

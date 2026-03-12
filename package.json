@@ -1,6 +1,6 @@
 {
   "name": "ultrawork-sanguo",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "UltraWork SanGuo Legion v2.0 - 三国军团多智能体编排系统，45位武将、17条指挥链、100%技能覆盖、严格层级调用架构、支持多平台 (Qoder, OpenCode, Claude Code, Bailian)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

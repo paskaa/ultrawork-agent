@@ -75,7 +75,7 @@
   },
   "dependencies": {
     "@opencode-ai/plugin": "^1.2.24",
-    "ultrawork-sanguo": "^1.8.2"
+    "ultrawork-sanguo": "2.0.2"
   },
   "type": "module",
   "devDependencies": {

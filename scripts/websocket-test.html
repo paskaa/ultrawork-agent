@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket 测试 - UltraWork</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #e0e0e0;
+        }
+        h1 { color: #00d4ff; }
+        .status {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .status.connected {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #10b981;
+        }
+        .status.disconnected {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+        .status.connecting {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid #00d4ff;
+            color: #00d4ff;
+        }
+        button {
+            background: #00d4ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #00a8cc;
+        }
+        .log {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .log-entry {
+            margin: 5px 0;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .log-time {
+            color: #888;
+        }
+        .log-info { color: #00d4ff; }
+        .log-error { color: #ef4444; }
+        .log-success { color: #10b981; }
+    </style>
+</head>
+<body>
+    <h1>🔌 WebSocket 连接测试</h1>
+    
+    <div id="status" class="status disconnected">
+        未连接
+    </div>
+    
+    <div>
+        <button onclick="connect()">连接 WebSocket</button>
+        <button onclick="disconnect()">断开连接</button>
+        <button onclick="testMessage()">发送测试消息</button>
+        <button onclick="clearLog()">清空日志</button>
+    </div>
+    
+    <div class="log" id="log">
+        <div class="log-entry">
+            <span class="log-time">系统</span>
+            <span class="log-info">等待连接...</span>
+        </div>
+    </div>
+    
+    <script>
+        let ws = null;
+        const statusDiv = document.getElementById('status');
+        const logDiv = document.getElementById('log');
+        
+        function log(message, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-${type}">${message}</span>`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function connect() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                log('已经连接', 'info');
+                return;
+            }
+            
+            const url = 'ws://localhost:3459/ws?session=default';
+            log(`正在连接: ${url}`, 'info');
+            
+            statusDiv.className = 'status connecting';
+            statusDiv.textContent = '连接中...';
+            
+            try {
+                ws = new WebSocket(url);
+                
+                ws.onopen = function() {
+                    statusDiv.className = 'status connected';
+                    statusDiv.textContent = '已连接';
+                    log('WebSocket 连接成功！', 'success');
+                };
+                
+                ws.onmessage = function(event) {
+                    log(`收到消息: ${event.data.substring(0, 100)}...`, 'success');
+                };
+                
+                ws.onerror = function(error) {
+                    statusDiv.className = 'status disconnected';
+                    statusDiv.textContent = '连接错误';
+                    log(`错误: ${error}`, 'error');
+                };
+                
+                ws.onclose = function(event) {
+                    statusDiv.className = 'status disconnected';
+                    statusDiv.textContent = '已断开';
+                    log(`连接关闭 (代码: ${event.code}, 原因: ${event.reason || '未知'})`, 'error');
+                    ws = null;
+                };
+            } catch (e) {
+                statusDiv.className = 'status disconnected';
+                statusDiv.textContent = '连接失败';
+                log(`连接失败: ${e.message}`, 'error');
+            }
+        }
+        
+        function disconnect() {
+            if (ws) {
+                ws.close();
+                log('主动断开连接', 'info');
+            } else {
+                log('没有活动连接', 'info');
+            }
+        }
+        
+        function testMessage() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'ping', time: Date.now() }));
+                log('发送测试消息', 'info');
+            } else {
+                log('未连接，无法发送消息', 'error');
+            }
+        }
+        
+        function clearLog() {
+            logDiv.innerHTML = '<div class="log-entry"><span class="log-time">系统</span> <span class="log-info">日志已清空</span></div>';
+        }
+        
+        // 自动尝试连接
+        setTimeout(connect, 500);
+    </script>
+</body>
+</html>

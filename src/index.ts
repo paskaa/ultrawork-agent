@@ -3,6 +3,7 @@ import type { Plugin } from "@opencode-ai/plugin"
 import { loadConfig } from "./config/loader.js"
 import { routeTask, routeByAgent } from "./agents/router.js"
 import { executeSyncTask, parseModelString } from "./executor/index.js"
+import { injectServerAuthIntoClient } from "./auth.js"
 import type { UltraWorkSanguoConfig, AgentConfig, CategoryConfig } from "./config/schema.js"
 
 const configCache = new Map<string, UltraWorkSanguoConfig>()
@@ -40,8 +41,39 @@ function parseAgentMention(prompt: string, availableAgents: string[]): ParsedPro
   return { agent: detectedAgent, cleanPrompt }
 }
 
+// Agent 名称映射到 OpenCode subagent_type
+const agentToSubagentMap: Record<string, string> = {
+  zhugeliang: "Sisyphus",
+  zhouyu: "Prometheus", 
+  zhaoyun: "Sisyphus",
+  simayi: "Explore",
+  guanyu: "Sisyphus",
+  zhangfei: "Sisyphus",
+}
+
 const UltraWorkSanguoPlugin: Plugin = async (ctx) => {
   console.log("[UltraWork-SanGuo] 🏰 三国军团调度系统启动...")
+  console.log("[UltraWork-SanGuo] Plugin version: 2.0.2-fixed")
+  console.log("[UltraWork-SanGuo] Default timeout: 60000ms")
+  
+  // 注入 Basic Auth 认证（关键！）
+  injectServerAuthIntoClient(ctx.client)
+  
+  // 尝试使用 setConfig 设置 headers
+  try {
+    const auth = Buffer.from(`opencode:${process.env.OPENCODE_SERVER_PASSWORD || ""}`).toString("base64")
+    if (ctx.client && typeof (ctx.client as any).setConfig === "function") {
+      (ctx.client as any).setConfig({
+        headers: {
+          Authorization: `Basic ${auth}`,
+        },
+      })
+      console.log("[UltraWork-SanGuo] Auth header set via setConfig")
+    }
+  } catch (e) {
+    console.log("[UltraWork-SanGuo] Failed to set auth via setConfig:", e)
+  }
+  
   const config = getConfig(ctx.directory)
   console.log("[UltraWork-SanGuo] ✅ 配置加载完成")
   console.log("[UltraWork-SanGuo] 将领:", Object.keys(config.agents ?? {}).join(", "))
@@ -80,7 +112,9 @@ ${categoryList}
    示例: @lusu 分析这个需求的可行性
 2. 指定 category: 自动选择该类别的将领和模型
 3. 指定 agent: 直接使用指定将领及其模型
-4. 都不指定: 根据任务关键词自动检测类别`,
+4. 都不指定: 根据任务关键词自动检测类别
+
+**注意:** 此工具会调用 OpenCode 内置的 task 工具执行实际任务`,
     args: {
       description: tool.schema.string().describe("任务简短描述 (3-5 词)"),
       prompt: tool.schema.string().describe("详细的任务内容 (可用 @将领名 指定将领)"),
@@ -88,6 +122,21 @@ ${categoryList}
       agent: tool.schema.string().optional().describe("将领名称 (可选)"),
     },
     async execute(args, toolCtx) {
+      // 在 tool 执行时设置认证
+      try {
+        const password = process.env.OPENCODE_SERVER_PASSWORD
+        if (password && ctx.client && typeof (ctx.client as any).setConfig === "function") {
+          const token = Buffer.from(`opencode:${password}`).toString("base64")
+          ;(ctx.client as any).setConfig({
+            headers: {
+              Authorization: `Basic ${token}`,
+            },
+          })
+        }
+      } catch (e) {
+        console.log("[UltraWork-SanGuo] Failed to set auth:", e)
+      }
+
       const cfg = getConfig(ctx.directory)
       const agentsCfg = cfg.agents ?? {}
       const categoriesCfg = cfg.categories ?? {}
@@ -116,7 +165,6 @@ ${categoryList}
           model = agentCfg?.model
         }
       } else if (agentFromPrompt) {
-        // 从 prompt 中解析到 @武将名
         const routing = routeByAgent(cfg, agentFromPrompt)
         if (routing) {
           agentName = routing.primaryAgent
@@ -149,34 +197,66 @@ ${categoryList}
       // 解析模型
       const categoryModel = model ? parseModelString(model) : undefined
 
+      // 映射到 OpenCode subagent_type
+      const subagentType = agentToSubagentMap[agentName] ?? "Sisyphus"
+
+      // 构建系统提示
+      const agentCfg = agentsCfg[agentName] as AgentConfig | undefined
+      const systemContent = agentCfg?.prompt_append ?? `你是${agentCfg?.description ?? agentName}。`
+
       // 设置元数据
       toolCtx.metadata({
         title: args.description,
         metadata: {
           agent: agentName,
           category: categoryName,
-          model: categoryModel ? `${categoryModel.providerID}/${categoryModel.modelID}` : "default",
+          model: model ?? "default",
+          subagent_type: subagentType,
         },
       })
 
       // 执行任务
-      return executeSyncTask(
-        {
-          description: args.description,
-          prompt: actualPrompt,
-          category: categoryName,
-          agent: agentName,
-        },
-        {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          client: ctx.client as any,
-          sessionID: toolCtx.sessionID,
-          directory: toolCtx.directory,
-        },
-        cfg,
-        agentName,
-        categoryModel ?? undefined
-      )
+      console.log("[UltraWork-SanGuo] 开始执行任务，agentName:", agentName)
+      
+      try {
+        return await executeSyncTask(
+          {
+            description: args.description,
+            prompt: actualPrompt,
+            category: categoryName,
+            agent: agentName,
+          },
+          {
+            client: ctx.client as any,
+            sessionID: toolCtx.sessionID,
+            directory: toolCtx.directory,
+          },
+          cfg,
+          agentName,
+          categoryModel ?? undefined
+        )
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        console.error("[UltraWork-SanGuo] Task execution failed:", errorMessage)
+        
+        // 如果执行失败，建议用户使用内置 task 工具
+        return `❌ 任务执行失败: ${errorMessage}
+
+💡 **建议:** 请直接使用 OpenCode 内置的 task 工具执行此任务:
+
+\`\`\`json
+{
+  "tool": "task",
+  "description": "${args.description}",
+  "prompt": "${systemContent}\\n\\n${actualPrompt.replace(/"/g, '\\"')}",
+  "subagent_type": "${subagentType}"
+}
+\`\`\`
+
+或者使用快捷命令:
+
+\`/ulw ${args.agent ? "@" + agentName + " " : ""}${actualPrompt}\``
+      }
     },
   })
 

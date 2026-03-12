@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2026-03-12 🎉
+
+### 🚀 Major Bug Fix Release - SDK v1 API Compatibility
+
+#### 🐛 Fixed
+
+- **OpenCode SDK v1 API Compatibility** - Fixed critical API parameter structure issues
+  - `session.create` now uses correct `{ body: {...}, query: {...} }` format
+  - `session.promptAsync` now uses `{ path: { id }, body: {...} }` format
+  - `session.get` now uses `{ path: { id } }` format
+  - `session.messages` now uses `{ path: { id } }` format
+  - Message parsing updated to use `info.role` and `parts` structure
+
+- **Authentication** - Added proper Basic Auth injection for plugin API calls
+  - New `auth.ts` module with `injectServerAuthIntoClient()`
+  - Automatic auth header injection via `setConfig` and interceptors
+
+- **Session Polling** - Improved session completion detection
+  - Added `session.status()` API usage for real-time status checks
+  - Fallback to `session.get()` for busy state detection
+
+- **Error Handling** - Added `safeStringify()` for robust error message extraction
+  - Handles circular references and complex error objects
+  - Prevents `[object Object]` errors in output
+
+#### ✨ Added
+
+- **OpenCode Skill** - New `opencode-sdk-v1-api` skill documenting SDK usage patterns
+- **Debug Logging** - Enhanced logging throughout the execution pipeline
+- **Web Panel Scripts** - Added multiple start scripts for web monitoring panel
+  - `start-panel.bat`, `start-server.bat`, `start-v4-full.bat`
+  - Real-time log viewing with state sync
+
+#### 📚 Documentation
+
+- Added `opencode-sdk-v1-api` skill with complete API usage examples
+- Updated README with SDK compatibility notes
+
+#### 🔧 Technical
+
+- Fixed TypeScript compilation issues
+- Updated dist files with correct API implementations
+- Added `.gitignore` entries for generated files
+
+---
+
 ## [2.0.0] - 2026-03-11 🎉🎉🎉
 
 ### 🚀 Major Release - Full Expansion

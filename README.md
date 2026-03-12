@@ -1,4 +1,4 @@
-# UltraWork - SanGuo Legion v2.0
+# UltraWork - SanGuo Legion v2.0.1
 
 > 鞠躬尽瘁，死而后已
 > 将帅齐心，其利断金
@@ -14,6 +14,8 @@ A hierarchical multi-agent orchestration system with Three Kingdoms themed comma
 - **17 Task Categories** - Auto-routing based on keywords
 - **Multi-Platform** - Qoder, OpenCode, Claude Code, Bailian
 - **Advanced Models** - Support for Bailian Coding Plan models (qwen3-coder-plus, qwen3-coder-next, qwen3-max-2026-01-23, glm-4.7)
+- **Web Panel** - Real-time monitoring with WebSocket support (v5.0)
+- **OpenCode SDK v1 Compatible** - Full API compatibility with OpenCode 1.2.24+
 
 ## 📦 Installation
 
@@ -161,6 +163,25 @@ ultrawork-sanguo/
 
 ## 📝 Changelog
 
+### v2.0.1 (2026-03-12)
+
+- 🐛 **Fixed**: OpenCode SDK v1 API compatibility issues
+  - Correct parameter structure for `session.create`, `promptAsync`, `get`, `messages`
+  - Fixed Basic Auth injection for plugin API calls
+  - Improved session polling with `session.status()` API
+  - Added `safeStringify()` for robust error handling
+- ✨ **Added**: `opencode-sdk-v1-api` skill with complete SDK usage documentation
+- ✨ **Added**: Enhanced debug logging throughout execution pipeline
+- ✨ **Added**: Web panel start scripts (`start-panel.bat`, `start-server.bat`)
+- 📚 **Docs**: Updated README with SDK compatibility notes
+
+### v2.0.0 (2026-03-11)
+
+- 🎉 **Major Release**: 45 Generals (17 Commanders + 27 Lieutenants + 1 Chief)
+- ✨ **New Chains**: ZhangHe (Performance), GanNing (Mobile), TaiShiCi (API), LuXun (AI), LuMeng (Web3)
+- ✨ **New Categories**: performance, mobile, api, ai, web3
+- 📚 **Docs**: Complete architecture documentation
+
 ### v1.8.1 (2026-03-09)
 
 - ✨ **New Models**: Added Bailian Coding Plan models support
@@ -193,6 +214,97 @@ MIT License - See [LICENSE](LICENSE) for details.
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 🖥️ Web 面板 (v5.0)
+
+实时 Web 面板支持 Session 多会话管理和 45 位将领状态监控。
+
+### 面板截图
+
+![Web Panel Screenshot](docs/web-panel-screenshot.png)
+
+### 快速启动
+
+```bash
+# 启动面板服务器
+/panel:start
+
+# 在浏览器中打开
+/panel:open
+
+# 查看状态
+/panel:status
+```
+
+### Web 面板功能
+
+- ✅ **45 位将领** - 完整的三国军团层级显示
+- ✅ **Session 多会话** - 独立的调度环境
+- ✅ **实时通信** - WebSocket 推送
+- ✅ **最近 5 个 Session** - 快速切换
+- ✅ **分配总览** - 活跃将领分布图
+- ✅ **自动推送** - OpenCode 集成
+- ✅ **自定义名称** - Session 命名
+
+### 访问地址
+
+- **Web 面板**: http://localhost:3459
+- **Session 列表**: http://localhost:3459/api/sessions
+- **最近 5 个**: http://localhost:3459/api/sessions/recent
+
+### 在代码中使用
+
+```javascript
+const { init, startTask, assignAgent, updateProgress, completeTask } = 
+  require('./ultrawork-sanguo/scripts/ultrawork-wrapper');
+
+// 创建 Session 并开始任务
+await init('修复登录Bug');
+await startTask('zhaoyun', '修复登录Bug', '分析代码');
+await updateProgress(50);
+await completeTask();
+```
+
+### 文件结构
+
+```
+ultrawork-sanguo/
+├── plugin.json                 # 插件配置
+├── scripts/
+│   ├── state-server-v5.cjs    # Web 服务器
+│   ├── ultrawork-reporter.js  # API 封装
+│   ├── ultrawork-wrapper.js   # 高级封装
+│   └── ultrawork-example.js   # 使用示例
+└── skills/
+    └── ultrawork-web-panel/   # 技能文档
+```
+
+### 配置
+
+```json
+{
+  "config": {
+    "port": 3459,
+    "defaultSession": "default",
+    "autoReport": true
+  }
+}
+```
+
+### 命令列表
+
+| 命令 | 描述 |
+|------|------|
+| `/panel:start` | 启动面板 |
+| `/panel:stop` | 停止面板 |
+| `/panel:open` | 打开浏览器 |
+| `/panel:status` | 检查状态 |
+| `/session:create <name>` | 创建 Session |
+| `/session:list` | 列出 Sessions |
+| `/session:switch <id>` | 切换 Session |
+| `/example:bugfix` | 运行示例 |
 
 ---
 

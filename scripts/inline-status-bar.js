@@ -132,7 +132,7 @@ const InlineStatusBar = {
   agentStart(agentId, action) {
     // 武将ID到名称的映射
     const agentMap = {
-      'zhugeliang': { name: '诸葛亮', alias: '孔明', model: 'Qwen3.5-Plus' },
+      'zhugeliang': { name: '诸葛亮', alias: '孔明', model: 'GLM-5' },
       'zhaoyun': { name: '赵云', alias: '子龙', model: 'Qwen-Coder' },
       'simayi': { name: '司马懿', alias: '仲达', model: 'Kimi-k2.5' },
       'zhangfei': { name: '张飞', alias: '翼德', model: 'MiniMax-M2.5' },

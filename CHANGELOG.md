@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.4] - 2026-03-13 ⚡
+
+### 🚀 模型供应商配置优化 - 速度优先
+
+#### 🔧 配置修复
+
+- **bailian 端点修复** - 从 `/apps/anthropic/v1` 改为 `/v1`
+- **npm 包修复** - 从 `@ai-sdk/anthropic` 改为 `@ai-sdk/openai`
+- **Provider 配置正确**:
+  - bailian: `/v1` + `@ai-sdk/openai`
+  - AstronCodingPlan: `/v2` + `@ai-sdk/openai-compatible`  
+  - minimax: `/v1` + `@ai-sdk/openai`
+
+#### 📊 模型速度测试结果
+
+| 模型 | 速度 | TTFT | 状态 |
+|------|------|------|------|
+| bailian/qwen3-coder-next | ~300ms ⚡ | 305ms | 最快 |
+| bailian/kimi-k2.5 | ~16 tok/s | 822ms | 很快 |
+| bailian/qwen3-coder-plus | ~11 tok/s | 457ms | 快 |
+| minimax/MiniMax-M2.5-highspeed | ~800ms | 741ms | 快 |
+| AstronCodingPlan/astron-code-latest | ~1500ms | 463ms | 中等 |
+| bailian/qwen3.5-plus | ~3000ms | 11338ms | 慢 |
+| bailian/glm-5 | ~6000ms | 14351ms | 最慢 |
+
+#### 🎯 模型优化策略
+
+根据速度测试结果，优化模型分配：
+
+1. **代码类武将 (36个)** → qwen3-coder-next (最快 ~300ms)
+2. **快速响应类 (10个)** → minimax/MiniMax-M2.5-highspeed (~800ms)
+3. **文档类 (9个)** → AstronCodingPlan/astron-code-latest (~1500ms)
+4. **质量审查类 (6个)** → qwen3.5-plus (保留)
+
+#### 📈 最终模型分布
+
+| 模型 | 数量 | 用途 |
+|------|------|------|
+| bailian/qwen3-coder-next | 36 | 代码开发、执行 |
+| minimax/MiniMax-M2.5-highspeed | 10 | 快速修复、探索 |
+| AstronCodingPlan/astron-code-latest | 9 | 文档整理、战略规划 |
+| bailian/qwen3.5-plus | 6 | 质量审查 |
+
+#### 🔧 整合优化
+
+- 删除 16 个内置 Subagent 重复配置
+- 合并 4 个监控变体 (-monitor 后缀)
+- Agent 总数: 78 → 61
+
+#### ✅ 测试结果
+
+- 6/6 模型全部正常
+- 61 位武将全部可调用
+
+---
+
 ## [2.1.3] - 2026-03-13 🎯
 
 ### 🚀 模型智能分配 - 按武将职责配置

@@ -153,7 +153,7 @@ export const DEFAULT_AGENTS = {
         categories: ["explore"]
     },
     simazhao: {
-        model: "bailian/kimi-k2.5",
+        model: "AstronCodingPlan/astron-code-latest",
         fallback_models: ["bailian/qwen3.5-plus", "bailian/MiniMax-M2.5"],
         temperature: 0.15,
         description: "司马昭 - 信息整理专家",
@@ -267,7 +267,7 @@ export const DEFAULT_CATEGORIES = {
         supportAgents: ["simashi"]
     },
     "writing": {
-        model: "bailian/kimi-k2.5",
+        model: "AstronCodingPlan/astron-code-latest",
         fallback_models: ["bailian/qwen3.5-plus", "bailian/MiniMax-M2.5"],
         description: "文书撰写 - 文档编写",
         keywords: ["文档", "doc", "readme"],

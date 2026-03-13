@@ -1,50 +1,45 @@
-# UltraWork - SanGuo Legion v2.1.3
+# UltraWork - SanGuo Legion v2.1.4
 
 > 鞠躬尽瘁，死而后已
 > 将帅齐心，其利断金
 
-A hierarchical multi-agent orchestration system with Three Kingdoms themed commanders and lieutenants. **45 generals**, **17 command chains**, **100% skill coverage**, **strict hierarchy dispatch**, supporting multiple platforms (Qoder, OpenCode, Claude Code, Bailian).
+A hierarchical multi-agent orchestration system with Three Kingdoms themed commanders and lieutenants. **61 generals**, **4 model providers**, **speed optimized**, supporting multiple platforms (OpenCode, Claude Code, Bailian, AstronCodingPlan, minimax).
 
 ## 🌟 Features
 
-- **45 Generals** - 1 Commander-in-Chief, 17 Commanders, 27 Lieutenants
-- **17 Command Chains** - Complete coverage of all development scenarios
-- **100% Skill Coverage** - DevOps, Database, Security, Performance, Mobile, API, AI, Web3
-- **Strict Hierarchy** - ZhugeLiang → Commanders → Lieutenants (no skipping levels)
+- **61 Generals** - 1 Commander-in-Chief, 17 Commanders, 43 Lieutenants
+- **4 Model Providers** - Bailian, AstronCodingPlan, minimax, OpenAI compatible
+- **Speed Optimized** - Auto-assign fastest model based on capabilities
+- **Strict Hierarchy** - ZhugeLiang → Commanders → Lieutenants
 - **17 Task Categories** - Auto-routing based on keywords
-- **Multi-Platform** - Qoder, OpenCode, Claude Code, Bailian
-- **Advanced Models** - Support for 4 core models: glm-5 (主力/战略), qwen3.5-plus (代码/视觉), kimi-k2.5 (长文本), MiniMax-M2.5 (快速)
-- **Web Panel** - Real-time monitoring with WebSocket support (v5.0)
-- **OpenCode SDK v1 Compatible** - Full API compatibility with OpenCode 1.2.24+
+- **Multi-Platform** - OpenCode, Claude Code, Bailian
+- **Advanced Models** - qwen3-coder-next (fastest), MiniMax-M2.5-highspeed, astron-code-latest, qwen3.5-plus
 
-## 🧠 Model Assignment Strategy (v2.1.3)
+## 🧠 Model Assignment Strategy (v2.1.4)
 
-根据四个模型的长处，为46位武将智能分配：
+### 📊 Model Speed Ranking
 
-### 📊 Model Capabilities
+| Rank | Model | Speed | TTFT | Best For |
+|------|-------|-------|------|----------|
+| 🥇 | qwen3-coder-next | ~300ms ⚡ | 305ms | Code development |
+| 🥈 | MiniMax-M2.5-highspeed | ~800ms | 741ms | Quick response |
+| 🥉 | astron-code-latest | ~1500ms | 463ms | Documentation |
+| 4 | qwen3.5-plus | ~3000ms | 11338ms | Code review |
 
-| Model | Strengths | Best For | Count |
-|-------|-----------|----------|-------|
-| **GLM-5** | Strategic planning, complex reasoning, architecture design | Commander-in-Chief, Commanders, planning | 9 |
-| **Qwen3.5-plus** | Strongest coding ability, visual understanding | Development, review, technical implementation | 30 |
-| **Kimi-k2.5** | Long context (256K), document processing | Documentation, analysis, information synthesis | 1 |
-| **MiniMax-M2.5** | Fast response, Agent capabilities | Exploration, monitoring, quick tasks | 6 |
+### 📈 Current Distribution
 
-### 🎖️ Assignment by Role Type
+| Model | Count | Usage |
+|-------|-------|-------|
+| **qwen3-coder-next** | 36 | Code development, execution |
+| **MiniMax-M2.5-highspeed** | 10 | Quick fix, exploration |
+| **astron-code-latest** | 9 | Documentation, planning |
+| **qwen3.5-plus** | 6 | Quality review |
 
-**Strategic (GLM-5)** - 9 generals
-- ZhugeLiang (Chief), ZhouYu (Strategy), LuSu (Resources), ZhangHe (Performance)
-- LuXun (AI), LuMeng (Web3), ManChong (Monitor), XuShu (Testing), MaChao (Reserve)
+### 🎖️ Provider Configuration
 
-**Coding (Qwen3.5-plus)** - 30 generals
-- ZhaoYun (Execution), GuanYu (Review), GaoShun (Frontend), ChenDao (Backend)
-- DengAi (DevOps), ZhangLiao (Database), YuJin (Security), GanNing (Mobile)
-
-**Fast Response (MiniMax-M2.5)** - 6 generals
-- SimaYi (Explore), ZhangFei (QuickFix), ChengYu (Frontend Monitor), JiaXu (Backend Monitor)
-
-**Documentation (Kimi-k2.5)** - 1 general
-- SimaZhao (Information Synthesis)
+- **bailian**: `https://coding.dashscope.aliyuncs.com/v1` + `@ai-sdk/openai`
+- **AstronCodingPlan**: `https://maas-coding-api.cn-huabei-1.xf-yun.com/v2` + `@ai-sdk/openai-compatible`
+- **minimax**: `https://api.minimaxi.com/v1` + `@ai-sdk/openai`
 
 ---
 

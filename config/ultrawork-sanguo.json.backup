@@ -3,10 +3,10 @@
   "agents": {
     "zhugeliang": {
       "name": "诸葛亮",
-      "model": "mmodel-hs",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "mmodel",
-        "q35model"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "诸葛亮 (孔明) - 主帅/调度器。运筹帷幄、调兵遣将，协调整个军团运作。",
@@ -15,10 +15,10 @@
     },
     "zhouyu": {
       "name": "周瑜",
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.2,
       "description": "周瑜 (公瑾) - 大都督/战略规划专家。访谈式需求分析，架构设计，决策支持。",
@@ -28,10 +28,10 @@
     },
     "zhaoyun": {
       "name": "赵云",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "赵云 (子龙) - 大将/深度执行者。自主深度工作，攻坚克难，擅长编码和重构。",
@@ -41,10 +41,10 @@
     },
     "simayi": {
       "name": "司马懿",
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "temperature": 0.2,
       "description": "司马懿 (仲达) - 谋士/情报官。洞察秋毫，代码搜索，信息收集，模式发现。",
@@ -54,10 +54,10 @@
     },
     "guanyu": {
       "name": "关羽",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "关羽 (云长) - 质量守护者。义薄云天，Code Review，代码质量把关，安全审计。",
@@ -67,10 +67,10 @@
     },
     "zhangfei": {
       "name": "张飞",
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "temperature": 0.15,
       "description": "张飞 (翼德) - 快速突击者。雷厉风行，速战速决，快速修复 Bug。",
@@ -80,10 +80,10 @@
     },
     "lusu": {
       "name": "鲁肃",
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.2,
       "description": "鲁肃 (子敬) - 资源规划专家。依赖分析、资源评估、可行性研究。",
@@ -94,10 +94,10 @@
     },
     "huanggai": {
       "name": "黄盖",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "黄盖 - 执行落地专家。原型验证、技术预研、方案落地。",
@@ -108,10 +108,10 @@
     },
     "gaoshun": {
       "name": "高顺",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "高顺 - 前端开发专家 (陷阵营统领)。攻坚任务、难点突破、前端组件开发。",
@@ -122,10 +122,10 @@
     },
     "chendao": {
       "name": "陈到",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "陈到 - 后端开发专家 (白耳兵统领)。精细实现、代码优化、后端接口开发。",
@@ -136,10 +136,10 @@
     },
     "simashi": {
       "name": "司马师",
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "temperature": 0.2,
       "description": "司马师 - 深度分析专家。架构探索、代码深度分析、复杂问题定位。",
@@ -150,10 +150,10 @@
     },
     "simazhao": {
       "name": "司马昭",
-      "model": "kmodel",
+      "model": "AstronCodingPlan/astron-code-latest",
       "fallback_models": [
-        "gmodel",
-        "q35model"
+        "bailian/glm-5",
+        "bailian/qwen3.5-plus"
       ],
       "temperature": 0.15,
       "description": "司马昭 - 信息整理专家。信息汇总、文档生成、知识提炼。",
@@ -164,10 +164,10 @@
     },
     "guanping": {
       "name": "关平",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "关平 - 代码审查专家 (关羽义子)。代码风格、规范检查、最佳实践。",
@@ -178,10 +178,10 @@
     },
     "zhoucang": {
       "name": "周仓",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "周仓 - 安全检查专家 (关羽部将)。安全漏洞、风险识别、安全审计。",
@@ -192,10 +192,10 @@
     },
     "leixu": {
       "name": "雷绪",
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "temperature": 0.1,
       "description": "雷绪 - 快速定位专家 (张飞部将)。Bug快速定位、问题追踪。",
@@ -206,10 +206,10 @@
     },
     "wulan": {
       "name": "吴兰",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "吴兰 - 即时修复专家 (张飞部将)。快速补丁、热修复、最小改动。",
@@ -220,10 +220,10 @@
     },
     "machao": {
       "name": "马超",
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.2,
       "description": "马超 (孟起) - 西凉猛将/后备军团统领。备用支援、特殊任务、实验性功能。",
@@ -232,10 +232,10 @@
     },
     "pangde": {
       "name": "庞德",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "庞德 - 后备支援专家/特殊任务专家 (马超部将)。负责探索性任务、原型验证、稳健执行、攻坚突击。原马岱(稳健支援)职能已整合至此。",
@@ -245,10 +245,10 @@
     },
     "dengai": {
       "name": "邓艾",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "邓艾 (士载) - DevOps大都督。专司CI/CD流水线、容器化部署、自动化运维、环境管理。文武双全，谋略过人。",
@@ -258,10 +258,10 @@
     },
     "wangshuang": {
       "name": "王双",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "王双 - CI/CD专家 (邓艾部将)。专司Jenkins、GitLab CI、自动化构建流水线、部署策略。力大无穷，武艺超群。",
@@ -272,10 +272,10 @@
     },
     "zhangyi_devops": {
       "name": "张翼",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "张翼 - 容器专家 (邓艾部将)。专司Docker、Kubernetes、容器编排、服务网格。忠心耿耿，稳重可靠。",
@@ -286,10 +286,10 @@
     },
     "zhangliao": {
       "name": "张辽",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "张辽 (文远) - 数据库大都督。专司数据库架构设计、SQL优化、数据迁移、备份恢复。威震逍遥津，智勇双全。",
@@ -299,10 +299,10 @@
     },
     "yuejin": {
       "name": "乐进",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "乐进 - SQL优化专家 (张辽部将)。专司SQL查询优化、索引设计、执行计划分析、慢查询处理。勇猛果敢，身先士卒。",
@@ -313,10 +313,10 @@
     },
     "lidian": {
       "name": "李典",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "李典 - 数据迁移专家 (张辽部将)。专司ETL流程、数据同步、异构迁移、数据清洗。深明大义，沉稳持重。",
@@ -327,10 +327,10 @@
     },
     "yujin": {
       "name": "于禁",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "于禁 (文则) - 安全大都督。专司安全审计、渗透测试、漏洞扫描、加密策略。治军严整，沉稳持重。",
@@ -340,10 +340,10 @@
     },
     "maojie": {
       "name": "毛玠",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "毛玠 - 渗透测试专家 (于禁部将)。专司Web渗透、API安全测试、漏洞挖掘、安全评估。清廉正直，执法如山。",
@@ -354,10 +354,10 @@
     },
     "dongzhao": {
       "name": "董昭",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "董昭 - 加密安全专家 (于禁部将)。专司数据加密、TLS配置、密钥管理、身份认证。谋略深远，算无遗策。",
@@ -368,10 +368,10 @@
     },
     "zhanghe": {
       "name": "张郃",
-      "model": "mmodel-hs",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "mmodel",
-        "q35model"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "张郃 (儁乂) - 性能大都督。专司性能分析、系统调优、容量规划、负载测试。智勇双全，善于应变。",
@@ -381,10 +381,10 @@
     },
     "guohuai": {
       "name": "郭淮",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "郭淮 - 系统性能专家 (张郃部将)。专司Profiling、性能瓶颈定位、JVM调优、数据库性能优化。沉着冷静，谋略深远。",
@@ -395,10 +395,10 @@
     },
     "ganning": {
       "name": "甘宁",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "甘宁 (兴霸) - 移动大都督。专司iOS/Android开发、跨平台方案、移动性能优化、App架构设计。勇猛果敢，百骑劫营。",
@@ -408,10 +408,10 @@
     },
     "lingtong": {
       "name": "凌统",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "凌统 - iOS专家 (甘宁部将)。专司Swift开发、UIKit/SwiftUI、iOS架构、App Store发布。忠勇果敢，舍生忘死。",
@@ -422,10 +422,10 @@
     },
     "dingfeng": {
       "name": "丁奉",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "丁奉 - Android专家 (甘宁部将)。专司Kotlin开发、Jetpack组件、Android架构、Google Play发布。勇猛善战，身先士卒。",
@@ -436,10 +436,10 @@
     },
     "taishici": {
       "name": "太史慈",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "太史慈 (子义) - API大都督。专司RESTful设计、GraphQL、API文档、版本管理。信义为先，胆略过人。",
@@ -449,10 +449,10 @@
     },
     "zhoutai": {
       "name": "周泰",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "周泰 - 接口设计专家 (太史慈部将)。专司API规范、接口测试、兼容性验证、文档维护。忠心护主，勇猛无畏。",
@@ -463,10 +463,10 @@
     },
     "luxun": {
       "name": "陆逊",
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "陆逊 (伯言) - AI大都督。专司机器学习、深度学习、智能推荐、NLP处理。书生拜大将，谋略无双。",
@@ -476,10 +476,10 @@
     },
     "panzhang": {
       "name": "潘璋",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "潘璋 - 数据科学家 (陆逊部将)。专司数据建模、特征工程、算法实现、模型优化。勇猛善战，执行力强。",
@@ -490,10 +490,10 @@
     },
     "lvmeng": {
       "name": "吕蒙",
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "吕蒙 (子明) - Web3大都督。专司区块链开发、智能合约、DApp、DeFi协议。士别三日，当刮目相看。",
@@ -503,10 +503,10 @@
     },
     "jiangqin": {
       "name": "蒋钦",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "蒋钦 - 智能合约专家 (吕蒙部将)。专司Solidity开发、合约安全审计、Gas优化、合约测试。沉稳老练，经验丰富。",
@@ -517,10 +517,10 @@
     },
     "manchong": {
       "name": "满宠",
-      "model": "mmodel-hs",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "mmodel",
-        "q35model"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.15,
       "description": "满宠 (伯宁) - 监察指挥官。统筹监控全局，汇总三方情报(前端/后端/E2E)，决策告警级别和响应策略。",
@@ -530,10 +530,10 @@
     },
     "chengyu": {
       "name": "程昱",
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "temperature": 0.1,
       "description": "程昱 (仲德) - 前端监控专家 (满宠部将)。专司前端/浏览器日志监控：Console、Network、Vue警告、用户行为追踪。",
@@ -544,10 +544,10 @@
     },
     "jiaxu": {
       "name": "贾诩",
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "temperature": 0.1,
       "description": "贾诩 (文和) - 后端监控专家 (满宠部将)。专司后端/系统监控：Spring Boot日志、API异常、数据库慢查询、系统资源。",
@@ -558,10 +558,10 @@
     },
     "liuye": {
       "name": "刘晔",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "刘晔 (子扬) - E2E测试专家 (满宠部将)。专司端到端测试：Playwright自动化、用户旅程验证、关键流程测试。",
@@ -572,10 +572,10 @@
     },
     "xushu": {
       "name": "徐庶",
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "徐庶 (元直) - 测试专家/大都督。洞察秋毫，专司单元测试、集成测试、E2E测试、测试覆盖率。",
@@ -585,10 +585,10 @@
     },
     "panglin": {
       "name": "庞林",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "庞林 - 前端测试专家 (徐庶部将)。专司Vue/Vitest测试、E2E测试、Playwright、前端覆盖率。",
@@ -599,10 +599,10 @@
     },
     "yanyan": {
       "name": "严颜",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "严颜 - 后端测试专家 (徐庶部将)。专司JUnit、Mockito、Spring Boot Test、Java测试。",
@@ -613,10 +613,10 @@
     },
     "jiangwei": {
       "name": "姜维",
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "temperature": 0.1,
       "description": "姜维 (伯约) - 系统管理专家/文件操作 (丞相传人)。专司文件迁移、目录整合、配置管理、备份恢复。谨慎细致、执行稳健。",
@@ -627,10 +627,10 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "variant": "high",
       "description": "攻城拔寨 - 前端、UI/UX、设计相关工作",
@@ -652,10 +652,10 @@
       "supportAgents": []
     },
     "deep": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "variant": "high",
       "description": "深入敌阵 - 深度自主调研与执行",
@@ -674,10 +674,10 @@
       "supportAgents": []
     },
     "quick": {
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "description": "速战速决 - 单文件修改、小修复",
       "keywords": [
@@ -695,10 +695,10 @@
       "supportAgents": []
     },
     "ultrabrain": {
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "variant": "high",
       "description": "运筹帷幄 - 复杂逻辑、架构决策",
@@ -717,10 +717,10 @@
       "supportAgents": []
     },
     "review": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "质量把关 - 代码审查、质量检查",
       "keywords": [
@@ -736,10 +736,10 @@
       "supportAgents": []
     },
     "explore": {
-      "model": "mmodel-hs",
+      "model": "bailian/MiniMax-M2.5",
       "fallback_models": [
-        "q35model",
-        "gmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/glm-5"
       ],
       "description": "情报侦察 - 代码搜索、问题定位",
       "keywords": [
@@ -756,10 +756,10 @@
       "supportAgents": []
     },
     "writing": {
-      "model": "kmodel",
+      "model": "AstronCodingPlan/astron-code-latest",
       "fallback_models": [
-        "gmodel",
-        "q35model"
+        "bailian/glm-5",
+        "bailian/qwen3.5-plus"
       ],
       "description": "文书撰写 - 文档编写、信息整理",
       "keywords": [
@@ -775,10 +775,10 @@
       "supportAgents": []
     },
     "reserve": {
-      "model": "mmodel-hs",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "mmodel",
-        "q35model"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "后备支援 - 特殊任务、探索任务、实验性功能",
       "keywords": [
@@ -792,10 +792,10 @@
       "supportAgents": []
     },
     "monitor": {
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "监察诊断 - 前后端日志监控、E2E测试、系统健康检查",
       "keywords": [
@@ -814,10 +814,10 @@
       "supportAgents": []
     },
     "test": {
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "质量保障 - 单元测试、集成测试、E2E测试、测试覆盖率",
       "keywords": [
@@ -834,10 +834,10 @@
       "supportAgents": []
     },
     "fileops": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "文件操作 - 文件迁移、目录整合、配置管理、备份恢复",
       "keywords": [
@@ -855,10 +855,10 @@
       "supportAgents": []
     },
     "devops": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "DevOps - CI/CD流水线、容器化部署、自动化运维、环境管理",
       "keywords": [
@@ -876,10 +876,10 @@
       "supportAgents": []
     },
     "database": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "数据库 - 数据库架构设计、SQL优化、数据迁移、备份恢复",
       "keywords": [
@@ -896,10 +896,10 @@
       "supportAgents": []
     },
     "security": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "安全 - 安全审计、渗透测试、漏洞扫描、加密策略",
       "keywords": [
@@ -916,10 +916,10 @@
       "supportAgents": []
     },
     "performance": {
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "性能优化 - 性能分析、系统调优、容量规划、负载测试",
       "keywords": [
@@ -936,10 +936,10 @@
       "supportAgents": []
     },
     "mobile": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "移动开发 - iOS/Android开发、跨平台方案、移动性能优化",
       "keywords": [
@@ -956,10 +956,10 @@
       "supportAgents": []
     },
     "api": {
-      "model": "q35model",
+      "model": "bailian/qwen3.5-plus",
       "fallback_models": [
-        "gmodel",
-        "mmodel"
+        "bailian/glm-5",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "API设计 - RESTful设计、GraphQL、API文档、版本管理",
       "keywords": [
@@ -975,10 +975,10 @@
       "supportAgents": []
     },
     "ai": {
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "人工智能 - 机器学习、深度学习、智能推荐、NLP处理",
       "keywords": [
@@ -995,10 +995,10 @@
       "supportAgents": []
     },
     "web3": {
-      "model": "gmodel",
+      "model": "bailian/glm-5",
       "fallback_models": [
-        "q35model",
-        "mmodel"
+        "bailian/qwen3.5-plus",
+        "bailian/MiniMax-M2.5"
       ],
       "description": "Web3 - 区块链开发、智能合约、DApp、DeFi协议",
       "keywords": [

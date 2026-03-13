@@ -100,7 +100,7 @@
       "agent": "simazhao",
       "category": "writing",
       "description": "文档更新、codemap → 司马昭 (子上) - 信息整理专家",
-      "model": "bailian/kimi-k2.5",
+      "model": "AstronCodingPlan/astron-code-latest",
       "fallback_models": [
         "bailian/qwen3.5-plus",
         "bailian/MiniMax-M2.5"

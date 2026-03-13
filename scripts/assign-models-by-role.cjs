@@ -5,7 +5,7 @@
  * 模型特点:
  * - glm-5: 战略规划、复杂推理、架构设计 (主帅、大都督)
  * - qwen3.5-plus: 代码能力最强、视觉理解 (开发、代码审查)
- * - kimi-k2.5: 长文本处理、图片理解 (文档、分析、信息整理)
+ * - AstronCodingPlan/astron-code-latest: 长文本处理、代码理解 (文档、分析、信息整理)
  * - MiniMax-M2.5: 快速响应、Agent能力 (探索、监控、快速任务)
  */
 
@@ -47,7 +47,7 @@ const MODEL_ASSIGNMENTS = {
   'huanggai': { model: 'bailian/qwen3.5-plus', reason: '执行落地、原型验证' },
   
   // 文档整理
-  'simazhao': { model: 'bailian/kimi-k2.5', reason: '信息整理、文档生成、长文本' },
+  'simazhao': { model: 'AstronCodingPlan/astron-code-latest', reason: '信息整理、文档生成、长文本' },
   
   // 后备支援
   'machao': { model: 'bailian/glm-5', reason: '特殊任务、实验功能' },
@@ -122,7 +122,7 @@ for (const [agentName, agentConfig] of Object.entries(config.agents)) {
       agentConfig.fallback_models = ['bailian/glm-5', 'bailian/MiniMax-M2.5'];
     } else if (assignment.model === 'bailian/MiniMax-M2.5') {
       agentConfig.fallback_models = ['bailian/qwen3.5-plus', 'bailian/glm-5'];
-    } else if (assignment.model === 'bailian/kimi-k2.5') {
+    } else if (assignment.model === 'AstronCodingPlan/astron-code-latest') {
       agentConfig.fallback_models = ['bailian/glm-5', 'bailian/qwen3.5-plus'];
     }
     
@@ -151,4 +151,4 @@ console.log(`\n🎯 模型分配策略:`);
 console.log(`   - glm-5 (战略型): 主帅、大都督、规划类`);
 console.log(`   - qwen3.5-plus (代码型): 开发、审查、技术实现`);
 console.log(`   - MiniMax-M2.5 (快速型): 探索、监控、快速响应`);
-console.log(`   - kimi-k2.5 (文档型): 信息整理、文档生成`);
+console.log(`   - AstronCodingPlan/astron-code-latest (文档型): 信息整理、文档生成`);

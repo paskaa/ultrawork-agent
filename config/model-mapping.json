@@ -1,0 +1,106 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "version": "1.0.0",
+  "description": "UltraWork 模型-供应商映射表 - 统一管理层",
+  
+  "modelMapping": {
+    "gmodel": {
+      "name": "GLM-5",
+      "provider": "bailian",
+      "modelId": "glm-5",
+      "fullId": "bailian/glm-5",
+      "description": "主力/战略模型 - 主帅、大都督使用",
+      "capabilities": ["reasoning", "planning", "orchestration"],
+      "fallbackChain": ["q35model", "mmodel"]
+    },
+    "q35model": {
+      "name": "Qwen3.5-Plus",
+      "provider": "bailian",
+      "modelId": "qwen3.5-plus",
+      "fullId": "bailian/qwen3.5-plus",
+      "description": "代码/开发模型 - 开发武将使用",
+      "capabilities": ["coding", "review", "implementation"],
+      "fallbackChain": ["gmodel", "mmodel"]
+    },
+    "kmodel": {
+      "name": "Astron Coding Plan",
+      "provider": "AstronCodingPlan",
+      "modelId": "astron-code-latest",
+      "fullId": "AstronCodingPlan/astron-code-latest",
+      "description": "长文本/文档模型 - 信息整理、文档生成",
+      "capabilities": ["writing", "documentation", "synthesis"],
+      "fallbackChain": ["gmodel", "q35model"]
+    },
+    "mmodel": {
+      "name": "MiniMax-M2.5",
+      "provider": "minimax",
+      "modelId": "MiniMax-M2.5",
+      "fullId": "minimax/MiniMax-M2.5",
+      "description": "快速响应模型 - 探索、监控使用",
+      "capabilities": ["exploration", "quick-response", "monitoring"],
+      "fallbackChain": ["q35model", "gmodel"]
+    },
+    "mmodel-hs": {
+      "name": "MiniMax-M2.5-highspeed",
+      "provider": "minimax",
+      "modelId": "MiniMax-M2.5-highspeed",
+      "fullId": "minimax/MiniMax-M2.5-highspeed",
+      "description": "高速响应模型 - 主帅专用，快速响应",
+      "capabilities": ["orchestration", "quick-response", "reasoning"],
+      "fallbackChain": ["mmodel", "q35model"]
+    }
+  },
+
+  "agentModelAssignments": {
+    "zhugeliang": "mmodel-hs",
+    "zhouyu": "gmodel",
+    "zhaoyun": "q35model",
+    "simayi": "mmodel-hs",
+    "guanyu": "q35model",
+    "zhangfei": "mmodel-hs",
+    "lusu": "gmodel",
+    "huanggai": "q35model",
+    "gaoshun": "q35model",
+    "chendao": "q35model",
+    "simashi": "mmodel-hs",
+    "simazhao": "kmodel",
+    "guanping": "q35model",
+    "zhoucang": "q35model",
+    "leixu": "mmodel-hs",
+    "wulan": "q35model",
+    "machao": "gmodel",
+    "madai": "mmodel-hs",
+    "pangde": "q35model",
+    "manchong": "mmodel-hs",
+    "zhanghe": "mmodel-hs"
+  },
+
+  "categoryModelAssignments": {
+    "visual-engineering": "q35model",
+    "deep": "q35model",
+    "quick": "mmodel-hs",
+    "ultrabrain": "gmodel",
+    "review": "q35model",
+    "explore": "mmodel-hs",
+    "writing": "kmodel",
+    "reserve": "mmodel-hs"
+  },
+
+  "providerConfigs": {
+    "bailian": {
+      "name": "Model Studio Coding Plan",
+      "baseURL": "https://coding.dashscope.aliyuncs.com/v1",
+      "apiKeyEnv": "BAILIAN_API_KEY"
+    },
+    "AstronCodingPlan": {
+      "name": "讯飞星辰 Coding Plan",
+      "baseURL": "https://maas-coding-api.cn-huabei-1.xf-yun.com/v2",
+      "apiKeyEnv": "ASTRON_API_KEY"
+    },
+    "minimax": {
+      "name": "MiniMax 高速模型",
+      "baseURL": "https://api.minimaxi.com/v1",
+      "apiKeyEnv": "MINIMAXI_API_KEY"
+    }
+  }
+}

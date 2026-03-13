@@ -17,7 +17,7 @@ const CATEGORY_MODELS = {
   'ultrabrain': { model: 'bailian/glm-5', reason: '战略规划' },
   'review': { model: 'bailian/qwen3.5-plus', reason: '代码审查' },
   'explore': { model: 'bailian/MiniMax-M2.5', reason: '快速探索' },
-  'writing': { model: 'bailian/kimi-k2.5', reason: '文档生成、长文本' },
+  'writing': { model: 'AstronCodingPlan/astron-code-latest', reason: '文档生成、长文本' },
   'reserve': { model: 'bailian/glm-5', reason: '特殊任务需要战略思维' },
   'monitor': { model: 'bailian/glm-5', reason: '监控指挥需要统筹' },
   'test': { model: 'bailian/glm-5', reason: '测试策略规划' },
@@ -48,7 +48,7 @@ for (const [catName, catConfig] of Object.entries(config.categories)) {
       catConfig.fallback_models = ['bailian/glm-5', 'bailian/MiniMax-M2.5'];
     } else if (assignment.model === 'bailian/MiniMax-M2.5') {
       catConfig.fallback_models = ['bailian/qwen3.5-plus', 'bailian/glm-5'];
-    } else if (assignment.model === 'bailian/kimi-k2.5') {
+    } else if (assignment.model === 'AstronCodingPlan/astron-code-latest') {
       catConfig.fallback_models = ['bailian/glm-5', 'bailian/qwen3.5-plus'];
     }
     

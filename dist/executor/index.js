@@ -27,12 +27,22 @@ export async function createSyncSession(client, input) {
     try {
         console.log("[UltraWork-SanGuo] Creating session with parentID:", input.parentSessionID);
         // 参考 oh-my-openagent 的参数结构: body + query
+        // 传递模型参数以便在创建会话时指定模型
+        const createBody = {
+            parentID: input.parentSessionID,
+            title: `[${input.agentToUse}] ${input.description}`,
+            permission: QUESTION_DENIED_PERMISSION,
+        };
+        // 如果提供了模型参数，在创建会话时指定模型
+        if (input.categoryModel) {
+            createBody.model = {
+                providerID: input.categoryModel.providerID,
+                modelID: input.categoryModel.modelID,
+            };
+            console.log("[UltraWork-SanGuo] 创建会话时设置模型:", input.categoryModel.providerID + "/" + input.categoryModel.modelID);
+        }
         const createResult = await client.session.create({
-            body: {
-                parentID: input.parentSessionID,
-                title: `[${input.agentToUse}] ${input.description}`,
-                permission: QUESTION_DENIED_PERMISSION,
-            },
+            body: createBody,
             query: {
                 directory: parentDirectory,
             },
@@ -250,12 +260,13 @@ export async function executeSyncTask(args, ctx, config, agentName, categoryMode
     // 重新注入认证（确保每次执行时都有认证）
     const { injectServerAuthIntoClient } = await import("../auth.js");
     injectServerAuthIntoClient(ctx.client);
-    // 1. 创建子会话
+    // 1. 创建子会话（带模型参数）
     const sessionResult = await createSyncSession(ctx.client, {
         parentSessionID: ctx.sessionID,
         agentToUse: agentName,
         description: args.description,
         defaultDirectory: ctx.directory,
+        categoryModel,
     });
     if (!sessionResult.ok) {
         return `❌ 创建会话失败: ${sessionResult.error}`;

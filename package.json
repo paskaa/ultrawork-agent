@@ -1,7 +1,7 @@
 {
   "name": "ultrawork-sanguo",
-  "version": "2.1.4",
-  "description": "UltraWork SanGuo Legion v2.1.4 - 三国军团多智能体编排系统，智能模型分配(按速度最优)、61位武将、4大模型供应商(阿里云百炼/讯飞星辰/minimax)、速度优化",
+  "version": "2.1.5",
+  "description": "UltraWork SanGuo Legion v2.1.5 - 三国军团多智能体编排系统，修复模型解析、优化模型分配、61位武将、4大模型供应商(阿里云百炼/讯飞星辰/minimax)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {

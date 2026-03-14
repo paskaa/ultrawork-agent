@@ -79,66 +79,66 @@ export type RuntimeFallbackConfig = z.infer<typeof RuntimeFallbackConfigSchema>
 export type UltraworkConfig = z.infer<typeof UltraworkConfigSchema>
 export type UltraWorkSanguoConfig = z.infer<typeof UltraWorkSanguoConfigSchema>
 
-// 19将领完整配置 - bailian 模型
+// 19将领完整配置 - 使用内部模型key
 export const DEFAULT_AGENTS: Record<string, AgentConfig> = {
   zhugeliang: { 
-    model: "bailian/glm-5", 
-    fallback_models: ["bailian/qwen3.5-plus", "bailian/MiniMax-M2.5"],
+    model: "mmodel-hs", 
+    fallback_models: ["mmodel", "q35model"],
     temperature: 0.1, 
     description: "诸葛亮 (孔明) - 主帅/调度器", 
     role: "orchestrator" 
   },
   zhouyu: { 
-    model: "bailian/glm-5", 
-    fallback_models: ["bailian/qwen3.5-plus", "bailian/MiniMax-M2.5"],
+    model: "gmodel", 
+    fallback_models: ["q35model", "mmodel"],
     temperature: 0.2, 
     description: "周瑜 (公瑾) - 大都督/战略规划专家", 
     role: "planner", 
     categories: ["ultrabrain"] 
   },
   zhaoyun: { 
-    model: "bailian/glm-5", 
-    fallback_models: ["bailian/qwen3.5-plus", "bailian/MiniMax-M2.5"],
+    model: "q35model", 
+    fallback_models: ["gmodel", "mmodel"],
     temperature: 0.1, 
     description: "赵云 (子龙) - 大将/深度执行者", 
     role: "executor", 
     categories: ["deep", "visual-engineering"] 
   },
   simayi: { 
-    model: "bailian/MiniMax-M2.5", 
-    fallback_models: ["bailian/glm-5", "bailian/qwen3.5-plus"],
+    model: "mmodel-hs", 
+    fallback_models: ["q35model", "gmodel"],
     temperature: 0.2, 
     description: "司马懿 (仲达) - 谋士/情报官", 
     role: "explorer", 
     categories: ["explore"] 
   },
   guanyu: { 
-    model: "bailian/glm-5", 
-    fallback_models: ["bailian/qwen3.5-plus", "bailian/MiniMax-M2.5"],
+    model: "q35model", 
+    fallback_models: ["gmodel", "mmodel"],
     temperature: 0.1, 
     description: "关羽 (云长) - 质量守护者", 
     role: "reviewer", 
     categories: ["review"] 
   },
   zhangfei: { 
-    model: "bailian/MiniMax-M2.5", 
-    fallback_models: ["bailian/glm-5", "bailian/qwen3.5-plus"],
+    model: "mmodel-hs", 
+    fallback_models: ["q35model", "gmodel"],
     temperature: 0.15, 
     description: "张飞 (翼德) - 快速突击者", 
     role: "quickfixer", 
     categories: ["quick"] 
   },
   lusu: { 
-    model: "bailian/MiniMax-M2.5", 
-    fallback_models: ["bailian/qwen3.5-plus", "bailian/glm-5"],
+    model: "gmodel", 
+    fallback_models: ["q35model", "mmodel"],
     temperature: 0.2, 
     description: "鲁肃 (子敬) - 资源规划专家", 
     role: "resource_planner", 
     categories: ["ultrabrain"] 
   },
   huanggai: { 
-    model: "bailian/qwen3.5-plus", 
-    fallback_models: ["bailian/glm-5", "bailian/MiniMax-M2.5"],
+    model: "q35model", 
+    fallback_models: ["gmodel", "mmodel"],
     temperature: 0.15, 
     description: "黄盖 - 执行落地专家", 
     role: "implementer", 

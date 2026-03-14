@@ -1,0 +1,1572 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "zhugeliang": {
+      "name": "诸葛亮",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "mmodel",
+        "q35model"
+      ],
+      "temperature": 0.1,
+      "description": "诸葛亮 (孔明) - 主帅/调度器。运筹帷幄、调兵遣将，协调整个军团运作。",
+      "role": "orchestrator",
+      "prompt_append": "作为主帅，你需要分析任务意图、分解任务、协调各将领。根据任务类别指派对应的将领执行。"
+    },
+    "zhouyu": {
+      "name": "周瑜",
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "temperature": 0.2,
+      "description": "周瑜 (公瑾) - 大都督/战略规划专家。访谈式需求分析，架构设计，决策支持。",
+      "role": "planner",
+      "categories": [],
+      "prompt_append": "作为战略规划师，采用访谈模式，提出关键问题澄清需求，产出可执行的作战计划。"
+    },
+    "zhaoyun": {
+      "name": "赵云",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "赵云 (子龙) - 大将/深度执行者。自主深度工作，攻坚克难，擅长编码和重构。",
+      "role": "executor",
+      "categories": [],
+      "prompt_append": "作为常胜将军，独立作战，自己做决定不问琐事。探索代码库、分析模式、实现完整功能。"
+    },
+    "simayi": {
+      "name": "司马懿",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "temperature": 0.2,
+      "description": "司马懿 (仲达) - 谋士/情报官。洞察秋毫，代码搜索，信息收集，模式发现。",
+      "role": "explorer",
+      "categories": [],
+      "prompt_append": "作为情报官，快速定位代码和信息，识别代码模式和规范，提供结构化的探索结果。"
+    },
+    "guanyu": {
+      "name": "关羽",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "关羽 (云长) - 质量守护者。义薄云天，Code Review，代码质量把关，安全审计。",
+      "role": "reviewer",
+      "categories": [],
+      "prompt_append": "作为质量守护者，对代码质量有坚定信仰，不放过任何质量问题，给出建设性建议。"
+    },
+    "zhangfei": {
+      "name": "张飞",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "temperature": 0.15,
+      "description": "张飞 (翼德) - 快速突击者。雷厉风行，速战速决，快速修复 Bug。",
+      "role": "quickfixer",
+      "categories": [],
+      "prompt_append": "作为猛将，兵贵神速，快速定位问题根因，一击必杀，最小改动解决问题。"
+    },
+    "lusu": {
+      "name": "鲁肃",
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "temperature": 0.2,
+      "description": "鲁肃 (子敬) - 资源规划专家。依赖分析、资源评估、可行性研究。",
+      "role": "resource_planner",
+      "categories": [],
+      "commander": "zhouyu",
+      "prompt_append": "作为资源规划师，分析依赖关系、评估资源需求、制定实施方案。"
+    },
+    "huanggai": {
+      "name": "黄盖",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "黄盖 - 执行落地专家。原型验证、技术预研、方案落地。",
+      "role": "implementer",
+      "categories": [],
+      "commander": "zhouyu",
+      "prompt_append": "作为执行专家，专注于方案落地和实施，确保计划的每个细节都能执行到位。"
+    },
+    "gaoshun": {
+      "name": "高顺",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "高顺 - 前端开发专家 (陷阵营统领)。攻坚任务、难点突破、前端组件开发。",
+      "role": "frontend_specialist",
+      "categories": [],
+      "commander": "zhaoyun",
+      "prompt_append": "作为陷阵营统领，攻坚克难，专注前端开发和UI实现。"
+    },
+    "chendao": {
+      "name": "陈到",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "陈到 - 后端开发专家 (白耳兵统领)。精细实现、代码优化、后端接口开发。",
+      "role": "backend_specialist",
+      "categories": [],
+      "commander": "zhaoyun",
+      "prompt_append": "作为白耳兵统领，精细实现，专注后端开发和代码优化。"
+    },
+    "simashi": {
+      "name": "司马师",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "temperature": 0.2,
+      "description": "司马师 - 深度分析专家。架构探索、代码深度分析、复杂问题定位。",
+      "role": "deep_analyst",
+      "categories": [],
+      "commander": "simayi",
+      "prompt_append": "作为深度分析专家，深入理解代码架构，发现潜在问题和优化空间。"
+    },
+    "simazhao": {
+      "name": "司马昭",
+      "model": "kmodel",
+      "fallback_models": [
+        "gmodel",
+        "q35model"
+      ],
+      "temperature": 0.15,
+      "description": "司马昭 - 信息整理专家。信息汇总、文档生成、知识提炼。",
+      "role": "information_synthesizer",
+      "categories": [],
+      "commander": "simayi",
+      "prompt_append": "作为信息整理专家，将复杂信息结构化，产出清晰的文档和知识总结。"
+    },
+    "guanping": {
+      "name": "关平",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "关平 - 代码审查专家 (关羽义子)。代码风格、规范检查、最佳实践。",
+      "role": "code_reviewer",
+      "categories": [],
+      "commander": "guanyu",
+      "prompt_append": "作为关平，协助关羽进行代码审查，检查代码风格、规范和最佳实践。"
+    },
+    "zhoucang": {
+      "name": "周仓",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "周仓 - 安全检查专家 (关羽部将)。安全漏洞、风险识别、安全审计。",
+      "role": "security_checker",
+      "categories": [],
+      "commander": "guanyu",
+      "prompt_append": "作为周仓，协助关羽进行安全检查，识别安全漏洞和风险。"
+    },
+    "leixu": {
+      "name": "雷绪",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "temperature": 0.1,
+      "description": "雷绪 - 快速定位专家 (张飞部将)。Bug快速定位、问题追踪。",
+      "role": "quick_locator",
+      "categories": [],
+      "commander": "zhangfei",
+      "prompt_append": "作为雷绪，协助张飞快速定位Bug和问题根因。"
+    },
+    "wulan": {
+      "name": "吴兰",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "吴兰 - 即时修复专家 (张飞部将)。快速补丁、热修复、最小改动。",
+      "role": "quick_fixer",
+      "categories": [],
+      "commander": "zhangfei",
+      "prompt_append": "作为吴兰，协助张飞进行即时修复，快速应用补丁。"
+    },
+    "machao": {
+      "name": "马超",
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "temperature": 0.2,
+      "description": "马超 (孟起) - 西凉猛将/后备军团统领。备用支援、特殊任务、实验性功能。",
+      "role": "reserve_commander",
+      "prompt_append": "作为西凉猛将，随时支援各条战线，处理特殊和实验性任务。锦马超，威震西凉。"
+    },
+    "pangde": {
+      "name": "庞德",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "庞德 - 后备支援专家/特殊任务专家 (马超部将)。负责探索性任务、原型验证、稳健执行、攻坚突击。原马岱(稳健支援)职能已整合至此。",
+      "role": "special_scout",
+      "commander": "machao",
+      "prompt_append": "作为庞德，执行探索性任务、原型验证和稳健支援任务。白袍银甲，勇冠三军。原马岱(稳健支援)职能已整合至此，现由庞德统一负责后备支援。"
+    },
+    "dengai": {
+      "name": "邓艾",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "邓艾 (士载) - DevOps大都督。专司CI/CD流水线、容器化部署、自动化运维、环境管理。文武双全，谋略过人。",
+      "role": "devops_commander",
+      "categories": [],
+      "prompt_append": "作为DevOps大都督，负责自动化部署和运维管理。文武双全，谋略过人。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(王双/张翼)。"
+    },
+    "wangshuang": {
+      "name": "王双",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "王双 - CI/CD专家 (邓艾部将)。专司Jenkins、GitLab CI、自动化构建流水线、部署策略。力大无穷，武艺超群。",
+      "role": "cicd_specialist",
+      "categories": [],
+      "commander": "dengai",
+      "prompt_append": "作为王双，专精CI/CD流水线。向大都督邓艾汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "zhangyi_devops": {
+      "name": "张翼",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "张翼 - 容器专家 (邓艾部将)。专司Docker、Kubernetes、容器编排、服务网格。忠心耿耿，稳重可靠。",
+      "role": "container_specialist",
+      "categories": [],
+      "commander": "dengai",
+      "prompt_append": "作为张翼，专精容器化技术。向大都督邓艾汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "zhangliao": {
+      "name": "张辽",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "张辽 (文远) - 数据库大都督。专司数据库架构设计、SQL优化、数据迁移、备份恢复。威震逍遥津，智勇双全。",
+      "role": "database_commander",
+      "categories": [],
+      "prompt_append": "作为数据库大都督，负责数据架构和性能优化。威震逍遥津，智勇双全。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(乐进/李典)。"
+    },
+    "yuejin": {
+      "name": "乐进",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "乐进 - SQL优化专家 (张辽部将)。专司SQL查询优化、索引设计、执行计划分析、慢查询处理。勇猛果敢，身先士卒。",
+      "role": "sql_optimizer",
+      "categories": [],
+      "commander": "zhangliao",
+      "prompt_append": "作为乐进，专精SQL优化。向大都督张辽汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "lidian": {
+      "name": "李典",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "李典 - 数据迁移专家 (张辽部将)。专司ETL流程、数据同步、异构迁移、数据清洗。深明大义，沉稳持重。",
+      "role": "data_migration_specialist",
+      "categories": [],
+      "commander": "zhangliao",
+      "prompt_append": "作为李典，专精数据迁移。向大都督张辽汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "yujin": {
+      "name": "于禁",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "于禁 (文则) - 安全大都督。专司安全审计、渗透测试、漏洞扫描、加密策略。治军严整，沉稳持重。",
+      "role": "security_commander",
+      "categories": [],
+      "prompt_append": "作为安全大都督，负责系统安全审计和防护。治军严整，沉稳持重。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(毛玠/董昭)。"
+    },
+    "maojie": {
+      "name": "毛玠",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "毛玠 - 渗透测试专家 (于禁部将)。专司Web渗透、API安全测试、漏洞挖掘、安全评估。清廉正直，执法如山。",
+      "role": "penetration_tester",
+      "categories": [],
+      "commander": "yujin",
+      "prompt_append": "作为毛玠，专精渗透测试。向大都督于禁汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "dongzhao": {
+      "name": "董昭",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "董昭 - 加密安全专家 (于禁部将)。专司数据加密、TLS配置、密钥管理、身份认证。谋略深远，算无遗策。",
+      "role": "crypto_security_specialist",
+      "categories": [],
+      "commander": "yujin",
+      "prompt_append": "作为董昭，专精加密安全。向大都督于禁汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "zhanghe": {
+      "name": "张郃",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "mmodel",
+        "q35model"
+      ],
+      "temperature": 0.15,
+      "description": "张郃 (儁乂) - 性能大都督。专司性能分析、系统调优、容量规划、负载测试。智勇双全，善于应变。",
+      "role": "performance_commander",
+      "categories": [],
+      "prompt_append": "作为性能大都督，负责系统性能分析和调优。智勇双全，善于应变。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(郭淮)。"
+    },
+    "guohuai": {
+      "name": "郭淮",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "郭淮 - 系统性能专家 (张郃部将)。专司Profiling、性能瓶颈定位、JVM调优、数据库性能优化。沉着冷静，谋略深远。",
+      "role": "performance_specialist",
+      "categories": [],
+      "commander": "zhanghe",
+      "prompt_append": "作为郭淮，专精系统性能分析。向大都督张郃汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "ganning": {
+      "name": "甘宁",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "甘宁 (兴霸) - 移动大都督。专司iOS/Android开发、跨平台方案、移动性能优化、App架构设计。勇猛果敢，百骑劫营。",
+      "role": "mobile_commander",
+      "categories": [],
+      "prompt_append": "作为移动大都督，负责移动开发和跨平台方案。勇猛果敢，百骑劫营。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(凌统/丁奉)。"
+    },
+    "lingtong": {
+      "name": "凌统",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "凌统 - iOS专家 (甘宁部将)。专司Swift开发、UIKit/SwiftUI、iOS架构、App Store发布。忠勇果敢，舍生忘死。",
+      "role": "ios_specialist",
+      "categories": [],
+      "commander": "ganning",
+      "prompt_append": "作为凌统，专精iOS开发。向大都督甘宁汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "dingfeng": {
+      "name": "丁奉",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "丁奉 - Android专家 (甘宁部将)。专司Kotlin开发、Jetpack组件、Android架构、Google Play发布。勇猛善战，身先士卒。",
+      "role": "android_specialist",
+      "categories": [],
+      "commander": "ganning",
+      "prompt_append": "作为丁奉，专精Android开发。向大都督甘宁汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "taishici": {
+      "name": "太史慈",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "太史慈 (子义) - API大都督。专司RESTful设计、GraphQL、API文档、版本管理。信义为先，胆略过人。",
+      "role": "api_commander",
+      "categories": [],
+      "prompt_append": "作为API大都督，负责接口设计和规范。信义为先，胆略过人。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(周泰)。"
+    },
+    "zhoutai": {
+      "name": "周泰",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "周泰 - 接口设计专家 (太史慈部将)。专司API规范、接口测试、兼容性验证、文档维护。忠心护主，勇猛无畏。",
+      "role": "api_designer",
+      "categories": [],
+      "commander": "taishici",
+      "prompt_append": "作为周泰，专精接口设计。向大都督太史慈汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "luxun": {
+      "name": "陆逊",
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "陆逊 (伯言) - AI大都督。专司机器学习、深度学习、智能推荐、NLP处理。书生拜大将，谋略无双。",
+      "role": "ai_commander",
+      "categories": [],
+      "prompt_append": "作为AI大都督，负责机器学习和智能系统。书生拜大将，谋略无双。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(潘璋)。"
+    },
+    "panzhang": {
+      "name": "潘璋",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "潘璋 - 数据科学家 (陆逊部将)。专司数据建模、特征工程、算法实现、模型优化。勇猛善战，执行力强。",
+      "role": "data_scientist",
+      "categories": [],
+      "commander": "luxun",
+      "prompt_append": "作为潘璋，专精数据科学。向大都督陆逊汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "lvmeng": {
+      "name": "吕蒙",
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "temperature": 0.15,
+      "description": "吕蒙 (子明) - Web3大都督。专司区块链开发、智能合约、DApp、DeFi协议。士别三日，当刮目相看。",
+      "role": "web3_commander",
+      "categories": [],
+      "prompt_append": "作为Web3大都督，负责区块链和去中心化应用。士别三日，当刮目相看。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(蒋钦)。"
+    },
+    "jiangqin": {
+      "name": "蒋钦",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "蒋钦 - 智能合约专家 (吕蒙部将)。专司Solidity开发、合约安全审计、Gas优化、合约测试。沉稳老练，经验丰富。",
+      "role": "smart_contract_specialist",
+      "categories": [],
+      "commander": "lvmeng",
+      "prompt_append": "作为蒋钦，专精智能合约开发。向大都督吕蒙汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "manchong": {
+      "name": "满宠",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "mmodel",
+        "q35model"
+      ],
+      "temperature": 0.15,
+      "description": "满宠 (伯宁) - 监察指挥官。统筹监控全局，汇总三方情报(前端/后端/E2E)，决策告警级别和响应策略。",
+      "role": "monitor_commander",
+      "categories": [],
+      "prompt_append": "作为监察指挥官，统筹满宠团队(程昱/贾诩/刘晔)并行执行监控和测试任务，汇总三方情报生成综合报告。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(程昱/贾诩/刘晔)。"
+    },
+    "chengyu": {
+      "name": "程昱",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "temperature": 0.1,
+      "description": "程昱 (仲德) - 前端监控专家 (满宠部将)。专司前端/浏览器日志监控：Console、Network、Vue警告、用户行为追踪。",
+      "role": "frontend_monitor",
+      "categories": [],
+      "commander": "manchong",
+      "prompt_append": "作为程昱，专精前端监控。向大都督满宠汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "jiaxu": {
+      "name": "贾诩",
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "temperature": 0.1,
+      "description": "贾诩 (文和) - 后端监控专家 (满宠部将)。专司后端/系统监控：Spring Boot日志、API异常、数据库慢查询、系统资源。",
+      "role": "backend_monitor",
+      "categories": [],
+      "commander": "manchong",
+      "prompt_append": "作为贾诩，专精后端监控。向大都督满宠汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "liuye": {
+      "name": "刘晔",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "刘晔 (子扬) - E2E测试专家 (满宠部将)。专司端到端测试：Playwright自动化、用户旅程验证、关键流程测试。",
+      "role": "e2e_tester",
+      "categories": [],
+      "commander": "manchong",
+      "prompt_append": "作为刘晔，专精E2E测试。向大都督满宠汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "xushu": {
+      "name": "徐庶",
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "徐庶 (元直) - 测试专家/大都督。洞察秋毫，专司单元测试、集成测试、E2E测试、测试覆盖率。",
+      "role": "test_expert",
+      "categories": [],
+      "prompt_append": "作为测试专家，统筹徐庶团队(庞林/严颜)执行测试任务，确保代码质量。严格遵循层级调用：主帅(诸葛亮)→大都督(你)→部将(庞林/严颜)。"
+    },
+    "panglin": {
+      "name": "庞林",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "庞林 - 前端测试专家 (徐庶部将)。专司Vue/Vitest测试、E2E测试、Playwright、前端覆盖率。",
+      "role": "frontend_tester",
+      "categories": [],
+      "commander": "xushu",
+      "prompt_append": "作为庞林，专精前端测试。向大都督徐庶汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "yanyan": {
+      "name": "严颜",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "严颜 - 后端测试专家 (徐庶部将)。专司JUnit、Mockito、Spring Boot Test、Java测试。",
+      "role": "backend_tester",
+      "categories": [],
+      "commander": "xushu",
+      "prompt_append": "作为严颜，专精后端测试。向大都督徐庶汇报，禁止越级向主帅诸葛亮汇报。"
+    },
+    "jiangwei": {
+      "name": "姜维",
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "temperature": 0.1,
+      "description": "姜维 (伯约) - 系统管理专家/文件操作 (丞相传人)。专司文件迁移、目录整合、配置管理、备份恢复。谨慎细致、执行稳健。",
+      "role": "file_operations",
+      "categories": [],
+      "prompt_append": "作为丞相传人，专精文件系统操作。操作前必备份，确保数据安全。向主帅诸葛亮汇报。"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "variant": "high",
+      "description": "攻城拔寨 - 前端、UI/UX、设计相关工作",
+      "keywords": [
+        "UI",
+        "Vue",
+        "前端",
+        "组件",
+        "页面",
+        "界面",
+        "样式",
+        "CSS",
+        "交互",
+        "布局",
+        "element",
+        "设计"
+      ],
+      "primaryAgent": "zhaoyun",
+      "supportAgents": []
+    },
+    "deep": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "variant": "high",
+      "description": "深入敌阵 - 深度自主调研与执行",
+      "keywords": [
+        "重构",
+        "架构",
+        "实现",
+        "开发",
+        "复杂",
+        "功能",
+        "模块",
+        "系统",
+        "集成"
+      ],
+      "primaryAgent": "zhaoyun",
+      "supportAgents": []
+    },
+    "quick": {
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "description": "速战速决 - 单文件修改、小修复",
+      "keywords": [
+        "修复",
+        "bug",
+        "fix",
+        "修改",
+        "更新",
+        "改",
+        "typo",
+        "错",
+        "问题"
+      ],
+      "primaryAgent": "zhangfei",
+      "supportAgents": []
+    },
+    "ultrabrain": {
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "variant": "high",
+      "description": "运筹帷幄 - 复杂逻辑、架构决策",
+      "keywords": [
+        "设计",
+        "方案",
+        "决策",
+        "架构",
+        "规划",
+        "思考",
+        "分析",
+        "策略",
+        "评估"
+      ],
+      "primaryAgent": "zhouyu",
+      "supportAgents": []
+    },
+    "review": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "质量把关 - 代码审查、质量检查",
+      "keywords": [
+        "review",
+        "审查",
+        "检查",
+        "质量",
+        "优化",
+        "重构建议",
+        "Code Review"
+      ],
+      "primaryAgent": "guanyu",
+      "supportAgents": []
+    },
+    "explore": {
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "q35model",
+        "gmodel"
+      ],
+      "description": "情报侦察 - 代码搜索、问题定位",
+      "keywords": [
+        "搜索",
+        "查找",
+        "定位",
+        "找到",
+        "search",
+        "find",
+        "locate",
+        "grep"
+      ],
+      "primaryAgent": "simayi",
+      "supportAgents": []
+    },
+    "writing": {
+      "model": "kmodel",
+      "fallback_models": [
+        "gmodel",
+        "q35model"
+      ],
+      "description": "文书撰写 - 文档编写、信息整理",
+      "keywords": [
+        "文档",
+        "doc",
+        "readme",
+        "说明",
+        "注释",
+        "文档化",
+        "document"
+      ],
+      "primaryAgent": "simayi",
+      "supportAgents": []
+    },
+    "reserve": {
+      "model": "mmodel-hs",
+      "fallback_models": [
+        "mmodel",
+        "q35model"
+      ],
+      "description": "后备支援 - 特殊任务、探索任务、实验性功能",
+      "keywords": [
+        "特殊",
+        "实验",
+        "备用",
+        "支援",
+        "reserve"
+      ],
+      "primaryAgent": "machao",
+      "supportAgents": []
+    },
+    "monitor": {
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "description": "监察诊断 - 前后端日志监控、E2E测试、系统健康检查",
+      "keywords": [
+        "监控",
+        "日志",
+        "异常",
+        "告警",
+        "E2E",
+        "测试",
+        "console",
+        "network",
+        "API错误",
+        "系统资源"
+      ],
+      "primaryAgent": "manchong",
+      "supportAgents": []
+    },
+    "test": {
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "description": "质量保障 - 单元测试、集成测试、E2E测试、测试覆盖率",
+      "keywords": [
+        "测试",
+        "test",
+        "单元测试",
+        "集成测试",
+        "覆盖率",
+        "JUnit",
+        "Vitest",
+        "写测试"
+      ],
+      "primaryAgent": "xushu",
+      "supportAgents": []
+    },
+    "fileops": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "文件操作 - 文件迁移、目录整合、配置管理、备份恢复",
+      "keywords": [
+        "迁移",
+        "整合",
+        "合并",
+        "备份",
+        "文件操作",
+        "目录",
+        "move",
+        "merge",
+        "backup"
+      ],
+      "primaryAgent": "jiangwei",
+      "supportAgents": []
+    },
+    "devops": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "DevOps - CI/CD流水线、容器化部署、自动化运维、环境管理",
+      "keywords": [
+        "DevOps",
+        "CI/CD",
+        "Jenkins",
+        "Docker",
+        "K8s",
+        "Kubernetes",
+        "部署",
+        "自动化",
+        "容器"
+      ],
+      "primaryAgent": "dengai",
+      "supportAgents": []
+    },
+    "database": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "数据库 - 数据库架构设计、SQL优化、数据迁移、备份恢复",
+      "keywords": [
+        "数据库",
+        "SQL",
+        "MySQL",
+        "PostgreSQL",
+        "索引",
+        "优化",
+        "迁移",
+        "ETL"
+      ],
+      "primaryAgent": "zhangliao",
+      "supportAgents": []
+    },
+    "security": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "安全 - 安全审计、渗透测试、漏洞扫描、加密策略",
+      "keywords": [
+        "安全",
+        "Security",
+        "渗透测试",
+        "漏洞",
+        "扫描",
+        "加密",
+        "审计",
+        "认证"
+      ],
+      "primaryAgent": "yujin",
+      "supportAgents": []
+    },
+    "performance": {
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "description": "性能优化 - 性能分析、系统调优、容量规划、负载测试",
+      "keywords": [
+        "性能",
+        "优化",
+        "Profiling",
+        "JVM",
+        "调优",
+        "压力测试",
+        "容量",
+        "并发"
+      ],
+      "primaryAgent": "zhanghe",
+      "supportAgents": []
+    },
+    "mobile": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "移动开发 - iOS/Android开发、跨平台方案、移动性能优化",
+      "keywords": [
+        "iOS",
+        "Android",
+        "移动端",
+        "App",
+        "Flutter",
+        "React Native",
+        "Swift",
+        "Kotlin"
+      ],
+      "primaryAgent": "ganning",
+      "supportAgents": []
+    },
+    "api": {
+      "model": "q35model",
+      "fallback_models": [
+        "gmodel",
+        "mmodel"
+      ],
+      "description": "API设计 - RESTful设计、GraphQL、API文档、版本管理",
+      "keywords": [
+        "API",
+        "RESTful",
+        "GraphQL",
+        "接口",
+        "Swagger",
+        "接口文档",
+        "版本管理"
+      ],
+      "primaryAgent": "taishici",
+      "supportAgents": []
+    },
+    "ai": {
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "description": "人工智能 - 机器学习、深度学习、智能推荐、NLP处理",
+      "keywords": [
+        "AI",
+        "机器学习",
+        "深度学习",
+        "ML",
+        "推荐系统",
+        "NLP",
+        "TensorFlow",
+        "PyTorch"
+      ],
+      "primaryAgent": "luxun",
+      "supportAgents": []
+    },
+    "web3": {
+      "model": "gmodel",
+      "fallback_models": [
+        "q35model",
+        "mmodel"
+      ],
+      "description": "Web3 - 区块链开发、智能合约、DApp、DeFi协议",
+      "keywords": [
+        "Web3",
+        "区块链",
+        "智能合约",
+        "Solidity",
+        "DApp",
+        "DeFi",
+        "Ethereum"
+      ],
+      "primaryAgent": "lvmeng",
+      "supportAgents": []
+    }
+  },
+  "task_routing": {
+    "rules": [],
+    "default_category": "deep",
+    "default_agent": "zhaoyun"
+  },
+  "ultrawork": {
+    "triggers": [],
+    "default_orchestrator": "zhugeliang",
+    "auto_category_detection": true,
+    "parallel_execution": true,
+    "max_concurrent_agents": 5,
+    "progress_reporting": true
+  },
+  "dispatch_rules": {
+    "description": "UltraWork 三层调度架构 - 严格层级调用规则",
+    "hierarchy": {
+      "levels": [],
+      "chains": {
+        "zhouyu_chain": {
+          "commander": "zhouyu",
+          "title": "战略规划链",
+          "description": "负责需求分析、架构设计、决策支持",
+          "subordinates": [],
+          "specialty": []
+        },
+        "zhaoyun_chain": {
+          "commander": "zhaoyun",
+          "title": "攻城拔寨链",
+          "description": "负责功能开发、代码实现、前后端开发",
+          "subordinates": [],
+          "specialty": []
+        },
+        "simayi_chain": {
+          "commander": "simayi",
+          "title": "情报侦察链",
+          "description": "负责代码搜索、信息收集、文档生成",
+          "subordinates": [],
+          "specialty": []
+        },
+        "guanyu_chain": {
+          "commander": "guanyu",
+          "title": "质量守护链",
+          "description": "负责代码审查、安全审计、质量把控",
+          "subordinates": [],
+          "specialty": []
+        },
+        "zhangfei_chain": {
+          "commander": "zhangfei",
+          "title": "速战速决链",
+          "description": "负责快速Bug修复、问题定位",
+          "subordinates": [],
+          "specialty": []
+        },
+        "manchong_chain": {
+          "commander": "manchong",
+          "title": "监察诊断链",
+          "description": "负责系统监控、日志分析、E2E测试",
+          "subordinates": [],
+          "specialty": []
+        },
+        "xushu_chain": {
+          "commander": "xushu",
+          "title": "质量保障链",
+          "description": "负责单元测试、集成测试、覆盖率分析",
+          "subordinates": [],
+          "specialty": []
+        },
+        "machao_chain": {
+          "commander": "machao",
+          "title": "后备支援链",
+          "description": "负责特殊任务、探索性任务、稳健执行、实验性功能。原马岱职能已整合至庞德。",
+          "subordinates": [],
+          "specialty": []
+        },
+        "jiangwei_chain": {
+          "commander": "jiangwei",
+          "title": "系统管理链",
+          "description": "负责文件操作、配置管理、备份恢复",
+          "subordinates": [],
+          "specialty": []
+        },
+        "dengai_chain": {
+          "commander": "dengai",
+          "title": "DevOps链",
+          "description": "负责CI/CD流水线、容器化部署、自动化运维、环境管理",
+          "subordinates": [],
+          "specialty": []
+        },
+        "zhangliao_chain": {
+          "commander": "zhangliao",
+          "title": "数据库链",
+          "description": "负责数据库架构设计、SQL优化、数据迁移、备份恢复",
+          "subordinates": [],
+          "specialty": []
+        },
+        "yujin_chain": {
+          "commander": "yujin",
+          "title": "安全链",
+          "description": "负责安全审计、渗透测试、漏洞扫描、加密策略",
+          "subordinates": [],
+          "specialty": []
+        },
+        "zhanghe_chain": {
+          "commander": "zhanghe",
+          "title": "性能链",
+          "description": "负责性能分析、系统调优、容量规划、负载测试",
+          "subordinates": [],
+          "specialty": []
+        },
+        "ganning_chain": {
+          "commander": "ganning",
+          "title": "移动链",
+          "description": "负责iOS/Android开发、跨平台方案、移动性能优化",
+          "subordinates": [],
+          "specialty": []
+        },
+        "taishici_chain": {
+          "commander": "taishici",
+          "title": "API链",
+          "description": "负责RESTful设计、GraphQL、API文档、版本管理",
+          "subordinates": [],
+          "specialty": []
+        },
+        "luxun_chain": {
+          "commander": "luxun",
+          "title": "AI链",
+          "description": "负责机器学习、深度学习、智能推荐、NLP处理",
+          "subordinates": [],
+          "specialty": []
+        },
+        "lvmeng_chain": {
+          "commander": "lvmeng",
+          "title": "Web3链",
+          "description": "负责区块链开发、智能合约、DApp、DeFi协议",
+          "subordinates": [],
+          "specialty": []
+        }
+      }
+    },
+    "hierarchy_constraints": {
+      "strict_mode": true,
+      "description": "严格层级调用约束，禁止越级调用",
+      "violation_penalty": "立即终止任务并返回层级错误",
+      "rules": [],
+      "subordinate_mappings": {
+        "zhouyu": [],
+        "zhaoyun": [],
+        "guanyu": [],
+        "zhangfei": [],
+        "simayi": [],
+        "machao": [],
+        "manchong": [],
+        "xushu": [],
+        "jiangwei": [],
+        "dengai": [],
+        "zhangliao": [],
+        "yujin": [],
+        "zhanghe": [],
+        "ganning": [],
+        "taishici": [],
+        "luxun": [],
+        "lvmeng": []
+      }
+    },
+    "complexity_thresholds": {
+      "simple": {
+        "description": "简单任务，主将独立执行",
+        "conditions": [],
+        "dispatch": false
+      },
+      "moderate": {
+        "description": "中等任务，可能需要部将支援",
+        "conditions": [],
+        "dispatch": "optional"
+      },
+      "complex": {
+        "description": "复杂任务，必须调用部将",
+        "conditions": [],
+        "dispatch": true
+      }
+    },
+    "dispatch_triggers": {
+      "parallel_opportunity": {
+        "description": "任务可并行分解",
+        "action": "同时调用多个部将"
+      },
+      "domain_specialist": {
+        "description": "子任务需要专业领域知识",
+        "action": "调用对应专长的部将"
+      },
+      "exploration_needed": {
+        "description": "需要深度探索/分析",
+        "action": "调用探索型部将"
+      },
+      "time_pressure": {
+        "description": "紧急任务需要快速交付",
+        "action": "并行调用所有可用部将"
+      }
+    },
+    "agent_dispatch_config": {
+      "zhaoyun": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "frontend_backend": {
+            "trigger": "任务同时涉及前后端",
+            "dispatch": [],
+            "parallel": true
+          },
+          "frontend_only": {
+            "trigger": "仅前端任务",
+            "dispatch": [],
+            "parallel": false
+          },
+          "backend_only": {
+            "trigger": "仅后端任务",
+            "dispatch": [],
+            "parallel": false
+          }
+        }
+      },
+      "zhangfei": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "locate_and_fix": {
+            "trigger": "Bug难以定位",
+            "dispatch": [],
+            "parallel": false
+          },
+          "hotfix": {
+            "trigger": "紧急生产Bug",
+            "dispatch": [],
+            "parallel": false
+          },
+          "parallel_investigate": {
+            "trigger": "多疑点需要排查",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "zhouyu": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "resource_assessment": {
+            "trigger": "需要评估资源/依赖",
+            "dispatch": [],
+            "parallel": false
+          },
+          "prototype_validation": {
+            "trigger": "需要验证技术方案",
+            "dispatch": [],
+            "parallel": false
+          },
+          "parallel_analysis": {
+            "trigger": "复杂决策需要多维度分析",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "guanyu": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "code_style_review": {
+            "trigger": "需要代码规范检查",
+            "dispatch": [],
+            "parallel": true
+          },
+          "security_audit": {
+            "trigger": "涉及安全敏感代码",
+            "dispatch": [],
+            "parallel": true
+          },
+          "full_review": {
+            "trigger": "大规模代码审查",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "simayi": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "deep_analysis": {
+            "trigger": "需要深度架构分析",
+            "dispatch": [],
+            "parallel": false
+          },
+          "document_result": {
+            "trigger": "探索结果需要文档化或生成文档",
+            "dispatch": [],
+            "parallel": false
+          },
+          "explore_and_document": {
+            "trigger": "需要同时探索并生成文档",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "machao": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "stable_execution": {
+            "trigger": "需要稳健执行",
+            "dispatch": [],
+            "parallel": false,
+            "note": "原马岱职能已整合至庞德"
+          },
+          "exploration": {
+            "trigger": "需要探索性验证",
+            "dispatch": [],
+            "parallel": false
+          },
+          "general_support": {
+            "trigger": "需要后备支援",
+            "dispatch": [],
+            "parallel": false,
+            "note": "庞德统一负责稳健执行和探索任务"
+          }
+        }
+      },
+      "manchong": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "frontend_monitor": {
+            "trigger": "需要监控前端日志/Console/Network",
+            "dispatch": [],
+            "parallel": false
+          },
+          "backend_monitor": {
+            "trigger": "需要监控后端日志/API/数据库",
+            "dispatch": [],
+            "parallel": false
+          },
+          "e2e_test": {
+            "trigger": "需要执行E2E测试/用户旅程验证",
+            "dispatch": [],
+            "parallel": false
+          },
+          "full_monitor": {
+            "trigger": "需要全方位监控(前后端+E2E)",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "xushu": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "frontend_test": {
+            "trigger": "需要前端单元测试/Vitest/Vue测试",
+            "dispatch": [],
+            "parallel": false
+          },
+          "backend_test": {
+            "trigger": "需要后端单元测试/JUnit/Spring Boot Test",
+            "dispatch": [],
+            "parallel": false
+          },
+          "full_test": {
+            "trigger": "需要前后端测试/完整测试覆盖",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "jiangwei": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "single_fileops": {
+            "trigger": "单文件操作任务",
+            "dispatch": [],
+            "parallel": false,
+            "description": "姜维独立执行，无需部将支援"
+          },
+          "complex_migration": {
+            "trigger": "复杂多目录迁移",
+            "dispatch": [],
+            "parallel": false,
+            "description": "姜维独立执行复杂任务"
+          },
+          "backup_operation": {
+            "trigger": "备份恢复操作",
+            "dispatch": [],
+            "parallel": false,
+            "description": "姜维独立执行备份任务"
+          }
+        }
+      },
+      "dengai": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "cicd_pipeline": {
+            "trigger": "需要搭建/优化CI/CD流水线",
+            "dispatch": [],
+            "parallel": false
+          },
+          "container_deployment": {
+            "trigger": "需要容器化部署/Docker/K8s",
+            "dispatch": [],
+            "parallel": false
+          },
+          "full_devops": {
+            "trigger": "需要完整DevOps方案(流水线+容器)",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "zhangliao": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "sql_optimization": {
+            "trigger": "需要SQL优化/索引设计/慢查询处理",
+            "dispatch": [],
+            "parallel": false
+          },
+          "data_migration": {
+            "trigger": "需要数据迁移/ETL/同步",
+            "dispatch": [],
+            "parallel": false
+          },
+          "full_database": {
+            "trigger": "需要完整数据库方案(优化+迁移)",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "yujin": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "penetration_test": {
+            "trigger": "需要渗透测试/漏洞挖掘",
+            "dispatch": [],
+            "parallel": false
+          },
+          "crypto_config": {
+            "trigger": "需要加密配置/TLS/认证方案",
+            "dispatch": [],
+            "parallel": false
+          },
+          "full_security": {
+            "trigger": "需要完整安全审计(渗透+加密)",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "zhanghe": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "profiling_analysis": {
+            "trigger": "需要性能分析/Profiling/瓶颈定位",
+            "dispatch": [],
+            "parallel": false
+          },
+          "jvm_tuning": {
+            "trigger": "需要JVM调优/GC优化",
+            "dispatch": [],
+            "parallel": false
+          },
+          "full_performance": {
+            "trigger": "需要完整性能优化方案",
+            "dispatch": [],
+            "parallel": false
+          }
+        }
+      },
+      "ganning": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "ios_development": {
+            "trigger": "需要iOS开发/Swift/UIKit",
+            "dispatch": [],
+            "parallel": false
+          },
+          "android_development": {
+            "trigger": "需要Android开发/Kotlin/Jetpack",
+            "dispatch": [],
+            "parallel": false
+          },
+          "cross_platform": {
+            "trigger": "需要跨平台方案/Flutter/React Native",
+            "dispatch": [],
+            "parallel": true
+          }
+        }
+      },
+      "taishici": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "restful_design": {
+            "trigger": "需要RESTful API设计",
+            "dispatch": [],
+            "parallel": false
+          },
+          "graphql_schema": {
+            "trigger": "需要GraphQL Schema设计",
+            "dispatch": [],
+            "parallel": false
+          },
+          "api_documentation": {
+            "trigger": "需要API文档/OpenAPI规范",
+            "dispatch": [],
+            "parallel": false
+          }
+        }
+      },
+      "luxun": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "ml_modeling": {
+            "trigger": "需要机器学习模型/特征工程",
+            "dispatch": [],
+            "parallel": false
+          },
+          "deep_learning": {
+            "trigger": "需要深度学习模型训练",
+            "dispatch": [],
+            "parallel": false
+          },
+          "recommendation": {
+            "trigger": "需要推荐系统/NLP处理",
+            "dispatch": [],
+            "parallel": false
+          }
+        }
+      },
+      "lvmeng": {
+        "support_agents": [],
+        "dispatch_modes": {
+          "smart_contract": {
+            "trigger": "需要智能合约开发/Solidity",
+            "dispatch": [],
+            "parallel": false
+          },
+          "dapp_development": {
+            "trigger": "需要DApp开发/Web3集成",
+            "dispatch": [],
+            "parallel": false
+          },
+          "defi_protocol": {
+            "trigger": "需要DeFi协议/区块链开发",
+            "dispatch": [],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "execution_flow": {
+      "steps": []
+    }
+  }
+}

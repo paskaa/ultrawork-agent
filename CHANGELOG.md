@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.5] - 2026-03-14 🔧
+
+### 🐛 Bug Fixes
+
+- **修复模型解析问题** - 将 DEFAULT_AGENTS 中的模型从完整模型ID改为内部key（如 `mmodel-hs`, `q35model` 等），确保通过 `resolveModel()` 正确解析
+- **添加会话模型参数** - 在创建子会话时传递模型参数，确保子会话使用正确的模型
+- **修复配置加载路径** - 确保从 `.opencode/ultrawork-sanguo.json` 正确加载用户配置
+
+### ⚙️ Technical Changes
+
+- 更新 `src/config/schema.ts` 中的 DEFAULT_AGENTS 使用内部模型key
+- 更新 `dist/config/schema.js` 同步更改
+- 修改 `src/executor/index.ts` 在 `createSyncSession` 中接受并传递 `categoryModel` 参数
+- 修改 `src/index.ts` 调用 `resolveModel()` 解析模型key
+
 ## [2.1.4] - 2026-03-13 ⚡
 
 ### 🚀 模型供应商配置优化 - 速度优先

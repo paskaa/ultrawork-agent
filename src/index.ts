@@ -5,6 +5,7 @@ import { routeTask, routeByAgent } from "./agents/router.js"
 import { executeSyncTask, parseModelString } from "./executor/index.js"
 import { injectServerAuthIntoClient } from "./auth.js"
 import type { UltraWorkSanguoConfig, AgentConfig, CategoryConfig } from "./config/schema.js"
+import { resolveModel } from "./config/model-resolver.js"
 
 const configCache = new Map<string, UltraWorkSanguoConfig>()
 
@@ -192,10 +193,14 @@ ${categoryList}
       console.log(`[UltraWork-SanGuo] 路由结果:`)
       console.log(`  类别: ${categoryName ?? "auto"}`)
       console.log(`  将领: ${agentName}`)
-      console.log(`  模型: ${model ?? "default"}`)
+      console.log(`  模型(原始): ${model ?? "default"}`)
+
+      // 解析内部模型key为完整模型ID
+      const resolvedModel = model ? resolveModel(model) : undefined
+      console.log(`  模型(解析后): ${resolvedModel ?? "default"}`)
 
       // 解析模型
-      const categoryModel = model ? parseModelString(model) : undefined
+      const categoryModel = resolvedModel ? parseModelString(resolvedModel) : undefined
 
       // 映射到 OpenCode subagent_type
       const subagentType = agentToSubagentMap[agentName] ?? "Sisyphus"
